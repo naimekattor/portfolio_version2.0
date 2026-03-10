@@ -1,0 +1,310 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #f0f4f8;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2e8;
+  --color-primary-300: #a8bce0;
+  --color-primary-400: #7da3d5;
+  --color-primary-500: #1749cc;
+  --color-primary-600: #174d4d;
+  --color-primary-700: #1a3f3f;
+  --color-primary-800: #153333;
+  --color-primary-900: #1e1b4b;
+  
+  --color-secondary-50: #fff8f1;
+  --color-secondary-100: #ffe8d6;
+  --color-secondary-200: #ffd6b3;
+  --color-secondary-300: #ffb87d;
+  --color-secondary-400: #ff9f3b;
+  --color-secondary-500: #ff8800;
+  --color-secondary-600: #a67a3b;
+  --color-secondary-700: #8b6934;
+  --color-secondary-800: #6b532a;
+  --color-secondary-900: #4a3720;
+}
+
+/* In v4, custom CSS for body should be inside @layer base 
+   to avoid "Error evaluating Node.js code" during Turbopack builds.
+*/
+@layer base {
+  body {
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    @apply bg-white text-slate-900 antialiased selection:bg-primary-100 selection:text-primary-900;
+    @apply dark:bg-slate-950 dark:text-slate-50 dark:selection:bg-primary-900 dark:selection:text-primary-100;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-balance { 
+    text-wrap: balance; 
+  }
+}
+
+
+
+/* Animated Grid Styles */
+.animated-grid {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  background-color: white;
+}
+
+.dark .animated-grid {
+  background-color: #020617; /* slate-950 */
+}
+
+/* Base grid lines */
+.animated-grid .grid-base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(23, 73, 77, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(23, 73, 77, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Container for all scanning lights */
+.animated-grid .lights-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Individual light beam that scans left to right */
+.animated-grid .scanning-light {
+  position: absolute;
+  width: 5px;
+  height: 1px;
+  background: var(--color-secondary-600);
+  box-shadow: 
+    0 0 10px 2px rgba(166, 122, 59, 0.8),
+    0 0 20px 4px rgba(166, 122, 59, 0.4);
+  animation: scanLeftToRight 6s linear infinite;
+  opacity: 0;
+  filter: blur(0.5px);
+}
+
+/* Multiple lights at different vertical positions */
+.animated-grid .scanning-light:nth-child(1) {
+  top: 15%;
+  animation-delay: 0s;
+}
+
+.animated-grid .scanning-light:nth-child(2) {
+  top: 30%;
+  animation-delay: 1.5s;
+  background: var(--color-primary-600);
+  box-shadow: 
+    0 0 10px 2px rgba(23, 73, 77, 0.8),
+    0 0 20px 4px rgba(23, 73, 77, 0.4);
+}
+
+.animated-grid .scanning-light:nth-child(3) {
+  top: 45%;
+  animation-delay: 3s;
+}
+
+.animated-grid .scanning-light:nth-child(4) {
+  top: 60%;
+  animation-delay: 4.5s;
+  background: var(--color-primary-600);
+  box-shadow: 
+    0 0 10px 2px rgba(23, 73, 77, 0.8),
+    0 0 20px 4px rgba(23, 73, 77, 0.4);
+}
+
+.animated-grid .scanning-light:nth-child(5) {
+  top: 75%;
+  animation-delay: 2s;
+}
+
+.animated-grid .scanning-light:nth-child(6) {
+  top: 90%;
+  animation-delay: 5s;
+  background: var(--color-primary-600);
+  box-shadow: 
+    0 0 10px 2px rgba(23, 73, 77, 0.8),
+    0 0 20px 4px rgba(23, 73, 77, 0.4);
+}
+
+/* Faster lights for upper grid */
+.animated-grid .scanning-light-fast {
+  position: absolute;
+  width: 5px;
+  height: 1px;
+  background: var(--color-secondary-600);
+  box-shadow: 
+    0 0 8px 2px rgba(166, 122, 59, 0.6),
+    0 0 15px 3px rgba(166, 122, 59, 0.3);
+  animation: scanLeftToRight 4s linear infinite;
+  opacity: 0;
+  filter: blur(0.5px);
+}
+
+.animated-grid .scanning-light-fast:nth-child(7) {
+  top: 5%;
+  animation-delay: 0.8s;
+}
+
+.animated-grid .scanning-light-fast:nth-child(8) {
+  top: 22%;
+  animation-delay: 2.8s;
+  background: var(--color-primary-600);
+  box-shadow: 
+    0 0 8px 2px rgba(23, 73, 77, 0.6),
+    0 0 15px 3px rgba(23, 73, 77, 0.3);
+}
+
+/* Slower lights for lower grid */
+.animated-grid .scanning-light-slow {
+  position: absolute;
+  width: 5px;
+  height: 1px;
+  background: var(--color-secondary-600);
+  box-shadow: 
+    0 0 12px 3px rgba(166, 122, 59, 0.7),
+    0 0 25px 5px rgba(166, 122, 59, 0.35);
+  animation: scanLeftToRight 8s linear infinite;
+  opacity: 0;
+  filter: blur(0.5px);
+}
+
+.animated-grid .scanning-light-slow:nth-child(9) {
+  top: 68%;
+  animation-delay: 1.2s;
+}
+
+.animated-grid .scanning-light-slow:nth-child(10) {
+  top: 82%;
+  animation-delay: 3.8s;
+  background: var(--color-primary-600);
+  box-shadow: 
+    0 0 12px 3px rgba(23, 73, 77, 0.7),
+    0 0 25px 5px rgba(23, 73, 77, 0.35);
+}
+
+/* Light trail effect */
+.animated-grid .light-trail {
+  position: absolute;
+  width: 5px;
+  height: 1px;
+  background: transparent;
+  box-shadow: 
+    0 0 30px 10px rgba(166, 122, 59, 0.2);
+  animation: scanLeftToRight 6s linear infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.animated-grid .light-trail:nth-child(11) {
+  top: 38%;
+  animation-delay: 2.2s;
+}
+
+.animated-grid .light-trail:nth-child(12) {
+  top: 52%;
+  animation-delay: 5.2s;
+}
+
+/* Grid line highlight that follows the light */
+.animated-grid .grid-highlight {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, var(--color-primary-600) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-primary-600) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.3) 45%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.3) 55%,
+    transparent
+  );
+  mask-size: 200% 100%;
+  animation: scanHighlight 8s linear infinite;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Animations */
+@keyframes scanLeftToRight {
+  0% {
+    left: -10px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    left: 50%;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% + 10px);
+    opacity: 0;
+  }
+}
+
+@keyframes scanHighlight {
+  0% {
+    mask-position: -100% 0;
+  }
+  50% {
+    mask-position: 0% 0;
+  }
+  100% {
+    mask-position: 100% 0;
+  }
+}
+
+/* Radial mask for edge fade */
+.animated-grid .radial-mask {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  mask-image: radial-gradient(ellipse 80% 50% at 50% 50%, #000 60%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Vignette effect */
+.animated-grid .vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(23, 73, 77, 0.03) 100%);
+}
+
+.dark .animated-grid .vignette {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animated-grid .scanning-light,
+  .animated-grid .scanning-light-fast,
+  .animated-grid .scanning-light-slow,
+  .animated-grid .light-trail,
+  .animated-grid .grid-highlight {
+    animation: none;
+    opacity: 0.1;
+    display: none;
+  }
+}
