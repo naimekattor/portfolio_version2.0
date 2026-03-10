@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { useState, useEffect } from "react";
 
@@ -126,7 +126,7 @@ function SkillCard({ skill, index, globalActive, setGlobalActive }) {
       {/* Tag */}
       <div style={{
         display: "inline-flex", alignItems: "center", gap: "5px",
-        fontFamily: "'Syne',sans-serif", fontSize: "9.5px", fontWeight: 700,
+        fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "9.5px", fontWeight: 700,
         letterSpacing: "2.5px", textTransform: "uppercase",
         color: skill.color, marginBottom: "18px",
         padding: "4px 12px", borderRadius: "100px",
@@ -140,14 +140,14 @@ function SkillCard({ skill, index, globalActive, setGlobalActive }) {
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "22px" }}>
         <div>
           <div style={{
-            fontFamily: "'Syne',sans-serif", fontSize: "9.5px", fontWeight: 700,
+            fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "9.5px", fontWeight: 700,
             letterSpacing: "3px", textTransform: "uppercase",
             color: "rgba(0,0,0,0.22)", marginBottom: "6px",
           }}>
             {String(index + 1).padStart(2, "0")}
           </div>
           <h3 style={{
-            fontFamily: "'Syne',sans-serif", fontSize: "20px", fontWeight: 800,
+            fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "20px", fontWeight: 800,
             color: "#0c1c1c", letterSpacing: "-0.4px", lineHeight: 1,
           }}>
             {skill.category}
@@ -181,12 +181,12 @@ function SkillCard({ skill, index, globalActive, setGlobalActive }) {
           <div key={j}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "7px" }}>
               <span style={{
-                fontFamily: "'DM Sans',sans-serif", fontSize: "13.5px", fontWeight: 500,
+                fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "13.5px", fontWeight: 500,
                 color: isActive ? "#1a2e2e" : "#8a9e9e",
                 transition: "color 0.3s",
               }}>{item.name}</span>
               <span style={{
-                fontFamily: "'Syne',sans-serif", fontSize: "10.5px", fontWeight: 700,
+                fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "10.5px", fontWeight: 700,
                 color: skill.color,
                 opacity: isActive ? 1 : 0,
                 transition: "opacity 0.3s",
@@ -220,7 +220,6 @@ export default function TechnicalExpertise() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap');
         * { box-sizing: border-box; }
         body { margin: 0; }
       `}</style>
@@ -257,7 +256,7 @@ export default function TechnicalExpertise() {
 
             <div style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
-              fontFamily: "'Syne',sans-serif", fontSize: "10px", fontWeight: 700,
+              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "10px", fontWeight: 700,
               letterSpacing: "3.5px", textTransform: "uppercase", color: "#174d4d",
               marginBottom: "20px", padding: "6px 18px", borderRadius: "100px",
               background: "rgba(23,77,77,0.08)", border: "1.5px solid rgba(23,77,77,0.15)",
@@ -267,7 +266,7 @@ export default function TechnicalExpertise() {
             </div>
 
             <h2 style={{
-              fontFamily: "'Syne',sans-serif",
+              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif",
               fontSize: "clamp(36px,5vw,60px)", fontWeight: 800,
               lineHeight: 1.06, letterSpacing: "-2px", color: "#0a1a1a", marginBottom: "16px",
             }}>
@@ -282,7 +281,7 @@ export default function TechnicalExpertise() {
             </h2>
 
             <p style={{
-              fontFamily: "'DM Sans',sans-serif", fontSize: "17px", color: "#5e7878",
+              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "17px", color: "#5e7878",
               maxWidth: "480px", lineHeight: 1.75, fontWeight: 400,
             }}>
               A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered.
@@ -302,8 +301,8 @@ export default function TechnicalExpertise() {
                   padding: "20px 36px", textAlign: "center",
                   borderRight: i < stats.length - 1 ? "1.5px solid rgba(23,77,77,0.09)" : "none",
                 }}>
-                  <div style={{ fontFamily: "'Syne',sans-serif", fontSize: "26px", fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.num}</div>
-                  <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "10.5px", color: "#8aacac", marginTop: "5px", letterSpacing: "1.2px", textTransform: "uppercase" }}>{s.label}</div>
+                  <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "26px", fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.num}</div>
+                  <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "10.5px", color: "#8aacac", marginTop: "5px", letterSpacing: "1.2px", textTransform: "uppercase" }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -316,15 +315,7 @@ export default function TechnicalExpertise() {
             ))}
           </div>
 
-          <p style={{
-            textAlign: "center", marginTop: "44px",
-            fontFamily: "'DM Sans',sans-serif", fontSize: "12px",
-            color: "rgba(23,77,77,0.28)",
-            opacity: visible ? 1 : 0,
-            transition: "opacity 1s ease 0.8s",
-          }}>
-            Hover any card to explore ↑
-          </p>
+          
         </div>
       </section>
     </>

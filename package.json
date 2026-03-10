@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@mlc-ai/web-llm": "^0.2.81",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.35.2",
     "groq-sdk": "^0.37.0",
     "lucide-react": "^0.577.0",

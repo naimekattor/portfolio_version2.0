@@ -1,6 +1,5 @@
 
 import { BusinessValue } from '../components/business-value';
-import { Communication } from '../components/communication';
 import { CTA } from '../components/cta';
 import { FeaturedProjects } from '../components/featured-projects';
 import { Footer } from '../components/footer';
@@ -11,6 +10,7 @@ import { ProductionSystems } from '../components/production-systems';
 import { Testimonials } from '../components/testimonials';
 import  ChatBot  from '../components/ChatBot';
 import TechnicalExpertise from '../components/technical-expertise';
+import Communication from '@/components/communication';
 
 export default function Home() {
   return (

@@ -14,7 +14,7 @@ export function CTA() {
               <button className="px-8 py-4 bg-white text-primary-600 font-bold rounded-xl hover:bg-primary-50 transition-all">
                 Schedule a Call
               </button>
-              <button className="px-8 py-4 bg-primary-700 text-white font-bold rounded-xl hover:bg-primary-800 transition-all border border-primary-500">
+              <button className="px-8 py-4 bg-primary-700 text-white font-bold rounded-xl hover:bg-primary-800 transition-all ">
                 Send an Email
               </button>
             </div>
