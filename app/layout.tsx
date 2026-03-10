@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   title: "Naim's Portfolio | Full Stack Engineer & Web Developer",
   description: "Showcase of professional expertise in full stack development, cloud architecture, and innovative problem-solving. Explore projects, technical skills, and real-world solutions.",
   keywords: ["full stack developer", "web developer", "software engineer", "typescript", "react", "next.js"],
-  authors: [{ name: "Developer" }],
+  authors: [{ name: "Naimur Rahman Naim" }],
   openGraph: {
-    title: "Modern Developer Portfolio | Full Stack Engineer",
+    title: "Naim's Portfolio | Full Stack Engineer",
     description: "Professional portfolio showcasing full stack development expertise and innovative projects.",
     type: "website",
   },
