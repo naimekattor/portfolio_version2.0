@@ -27,15 +27,15 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold text-primary-600 dark:text-primary-400 leading-[1.1] mb-8"
+            className="text-5xl md:text-7xl font-bold text-primary-600 leading-[1.1] mb-8"
           >
-            Full-Stack Developer Building <span className="text-secondary-600 dark:text-secondary-500">Scalable AI-Powered</span> Web Applications
+            Full-Stack Developer Building <span className="text-secondary-600">Scalable AI-Powered</span> Web Applications
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl text-primary-500/80 dark:text-primary-300/80 mb-10 max-w-2xl leading-relaxed"
+            className="text-xl text-primary-500/80 mb-10 max-w-2xl leading-relaxed"
           >
             I bridge the gap between complex technical problems and elegant, production-ready solutions that deliver real business value.
           </motion.p>
@@ -49,7 +49,7 @@ export function Hero() {
               View Projects
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="px-8 py-4 bg-white dark:bg-slate-900 text-primary-600 dark:text-primary-400 font-semibold rounded-xl border border-primary-100 dark:border-primary-900/50 hover:border-primary-200 dark:hover:border-primary-800 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all">
+            <button className="px-8 py-4 bg-white text-primary-600 font-semibold rounded-xl border border-primary-100 hover:border-primary-200 hover:bg-primary-50 transition-all">
              <Link target='_blank' href={"https://drive.google.com/file/d/1wlKh0G_yN_v7uOFnVjonwCqk9_ROxuPB/view?usp=sharing"}>
               Download Resume
               </Link>

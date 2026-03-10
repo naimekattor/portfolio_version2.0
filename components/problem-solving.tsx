@@ -36,20 +36,20 @@ export function ProblemSolving() {
           {problems.map((item, i) => (
             <motion.div 
               key={i}
-              className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
+              className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="w-12 h-12 bg-primary-50 dark:bg-primary-900/20 rounded-xl flex items-center justify-center mb-6">
-                <item.icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+              <div className="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center mb-6">
+                <item.icon className="w-6 h-6 text-primary-600" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">{item.title}</h3>
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{item.title}</h3>
               <div className="space-y-4">
                 <div>
-                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">The Problem</p>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{item.problem}</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">The Problem</p>
+                  <p className="text-slate-600 text-sm leading-relaxed">{item.problem}</p>
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-secondary-500 dark:text-secondary-400 uppercase tracking-wider mb-1">The Solution</p>
-                  <p className="text-slate-900 dark:text-slate-200 text-sm font-medium leading-relaxed">{item.solution}</p>
+                  <p className="text-xs font-bold text-secondary-500 uppercase tracking-wider mb-1">The Solution</p>
+                  <p className="text-slate-900 text-sm font-medium leading-relaxed">{item.solution}</p>
                 </div>
               </div>
             </motion.div>

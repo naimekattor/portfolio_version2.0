@@ -20,11 +20,11 @@ export function BusinessValue() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {metrics.map((metric, i) => (
             <motion.div key={i} className="text-center">
-              <motion.p className="text-5xl font-bold text-primary-600 dark:text-primary-400 mb-2">
+              <motion.p className="text-5xl font-bold text-primary-600 mb-2">
                 {metric.value}
               </motion.p>
-              <p className="text-lg font-bold text-slate-900 dark:text-white mb-1">{metric.label}</p>
-              <p className="text-sm text-slate-500 dark:text-slate-500">{metric.sub}</p>
+              <p className="text-lg font-bold text-slate-900 mb-1">{metric.label}</p>
+              <p className="text-sm text-slate-500">{metric.sub}</p>
             </motion.div>
           ))}
         </div>

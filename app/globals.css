@@ -28,10 +28,13 @@
    to avoid "Error evaluating Node.js code" during Turbopack builds.
 */
 @layer base {
+  html {
+    @apply bg-white;
+  }
+
   body {
     font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
     @apply bg-white text-slate-900 antialiased selection:bg-primary-100 selection:text-primary-900;
-    @apply dark:bg-slate-950 dark:text-slate-50 dark:selection:bg-primary-900 dark:selection:text-primary-100;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -45,7 +48,17 @@
   }
 }
 
-
+/* Force light mode regardless of browser dark mode preference */
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: white !important;
+  }
+  
+  body {
+    background-color: white !important;
+    color: rgb(15, 23, 42) !important;
+  }
+}
 
 /* Animated Grid Styles */
 .animated-grid {
@@ -56,9 +69,7 @@
   background-color: white;
 }
 
-.dark .animated-grid {
-  background-color: #020617; /* slate-950 */
-}
+
 
 /* Base grid lines */
 .animated-grid .grid-base {
@@ -292,9 +303,7 @@
   background: radial-gradient(ellipse at center, transparent 40%, rgba(23, 73, 77, 0.03) 100%);
 }
 
-.dark .animated-grid .vignette {
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.2) 100%);
-}
+
 
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {

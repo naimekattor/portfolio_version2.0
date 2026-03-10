@@ -21,7 +21,7 @@ export function TechnicalExpertise() {
               <h3 className="text-lg font-bold text-slate-900 mb-6">{skill.category}</h3>
               <ul className="space-y-3">
                 {skill.items.map((item, j) => (
-                  <li key={j} className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-sm">
+                  <li key={j} className="flex items-center gap-2 text-slate-600 text-sm">
                     <div className="w-1.5 h-1.5 rounded-full bg-secondary-500"></div>
                     {item}
                   </li>

@@ -1,5 +1,6 @@
 "use client"
 import { useState, useRef, useEffect } from 'react'
+import ReactMarkdown from 'react-markdown'
 import { useChatBot } from '../hook/useChatBot'
 import { SUGGESTED_QUESTIONS } from '../data/portfolioKnowledge.js'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -41,19 +42,19 @@ export default function ChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="fixed bottom-24 right-6 z-50 w-[380px] sm:w-[420px]
-              bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl
-              border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl
+              bg-white/80 backdrop-blur-xl
+              border border-slate-200 rounded-3xl shadow-2xl
               flex flex-col overflow-hidden ring-1 ring-slate-900/5"
             style={{ height: '580px' }}>
 
             {/* Header */}
-            <div className="bg-white dark:bg-slate-950 px-6 py-5 flex items-center justify-between border-b border-slate-100 dark:border-slate-800">
+            <div className="bg-white px-6 py-5 flex items-center justify-between border-b border-slate-100">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-blue-600/10 rounded-xl">
                   <Bot className="w-5 h-5 text-primary-600" />
                 </div>
                 <div>
-                  <h3 className="text-slate-900 dark:text-white font-bold text-sm font-outfit">Portfolio Guide</h3>
+                  <h3 className="text-slate-900 font-bold text-sm font-outfit">Portfolio Guide</h3>
                   <div className="flex items-center gap-1.5">
                     <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"/>
                     <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">
@@ -63,17 +64,17 @@ export default function ChatBot() {
                 </div>
               </div>
               <button onClick={() => setOpen(false)}
-                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-colors">
+                className="p-2 hover:bg-slate-100 rounded-xl transition-colors">
                 <X className="w-5 h-5 text-slate-400" />
               </button>
             </div>
 
             {/* Loading progress overlay */}
             {status === 'loading' && (
-              <div className="absolute inset-0 z-10 bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center">
+              <div className="absolute inset-0 z-10 bg-white/50 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center">
                 <Loader2 className="w-8 h-8 text-primary-600 animate-spin mb-4" />
-                <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">Preparing AI Experience</p>
-                <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden max-w-[200px]">
+                <p className="text-sm font-medium text-slate-600 mb-2">Preparing AI Experience</p>
+                <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden max-w-[200px]">
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${loadProgress}%` }}
@@ -85,11 +86,11 @@ export default function ChatBot() {
             )}
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-800">
+            <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 scrollbar-thin scrollbar-thumb-slate-200">
               {messages.length === 0 && status !== 'loading' && (
                 <div className="space-y-6">
-                  <div className="bg-slate-100 dark:bg-slate-900/50 rounded-2xl rounded-tl-none px-5 py-4 text-sm
-                    text-slate-600 dark:text-slate-300 leading-relaxed border border-slate-200/50 dark:border-slate-800/50">
+                  <div className="bg-slate-100 rounded-2xl rounded-tl-none px-5 py-4 text-sm
+                    text-slate-600 leading-relaxed border border-slate-200/50">
                     👋 Hi! I&apos;m your assistant. Ask me anything about Naime&apos;s projects, skills, or professional background.
                   </div>
                   <div className="grid grid-cols-1 gap-2">
@@ -98,9 +99,9 @@ export default function ChatBot() {
                         onClick={() => sendMessage(q)}
                         disabled={status !== 'ready'}
                         className="text-left text-xs px-4 py-3 rounded-xl
-                          bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 
-                          text-slate-600 dark:text-slate-400 hover:border-blue-500/50 hover:bg-blue-50/50
-                          dark:hover:bg-blue-500/5 disabled:opacity-40 transition-all flex justify-between items-center group">
+                          bg-white border border-slate-200 
+                          text-slate-600 hover:border-blue-500/50 hover:bg-blue-50/50
+                          disabled:opacity-40 transition-all flex justify-between items-center group">
                         {q}
                         <Send className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-primary-600" />
                       </button>
@@ -116,9 +117,31 @@ export default function ChatBot() {
                     leading-relaxed shadow-sm
                     ${msg.role === 'user'
                       ? 'bg-primary-600 text-white rounded-tr-none'
-                      : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 rounded-tl-none border border-slate-200/50 dark:border-slate-800/50'
+                      : 'bg-slate-100 text-slate-700 rounded-tl-none border border-slate-200/50'
                     }`}>
-                    {msg.content || (
+                    {msg.content ? (
+                      <ReactMarkdown
+                        components={{
+                          h1: ({node, ...props}) => <h1 className="text-lg font-bold mt-3 mb-2 text-slate-900" {...props} />,
+                          h2: ({node, ...props}) => <h2 className="text-base font-bold mt-3 mb-2 text-slate-900" {...props} />,
+                          h3: ({node, ...props}) => <h3 className="text-sm font-bold mt-2 mb-1.5 text-slate-900" {...props} />,
+                          p: ({node, ...props}) => <p className="mb-2" {...props} />,
+                          ul: ({node, ...props}) => <ul className="list-disc list-inside mb-2 pl-4" {...props} />,
+                          ol: ({node, ...props}) => <ol className="list-decimal list-inside mb-2 pl-4" {...props} />,
+                          li: ({node, ...props}) => <li className="mb-1" {...props} />,
+                          code: ({node, inline, ...props}) => 
+                            inline ? (
+                              <code className="bg-slate-200 px-1.5 py-0.5 rounded text-xs font-mono" {...props} />
+                            ) : (
+                              <code className="block bg-slate-900 text-white px-3 py-2 rounded mb-2 overflow-x-auto text-xs" {...props} />
+                            ),
+                          blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-slate-300 pl-3 italic my-2" {...props} />,
+                          a: ({node, ...props}) => <a className="text-blue-600 underline hover:text-blue-700" target="_blank" rel="noopener noreferrer" {...props} />,
+                        }}
+                      >
+                        {msg.content}
+                      </ReactMarkdown>
+                    ) : (
                       <div className="flex gap-1 py-1">
                         <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce [animation-duration:0.8s]"/>
                         <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce [animation-duration:0.8s] [animation-delay:0.1s]"/>
@@ -132,7 +155,7 @@ export default function ChatBot() {
             </div>
 
             {/* Input area */}
-            <div className="p-4 bg-slate-50 dark:bg-slate-900 items-end flex gap-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="p-4 bg-slate-50 items-end flex gap-2 border-t border-slate-100">
               <div className="flex-1 relative">
                 <textarea
                   rows={1}
@@ -141,9 +164,9 @@ export default function ChatBot() {
                   onKeyDown={handleKey}
                   placeholder="Ask a question..."
                   disabled={status !== 'ready'}
-                  className="w-full bg-white dark:bg-slate-950 text-sm text-slate-900 dark:text-white
+                  className="w-full bg-white text-sm text-slate-900
                     placeholder:text-slate-400 rounded-2xl px-4 py-3
-                    border border-slate-200 dark:border-slate-800 focus:border-primary-500
+                    border border-slate-200 focus:border-primary-500
                     focus:outline-none focus:ring-4 focus:ring-blue-500/5 disabled:opacity-50 transition-all resize-none overflow-hidden"
                 />
               </div>
