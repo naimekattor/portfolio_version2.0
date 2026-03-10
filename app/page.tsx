@@ -8,9 +8,9 @@ import { Hero } from '../components/hero';
 import { Navbar } from '../components/navbar';
 import { ProblemSolving } from '../components/problem-solving';
 import { ProductionSystems } from '../components/production-systems';
-import { TechnicalExpertise } from '../components/technical-expertise';
 import { Testimonials } from '../components/testimonials';
 import  ChatBot  from '../components/ChatBot';
+import TechnicalExpertise from '../components/technical-expertise';
 
 export default function Home() {
   return (

@@ -35,7 +35,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl text-primary-500/80 mb-10 max-w-2xl leading-relaxed"
+            className="text-xl text-primary-600 mb-10 max-w-2xl leading-relaxed"
           >
             I bridge the gap between complex technical problems and elegant, production-ready solutions that deliver real business value.
           </motion.p>
