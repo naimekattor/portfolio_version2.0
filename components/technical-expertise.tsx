@@ -42,8 +42,8 @@ const skills = [
     tag: "Intelligence",
     items: [
       { name: "OpenAI API", level: 96 },
-      { name: "LangChain", level: 90 },
-      { name: "Vector DBs", level: 88 },
+      // { name: "LangChain", level: 90 },
+      // { name: "Vector DBs", level: 88 },
       { name: "Prompt Engineering", level: 94 },
     ],
   },
@@ -59,7 +59,7 @@ const skills = [
       { name: "Docker", level: 93 },
       { name: "CI/CD", level: 90 },
       { name: "Vercel", level: 96 },
-      { name: "Terraform", level: 82 },
+      // { name: "Terraform", level: 82 },
     ],
   },
 ];
