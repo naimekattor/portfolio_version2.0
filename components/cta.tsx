@@ -1,75 +1,488 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ContactModal } from './contact-modal';
-import { Calendar, Mail } from 'lucide-react';
+import React, { useState } from "react";
+import { Calendar, CheckCircle2, Send } from "lucide-react";
+
+function HandshakeIllustration() {
+  return (
+    <svg
+      width="380"
+      height="200"
+      viewBox="0 0 340 180"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="max-w-full h-auto"
+    >
+      <path
+        d="M 10 130 L 70 85 L 110 115 L 50 160 Z"
+        fill="#171310"
+        stroke="#171310"
+        strokeWidth="2"
+      />
+      <path
+        d="M 65 82 L 80 72 L 95 85 L 80 95 Z"
+        fill="#f4e9df"
+        stroke="#171310"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M 330 130 L 270 85 L 230 115 L 290 160 Z"
+        fill="#171310"
+        stroke="#171310"
+        strokeWidth="2"
+      />
+      <path
+        d="M 275 82 L 260 72 L 245 85 L 260 95 Z"
+        fill="#f4e9df"
+        stroke="#171310"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M 90 75 Q 120 45 150 70 Q 165 85 180 85 Q 195 85 200 95 Q 170 120 130 110 C 110 105 100 90 90 75 Z"
+        fill="#fdfbf7"
+        stroke="#171310"
+        strokeWidth="2.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M 250 75 Q 220 45 190 70 Q 175 85 160 85 Q 145 85 140 95 Q 170 125 210 110 C 230 105 240 90 250 75 Z"
+        fill="#fdfbf7"
+        stroke="#171310"
+        strokeWidth="2.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M 140 75 Q 155 88 170 85"
+        stroke="#171310"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 145 85 Q 160 98 175 95"
+        stroke="#171310"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 150 95 Q 165 108 180 105"
+        stroke="#171310"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 200 75 Q 185 88 170 85"
+        stroke="#171310"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 195 85 Q 180 98 165 95"
+        stroke="#171310"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 190 95 Q 175 108 160 105"
+        stroke="#171310"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      {/* halftone stipple on cuffs, matching reference */}
+      {Array.from({ length: 24 }).map((_, i) => {
+        const row = Math.floor(i / 6);
+        const col = i % 6;
+        return (
+          <circle
+            key={`l-${i}`}
+            cx={22 + col * 7 - row * 2}
+            cy={128 + row * 8}
+            r="1.4"
+            fill="#f4e9df"
+          />
+        );
+      })}
+      {Array.from({ length: 24 }).map((_, i) => {
+        const row = Math.floor(i / 6);
+        const col = i % 6;
+        return (
+          <circle
+            key={`r-${i}`}
+            cx={318 - col * 7 + row * 2}
+            cy={128 + row * 8}
+            r="1.4"
+            fill="#f4e9df"
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+function FormField({
+  label,
+  required,
+  type = "text",
+  value,
+  onChange,
+  placeholder,
+  as,
+}) {
+  const Tag = as || "input";
+  return (
+    <div>
+      <label className="block text-[13px] text-[#171310] mb-1.5">
+        {label} {required && <span className="text-[#b5502f]">*</span>}
+      </label>
+      <Tag
+        type={as ? undefined : type}
+        required={required}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        rows={as === "textarea" ? 2 : undefined}
+        className="w-full bg-transparent border-b border-[#171310]/25 focus:border-[#171310] py-1.5 text-sm text-[#171310] placeholder:text-[#171310]/35 focus:outline-none transition-colors duration-200 resize-none"
+      />
+    </div>
+  );
+}
 
 export function CTA() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalMode, setModalMode] = useState<'call' | 'email'>('call');
+  const [mode, setMode] = useState("email");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const openCallModal = () => {
-    setModalMode('call');
-    setModalOpen(true);
+  const [form, setForm] = useState({
+    name: "",
+    company: "",
+    phone: "",
+    email: "",
+    message: "",
+    callDate: new Date().toISOString().split("T")[0],
+    timeSlot: "02:00 PM - 02:30 PM",
+  });
+
+  const [selectedServices, setSelectedServices] = useState([]);
+
+  const availableServices = [
+    "Paid Media",
+    "Content Creation",
+    "Digital Experience",
+    "Strategy & Consulting",
+    "Email",
+    "Other",
+  ];
+
+  const timeSlots = [
+    "09:00 AM - 09:30 AM",
+    "11:00 AM - 11:30 AM",
+    "02:00 PM - 02:30 PM",
+    "04:00 PM - 04:30 PM",
+    "07:00 PM - 07:30 PM",
+  ];
+
+  const toggleService = (service) => {
+    setSelectedServices((prev) =>
+      prev.includes(service)
+        ? prev.filter((s) => s !== service)
+        : [...prev, service],
+    );
   };
 
-  const openEmailModal = () => {
-    setModalMode('email');
-    setModalOpen(true);
+  const servicesText =
+    selectedServices.length > 0 ? selectedServices.join(", ") : "General Query";
+  const subjectPreview =
+    mode === "call"
+      ? `[Scheduled Call] ${servicesText} on ${form.callDate} @ ${form.timeSlot}`
+      : `[Inquiry] ${servicesText}`;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMsg("");
+
+    const formattedMessage =
+      mode === "call"
+        ? `Scheduled Call Request:\nDate: ${form.callDate}\nTime Slot: ${form.timeSlot}\nCompany: ${form.company || "N/A"}\nPhone/WhatsApp: ${form.phone || "N/A"}\nServices Requested: ${servicesText}\n\nProject Overview:\n${form.message || "No additional details provided."}`
+        : `Company: ${form.company || "N/A"}\nServices Requested: ${servicesText}\n\nProject Details:\n${form.message}`;
+
+    try {
+      const res = await fetch("http://localhost:4000/api/v1/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          subject: subjectPreview,
+          message: formattedMessage,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const json = await res.json();
+        setErrorMsg(
+          json.message || "Failed to submit form. Please check your details.",
+        );
+      }
+    } catch (err) {
+      console.error("Failed to submit contact form:", err);
+      setErrorMsg("Server connection failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleReset = () => {
+    setSubmitted(false);
+    setErrorMsg("");
+    setForm({
+      name: "",
+      company: "",
+      phone: "",
+      email: "",
+      message: "",
+      callDate: new Date().toISOString().split("T")[0],
+      timeSlot: "02:00 PM - 02:30 PM",
+    });
+    setSelectedServices([]);
   };
 
   return (
-    <section id="contact" className="py-24 bg-gradient-to-b from-slate-50 via-slate-100/50 to-slate-50 relative overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        <div className="bg-[#174d4d] rounded-[2.5rem] p-10 md:p-20 text-center text-white relative overflow-hidden shadow-2xl border border-teal-900/30">
-          <div className="relative z-10 max-w-3xl mx-auto space-y-8">
-            <div className="inline-flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[3px] text-teal-100 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-teal-300 animate-pulse" />
-              Accepting New Projects
+    <section
+      id="contact"
+      className="relative"
+      style={{ padding: "110px 0 120px", background: "#eee1d2" }}
+    >
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
+          {/* ── Left Column ── */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div className="space-y-5">
+              <h2
+                className="text-[#171310] leading-[1.08]"
+                style={{
+                  fontFamily: 'Georgia, "Times New Roman", serif',
+                  fontSize: "clamp(2.4rem, 4vw, 3.4rem)",
+                }}
+              >
+                Let&rsquo;s scale your
+                <br />
+                brand<span className="italic">, together.</span>
+              </h2>
+
+              <p className="text-[15px] text-[#171310]/70">
+                Get a start @{" "}
+                <a
+                  href="mailto:naim.dev.tech@gmail.com"
+                  className="text-[#b5502f] underline decoration-[#b5502f]/50 underline-offset-4 hover:decoration-[#b5502f] transition-colors"
+                >
+                  naim.dev.tech@gmail.com
+                </a>
+              </p>
+
+              <div className="flex items-center gap-5 pt-1 text-[13px] text-[#171310]/60">
+                <button
+                  type="button"
+                  onClick={() => setMode("email")}
+                  className={`transition-colors ${mode === "email" ? "text-[#171310] underline underline-offset-4 decoration-[#b5502f]" : "hover:text-[#171310]"}`}
+                >
+                  Send a message
+                </button>
+                <span className="text-[#171310]/25">/</span>
+                <button
+                  type="button"
+                  onClick={() => setMode("call")}
+                  className={`transition-colors ${mode === "call" ? "text-[#171310] underline underline-offset-4 decoration-[#b5502f]" : "hover:text-[#171310]"}`}
+                >
+                  Schedule a call
+                </button>
+              </div>
             </div>
 
-            <h2 className="text-3xl md:text-6xl font-extrabold tracking-tight leading-tight">
-              Let's build scalable <br />
-              <span className="bg-gradient-to-r from-teal-200 via-amber-200 to-amber-400 bg-clip-text text-transparent">
-                products together
-              </span>
-            </h2>
-
-            <p className="text-base md:text-xl text-teal-100/90 max-w-2xl mx-auto leading-relaxed font-medium">
-              Currently accepting new client projects and full-time technical opportunities. Schedule a 1-on-1 call or send an inquiry below.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <button
-                onClick={openCallModal}
-                className="flex items-center justify-center gap-2.5 px-8 py-4 bg-white text-[#174d4d] font-bold rounded-2xl hover:bg-teal-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
-              >
-                <Calendar className="w-5 h-5 text-[#174d4d]" />
-                Schedule a Call
-              </button>
-              <button
-                onClick={openEmailModal}
-                className="flex items-center justify-center gap-2.5 px-8 py-4 bg-white/15 text-white font-bold rounded-2xl border border-white/30 hover:bg-white/25 transition-all backdrop-blur-md shadow-lg hover:-translate-y-0.5"
-              >
-                <Mail className="w-5 h-5 text-teal-200" />
-                Send an Email
-              </button>
+            <div className="pt-14 lg:pt-0">
+              <HandshakeIllustration />
             </div>
           </div>
 
-          {/* Signature Decorative Glows */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-25 pointer-events-none">
-            <div className="absolute -top-32 -left-32 w-96 h-96 bg-white rounded-full blur-[140px]" />
-            <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-400 rounded-full blur-[140px]" />
+          {/* ── Right Column: Form ── */}
+          <div className="lg:col-span-7">
+            {submitted ? (
+              <div className="py-16 space-y-5">
+                <CheckCircle2 className="w-7 h-7 text-[#171310]" />
+                <h3
+                  className="text-[#171310]"
+                  style={{ fontFamily: "Georgia, serif", fontSize: "1.6rem" }}
+                >
+                  {mode === "call" ? "Call scheduled." : "Message sent."}
+                </h3>
+                <p className="text-sm text-[#171310]/65 max-w-sm leading-relaxed">
+                  {mode === "call"
+                    ? `Thanks, ${form.name}. Your call request for ${form.callDate} at ${form.timeSlot} is in — confirming shortly via ${form.email}.`
+                    : `Thanks, ${form.name}. Your note landed in my inbox — expect a reply at ${form.email} within 24 hours.`}
+                </p>
+                <button
+                  onClick={handleReset}
+                  className="px-7 py-3 bg-[#171310] hover:bg-[#3a3128] text-white text-sm rounded-full transition-colors"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {errorMsg && (
+                  <div className="text-[13px] text-[#b5502f]">{errorMsg}</div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+                  <FormField
+                    label="Name"
+                    required
+                    value={form.name}
+                    placeholder="Type name"
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  />
+                  <FormField
+                    label="Company"
+                    required
+                    value={form.company}
+                    placeholder="Type company name"
+                    onChange={(e) =>
+                      setForm({ ...form, company: e.target.value })
+                    }
+                  />
+                  <FormField
+                    label={mode === "call" ? "Phone / WhatsApp" : "Phone"}
+                    required={mode === "call"}
+                    type="tel"
+                    value={form.phone}
+                    placeholder="Type phone number"
+                    onChange={(e) =>
+                      setForm({ ...form, phone: e.target.value })
+                    }
+                  />
+                  <FormField
+                    label="Email Address"
+                    required
+                    type="email"
+                    value={form.email}
+                    placeholder="Type email address"
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
+                  />
+                </div>
+
+                {mode === "call" && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+                    <div>
+                      <label className="block text-[13px] text-[#171310] mb-1.5">
+                        Preferred call date{" "}
+                        <span className="text-[#b5502f]">*</span>
+                      </label>
+                      <input
+                        type="date"
+                        required
+                        min={new Date().toISOString().split("T")[0]}
+                        value={form.callDate}
+                        onChange={(e) =>
+                          setForm({ ...form, callDate: e.target.value })
+                        }
+                        className="w-full bg-transparent border-b border-[#171310]/25 focus:border-[#171310] py-1.5 text-sm text-[#171310] focus:outline-none transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[13px] text-[#171310] mb-1.5">
+                        Time slot (EST){" "}
+                        <span className="text-[#b5502f]">*</span>
+                      </label>
+                      <select
+                        value={form.timeSlot}
+                        onChange={(e) =>
+                          setForm({ ...form, timeSlot: e.target.value })
+                        }
+                        className="w-full bg-transparent border-b border-[#171310]/25 focus:border-[#171310] py-1.5 text-sm text-[#171310] focus:outline-none transition-colors"
+                      >
+                        {timeSlots.map((slot) => (
+                          <option key={slot} value={slot}>
+                            {slot}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
+
+                <FormField
+                  label="How can we help?"
+                  required
+                  as="textarea"
+                  value={form.message}
+                  placeholder="A brief description here"
+                  onChange={(e) =>
+                    setForm({ ...form, message: e.target.value })
+                  }
+                />
+
+                <div>
+                  <label className="block text-[13px] text-[#171310] mb-3">
+                    Services <span className="text-[#b5502f]">*</span>
+                  </label>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-2.5">
+                    {availableServices.map((service) => {
+                      const isChecked = selectedServices.includes(service);
+                      return (
+                        <label
+                          key={service}
+                          className="flex items-center gap-2.5 cursor-pointer select-none text-[13px] text-[#171310]/85"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => toggleService(service)}
+                            className="w-3.5 h-3.5 rounded-sm border-[#171310]/40 text-[#171310] focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                          />
+                          {service}
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {selectedServices.length > 0 && (
+                  <p className="text-[11px] text-[#171310]/40 font-mono">
+                    Subject line: {subjectPreview}
+                  </p>
+                )}
+
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="px-7 py-3 bg-[#171310] hover:bg-[#3a3128] text-white text-sm rounded-full transition-colors disabled:opacity-50 flex items-center gap-2"
+                  >
+                    {loading ? (
+                      "Sending..."
+                    ) : mode === "call" ? (
+                      <>
+                        <Calendar className="w-3.5 h-3.5" /> Schedule Call
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5" /> Send Message
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>
-
-      <ContactModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        initialMode={modalMode}
-      />
     </section>
   );
 }
+
+export default CTA;
