@@ -51,7 +51,7 @@ export default function AdminOverviewPage() {
               </div>
             ))}
             {(!breakdowns.topPages || breakdowns.topPages.length === 0) && (
-              <p className="text-xs text-slate-500 italic py-4 text-center">No visitor traffic recorded yet.</p>
+              <p className="text-xs text-slate-500 py-4 text-center">No visitor traffic recorded yet.</p>
             )}
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function AdminOverviewPage() {
               </div>
             ))}
             {(!breakdowns.topDevices || breakdowns.topDevices.length === 0) && (
-              <p className="text-xs text-slate-500 italic py-4 text-center">No device statistics available.</p>
+              <p className="text-xs text-slate-500 py-4 text-center">No device statistics available.</p>
             )}
           </div>
         </div>

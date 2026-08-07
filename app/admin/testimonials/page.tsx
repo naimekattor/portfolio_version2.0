@@ -250,7 +250,7 @@ export default function AdminTestimonialsPage() {
                   <p className="text-xs text-slate-400">{t.role}</p>
                 </div>
               </div>
-              <p className="text-xs text-slate-300 italic bg-slate-950/80 p-3 rounded-xl border border-slate-800/80 line-clamp-4">
+              <p className="text-xs text-slate-300 bg-slate-950/80 p-3 rounded-xl border border-slate-800/80 line-clamp-4">
                 "{t.quote}"
               </p>
             </div>

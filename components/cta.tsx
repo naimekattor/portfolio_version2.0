@@ -263,24 +263,17 @@ export function CTA() {
   return (
     <section
       id="contact"
-      className="relative"
-      style={{ padding: "110px 0 120px", background: "#eee1d2" }}
+      className="relative py-28 bg-[#eee1d2]"
     >
       <div className="max-w-5xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
           {/* ── Left Column ── */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div className="space-y-5">
-              <h2
-                className="text-[#171310] leading-[1.08]"
-                style={{
-                  fontFamily: 'Georgia, "Times New Roman", serif',
-                  fontSize: "clamp(2.4rem, 4vw, 3.4rem)",
-                }}
-              >
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#171310] leading-tight">
                 Let&rsquo;s scale your
                 <br />
-                brand<span className="italic">, together.</span>
+                brand<span>, together.</span>
               </h2>
 
               <p className="text-[15px] text-[#171310]/70">
@@ -322,10 +315,7 @@ export function CTA() {
             {submitted ? (
               <div className="py-16 space-y-5">
                 <CheckCircle2 className="w-7 h-7 text-[#171310]" />
-                <h3
-                  className="text-[#171310]"
-                  style={{ fontFamily: "Georgia, serif", fontSize: "1.6rem" }}
-                >
+                <h3 className="text-[#171310] font-serif text-2xl">
                   {mode === "call" ? "Call scheduled." : "Message sent."}
                 </h3>
                 <p className="text-sm text-[#171310]/65 max-w-sm leading-relaxed">

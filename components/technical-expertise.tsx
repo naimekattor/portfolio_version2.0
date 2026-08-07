@@ -61,31 +61,79 @@ const INITIAL_SKILLS = [
   },
 ];
 
-const CATEGORY_META: Record<string, { icon: string; color: string; glow: string; border: string; tag: string }> = {
-  "Frontend": { icon: "⬡", color: "#174d4d", glow: "rgba(23,77,77,0.08)", border: "rgba(23,77,77,0.18)", tag: "UI Layer" },
-  "Backend": { icon: "◈", color: "#a67a3b", glow: "rgba(166,122,59,0.08)", border: "rgba(166,122,59,0.2)", tag: "Server Layer" },
-  "AI / LLM": { icon: "◎", color: "#174d4d", glow: "rgba(23,77,77,0.08)", border: "rgba(23,77,77,0.18)", tag: "Intelligence" },
-  "Cloud / DevOps": { icon: "⬟", color: "#a67a3b", glow: "rgba(166,122,59,0.08)", border: "rgba(166,122,59,0.2)", tag: "Infrastructure" },
+const CATEGORY_META: Record<
+  string,
+  { icon: string; color: string; glow: string; border: string; tag: string }
+> = {
+  Frontend: {
+    icon: "⬡",
+    color: "#174d4d",
+    glow: "rgba(23,77,77,0.08)",
+    border: "rgba(23,77,77,0.18)",
+    tag: "UI Layer",
+  },
+  Backend: {
+    icon: "◈",
+    color: "#a67a3b",
+    glow: "rgba(166,122,59,0.08)",
+    border: "rgba(166,122,59,0.2)",
+    tag: "Server Layer",
+  },
+  "AI / LLM": {
+    icon: "◎",
+    color: "#174d4d",
+    glow: "rgba(23,77,77,0.08)",
+    border: "rgba(23,77,77,0.18)",
+    tag: "Intelligence",
+  },
+  "Cloud / DevOps": {
+    icon: "⬟",
+    color: "#a67a3b",
+    glow: "rgba(166,122,59,0.08)",
+    border: "rgba(166,122,59,0.2)",
+    tag: "Infrastructure",
+  },
 };
 
-function SkillBar({ level, color, animate }) {
+function SkillBar({
+  level,
+  color,
+  animate,
+}: {
+  level: number;
+  color: string;
+  animate: boolean;
+}) {
   return (
-    <div style={{ position: "relative", height: "4px", background: "rgba(0,0,0,0.07)", borderRadius: "99px", overflow: "hidden" }}>
-      <div style={{
-        position: "absolute", inset: "0 auto 0 0",
-        width: animate ? `${level}%` : "0%",
-        background: `linear-gradient(90deg, ${color}77, ${color})`,
-        borderRadius: "99px",
-        transition: "width 1.3s cubic-bezier(0.16,1,0.3,1)",
-        boxShadow: `0 0 5px ${color}44`,
-      }} />
+    <div className="relative h-1 bg-black/10 rounded-full overflow-hidden">
+      <div
+        className="absolute inset-y-0 left-0 rounded-full transition-all duration-1000 ease-out"
+        style={{
+          width: animate ? `${level}%` : "0%",
+          background: `linear-gradient(90deg, ${color}77, ${color})`,
+          boxShadow: `0 0 5px ${color}44`,
+        }}
+      />
     </div>
   );
 }
 
-function SkillCard({ skill, index, globalActive, setGlobalActive }) {
+function SkillCard({
+  skill,
+  index,
+  globalActive,
+  setGlobalActive,
+}: {
+  skill: any;
+  index: number;
+  globalActive: number | null;
+  setGlobalActive: (i: number | null) => void;
+}) {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => { setTimeout(() => setMounted(true), 80 + index * 110); }, [index]);
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 80 + index * 110);
+    return () => clearTimeout(timer);
+  }, [index]);
 
   const isActive = globalActive === index;
   const isDimmed = globalActive !== null && !isActive;
@@ -94,107 +142,104 @@ function SkillCard({ skill, index, globalActive, setGlobalActive }) {
     <div
       onMouseEnter={() => setGlobalActive(index)}
       onMouseLeave={() => setGlobalActive(null)}
+      className={`relative rounded-2xl p-7 md:p-8 cursor-default transition-all duration-500 backdrop-blur-md ${
+        isActive
+          ? "bg-white -translate-y-2 scale-[1.015] shadow-2xl"
+          : "bg-white/65 translate-y-0 scale-100 shadow-sm"
+      } ${isDimmed ? "opacity-40" : mounted ? "opacity-100" : "opacity-0"}`}
       style={{
-        position: "relative",
-        background: isActive ? "#ffffff" : "rgba(255,255,255,0.65)",
         border: `1.5px solid ${isActive ? skill.border : "rgba(23,60,60,0.08)"}`,
-        borderRadius: "22px",
-        padding: "32px 28px 36px",
-        cursor: "default",
-        transition: "all 0.45s cubic-bezier(0.16,1,0.3,1)",
-        transform: isActive ? "translateY(-8px) scale(1.015)" : "translateY(0) scale(1)",
-        opacity: isDimmed ? 0.38 : mounted ? 1 : 0,
-        boxShadow: isActive
-          ? `0 20px 56px ${skill.color}18, 0 4px 16px rgba(0,0,0,0.06), 0 0 0 1.5px ${skill.border}`
-          : "0 2px 10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.03)",
-        backdropFilter: "blur(12px)",
       }}
     >
       {/* Top color strip */}
-      <div style={{
-        position: "absolute", top: 0, left: "28px", right: "28px", height: "3px",
-        background: `linear-gradient(90deg, transparent, ${skill.color}, transparent)`,
-        borderRadius: "0 0 4px 4px",
-        opacity: isActive ? 1 : 0,
-        transition: "opacity 0.4s",
-      }} />
+      <div
+        className={`absolute top-0 left-7 right-7 h-[3px] rounded-b transition-opacity duration-400 ${
+          isActive ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          background: `linear-gradient(90deg, transparent, ${skill.color}, transparent)`,
+        }}
+      />
 
       {/* Radial glow */}
-      <div style={{
-        position: "absolute", inset: 0, borderRadius: "22px", pointerEvents: "none",
-        background: `radial-gradient(ellipse 90% 50% at 50% 0%, ${skill.glow}, transparent)`,
-        opacity: isActive ? 1 : 0,
-        transition: "opacity 0.4s",
-      }} />
+      <div
+        className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-400 ${
+          isActive ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          background: `radial-gradient(ellipse 90% 50% at 50% 0%, ${skill.glow}, transparent)`,
+        }}
+      />
 
       {/* Tag */}
-      <div style={{
-        display: "inline-flex", alignItems: "center", gap: "5px",
-        fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "9.5px", fontWeight: 700,
-        letterSpacing: "2.5px", textTransform: "uppercase",
-        color: skill.color, marginBottom: "18px",
-        padding: "4px 12px", borderRadius: "100px",
-        background: `${skill.color}0d`, border: `1px solid ${skill.color}22`,
-      }}>
-        <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: skill.color, display: "inline-block" }} />
+      <div
+        className="inline-flex items-center gap-1.5 text-[9.5px] font-bold tracking-[2.5px] uppercase mb-4 px-3 py-1 rounded-full"
+        style={{
+          color: skill.color,
+          background: `${skill.color}0d`,
+          border: `1px solid ${skill.color}22`,
+        }}
+      >
+        <span
+          className="w-1 h-1 rounded-full inline-block"
+          style={{ background: skill.color }}
+        />
         {skill.tag}
       </div>
 
       {/* Header */}
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "22px" }}>
+      <div className="flex items-start justify-between mb-5">
         <div>
-          <div style={{
-            fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "9.5px", fontWeight: 700,
-            letterSpacing: "3px", textTransform: "uppercase",
-            color: "rgba(0,0,0,0.22)", marginBottom: "6px",
-          }}>
+          <div className="text-[9.5px] font-bold tracking-[3px] uppercase text-slate-400 mb-1.5">
             {String(index + 1).padStart(2, "0")}
           </div>
-          <h3 style={{
-            fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "20px", fontWeight: 800,
-            color: "#0c1c1c", letterSpacing: "-0.4px", lineHeight: 1,
-          }}>
+          <h3 className="text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
             {skill.category}
           </h3>
         </div>
-        <div style={{
-          width: "46px", height: "46px", borderRadius: "13px",
-          background: `${skill.color}10`, border: `1.5px solid ${skill.color}22`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "19px", color: skill.color,
-          transition: "all 0.4s cubic-bezier(0.34,1.56,0.64,1)",
-          transform: isActive ? "rotate(14deg) scale(1.15)" : "none",
-          boxShadow: isActive ? `0 6px 18px ${skill.color}20` : "none",
-        }}>
+        <div
+          className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all duration-300 ${
+            isActive ? "rotate-12 scale-110" : ""
+          }`}
+          style={{
+            background: `${skill.color}10`,
+            border: `1.5px solid ${skill.color}22`,
+            color: skill.color,
+          }}
+        >
           {skill.icon}
         </div>
       </div>
 
       {/* Expanding divider */}
-      <div style={{
-        height: "1px",
-        background: `linear-gradient(90deg, ${skill.color}40, transparent)`,
-        marginBottom: "22px",
-        width: isActive ? "100%" : "35%",
-        transition: "width 0.55s cubic-bezier(0.16,1,0.3,1)",
-      }} />
+      <div
+        className="h-px mb-5 transition-all duration-500"
+        style={{
+          background: `linear-gradient(90deg, ${skill.color}40, transparent)`,
+          width: isActive ? "100%" : "35%",
+        }}
+      />
 
       {/* Skills */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        {skill.items.map((item, j) => (
+      <div className="flex flex-col gap-3.5">
+        {skill.items.map((item: any, j: number) => (
           <div key={j}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "7px" }}>
-              <span style={{
-                fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "13.5px", fontWeight: 500,
-                color: isActive ? "#1a2e2e" : "#8a9e9e",
-                transition: "color 0.3s",
-              }}>{item.name}</span>
-              <span style={{
-                fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "10.5px", fontWeight: 700,
-                color: skill.color,
-                opacity: isActive ? 1 : 0,
-                transition: "opacity 0.3s",
-              }}>{item.level}%</span>
+            <div className="flex justify-between items-center mb-1.5">
+              <span
+                className={`text-[13.5px] font-medium transition-colors ${
+                  isActive ? "text-slate-800" : "text-slate-500"
+                }`}
+              >
+                {item.name}
+              </span>
+              <span
+                className={`text-[10.5px] font-bold transition-opacity ${
+                  isActive ? "opacity-100" : "opacity-0"
+                }`}
+                style={{ color: skill.color }}
+              >
+                {item.level}%
+              </span>
             </div>
             <SkillBar level={item.level} color={skill.color} animate={mounted} />
           </div>
@@ -211,13 +256,17 @@ export default function TechnicalExpertise() {
   const [headerInfo, setHeaderInfo] = useState({
     badge: "Technical Stack",
     title: "Built to Scale. Wired to Deliver.",
-    subheading: "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered.",
+    subheading:
+      "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered.",
     yearsExp: "5+",
   });
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 60);
+    const timer = setTimeout(() => setVisible(true), 60);
+    return () => clearTimeout(timer);
+  }, []);
 
+  useEffect(() => {
     async function fetchData() {
       try {
         const [resSkills, resSet] = await Promise.all([
@@ -229,7 +278,10 @@ export default function TechnicalExpertise() {
         if (resSet.ok) {
           const jsonSet = await resSet.json();
           if (jsonSet.data?.skills_section_header) {
-            setHeaderInfo((prev) => ({ ...prev, ...jsonSet.data.skills_section_header }));
+            setHeaderInfo((prev) => ({
+              ...prev,
+              ...jsonSet.data.skills_section_header,
+            }));
           }
           if (jsonSet.data?.skills_category_meta) {
             metaData = { ...metaData, ...jsonSet.data.skills_category_meta };
@@ -239,7 +291,6 @@ export default function TechnicalExpertise() {
         if (resSkills.ok) {
           const jsonSkills = await resSkills.json();
           if (jsonSkills.data && jsonSkills.data.length > 0) {
-            // Group skills by category
             const groupedMap = new Map<string, any[]>();
             jsonSkills.data.forEach((s: any) => {
               const cat = s.category || "Frontend";
@@ -280,9 +331,14 @@ export default function TechnicalExpertise() {
   }, []);
 
   const totalSkills = skillCategories.reduce((a, s) => a + s.items.length, 0);
-  const avgLevel = totalSkills > 0 ? Math.round(
-    skillCategories.flatMap(s => s.items).reduce((a, i) => a + i.level, 0) / totalSkills
-  ) : 0;
+  const avgLevel =
+    totalSkills > 0
+      ? Math.round(
+          skillCategories
+            .flatMap((s) => s.items)
+            .reduce((a, i) => a + i.level, 0) / totalSkills
+        )
+      : 0;
 
   const stats = [
     { num: `${skillCategories.length}`, label: "Domains", color: "#174d4d" },
@@ -292,99 +348,77 @@ export default function TechnicalExpertise() {
   ];
 
   return (
-    <>
-      <style>{`
-        * { box-sizing: border-box; }
-        body { margin: 0; }
-      `}</style>
+    <section className="relative py-24 md:py-28 overflow-hidden bg-gradient-to-b from-[#f0f2ed] via-[#eceee9] to-[#f2ede8]">
+      {/* Corner glows */}
+      <div className="absolute -top-24 -right-24 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(23,77,77,0.07)_0%,transparent_65%)] pointer-events-none" />
+      <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(166,122,59,0.08)_0%,transparent_65%)] pointer-events-none" />
 
-      <section style={{
-        padding: "96px 0 112px",
-        background: "linear-gradient(165deg, #f0f2ed 0%, #eceee9 45%, #f2ede8 100%)",
-        position: "relative", overflow: "hidden",
-      }}>
-
-        {/* Corner glows */}
-        <div style={{ position: "absolute", top: "-100px", right: "-100px", width: "450px", height: "450px", borderRadius: "50%", background: "radial-gradient(circle, rgba(23,77,77,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: "-80px", left: "-80px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle, rgba(166,122,59,0.08) 0%, transparent 65%)", pointerEvents: "none" }} />
-
-        {/* Dot texture */}
-        <div style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "radial-gradient(circle, rgba(23,77,77,0.07) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
+      {/* Dot texture */}
+      <div
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle,rgba(23,77,77,0.07)_1px,transparent_1px)] bg-[size:28px_28px]"
+        style={{
           maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
           WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
-        }} />
+        }}
+      />
 
-        <div style={{ maxWidth: "1160px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
-
-          {/* ── Header ── */}
-          <div style={{
-            display: "flex", flexDirection: "column", alignItems: "center",
-            textAlign: "center", marginBottom: "64px",
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(22px)",
-            transition: "all 0.9s cubic-bezier(0.16,1,0.3,1)",
-          }}>
-
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: "8px",
-              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "10px", fontWeight: 700,
-              letterSpacing: "3.5px", textTransform: "uppercase", color: "#174d4d",
-              marginBottom: "20px", padding: "6px 18px", borderRadius: "100px",
-              background: "rgba(23,77,77,0.08)", border: "1.5px solid rgba(23,77,77,0.15)",
-            }}>
-              <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#174d4d", display: "inline-block" }} />
-              {headerInfo.badge || "Technical Stack"}
-            </div>
-
-            <h2 style={{
-              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif",
-              fontSize: "clamp(36px,5vw,60px)", fontWeight: 800,
-              lineHeight: 1.06, letterSpacing: "-2px", color: "#0a1a1a", marginBottom: "16px",
-            }}>
-              {headerInfo.title || "Built to Scale. Wired to Deliver."}
-            </h2>
-
-            <p style={{
-              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "17px", color: "#5e7878",
-              maxWidth: "480px", lineHeight: 1.75, fontWeight: 400,
-            }}>
-              {headerInfo.subheading || "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered."}
-            </p>
-
-            {/* Stats */}
-            <div style={{
-              display: "flex", flexWrap: "wrap", justifyContent: "center",
-              marginTop: "40px", borderRadius: "18px", overflow: "hidden",
-              border: "1.5px solid rgba(23,77,77,0.12)",
-              background: "rgba(255,255,255,0.8)",
-              backdropFilter: "blur(14px)",
-              boxShadow: "0 4px 28px rgba(23,77,77,0.08)",
-            }}>
-              {stats.map((s, i) => (
-                <div key={i} style={{
-                  padding: "20px 36px", textAlign: "center",
-                  borderRight: i < stats.length - 1 ? "1.5px solid rgba(23,77,77,0.09)" : "none",
-                }}>
-                  <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "26px", fontWeight: 800, color: s.color, lineHeight: 1 }}>{s.num}</div>
-                  <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "10.5px", color: "#8aacac", marginTop: "5px", letterSpacing: "1.2px", textTransform: "uppercase" }}>{s.label}</div>
-                </div>
-              ))}
-            </div>
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        {/* ── Header ── */}
+        <div
+          className={`flex flex-col items-center text-center mb-16 transition-all duration-900 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-5 px-4.5 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
+            {headerInfo.badge || "Technical Stack"}
           </div>
 
-          {/* ── Cards ── */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(258px,1fr))", gap: "20px" }}>
-            {skillCategories.map((skill, i) => (
-              <SkillCard key={i} skill={skill} index={i} globalActive={globalActive} setGlobalActive={setGlobalActive} />
+          <h2 className="text-4xl md:text-6xl font-extrabold text-[#0a1a1a] leading-tight tracking-tight mb-4 max-w-3xl">
+            {headerInfo.title || "Built to Scale. Wired to Deliver."}
+          </h2>
+
+          <p className="text-base md:text-lg text-slate-600 max-w-xl leading-relaxed font-medium">
+            {headerInfo.subheading ||
+              "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered."}
+          </p>
+
+          {/* Stats */}
+          <div className="flex flex-wrap justify-center mt-10 rounded-2xl overflow-hidden border border-[#174d4d]/15 bg-white/80 backdrop-blur-md shadow-lg">
+            {stats.map((s, i) => (
+              <div
+                key={i}
+                className={`px-8 py-5 text-center ${
+                  i < stats.length - 1 ? "border-r border-[#174d4d]/10" : ""
+                }`}
+              >
+                <div
+                  className="text-2xl md:text-3xl font-extrabold leading-none"
+                  style={{ color: s.color }}
+                >
+                  {s.num}
+                </div>
+                <div className="text-[10.5px] font-bold text-slate-400 mt-1.5 tracking-wider uppercase">
+                  {s.label}
+                </div>
+              </div>
             ))}
           </div>
-
-          
         </div>
-      </section>
-    </>
+
+        {/* ── Cards ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {skillCategories.map((skill, i) => (
+            <SkillCard
+              key={i}
+              skill={skill}
+              index={i}
+              globalActive={globalActive}
+              setGlobalActive={setGlobalActive}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

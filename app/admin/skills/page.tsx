@@ -204,7 +204,7 @@ export default function AdminSkillsPage() {
               ))}
 
               {catSkills.length === 0 && (
-                <p className="text-xs text-slate-500 italic py-2 col-span-3">No skills added in this category yet.</p>
+                <p className="text-xs text-slate-500 py-2 col-span-3">No skills added in this category yet.</p>
               )}
             </div>
           </div>

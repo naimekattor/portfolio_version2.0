@@ -175,7 +175,7 @@ export function Testimonials() {
                       </div>
 
                       {/* Quote text */}
-                      <p className="text-base md:text-xl font-normal italic text-slate-800 leading-relaxed mb-8 tracking-tight">
+                      <p className="text-base md:text-xl font-normal text-slate-800 leading-relaxed mb-8 tracking-tight">
                         "{t.quote}"
                       </p>
 
