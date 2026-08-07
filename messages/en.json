@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Me",
+    "projects": "Projects",
+    "blogs": "Writing & Insights",
+    "contact": "Contact",
+    "hireMe": "Hire Me"
+  },
+  "hero": {
+    "badge": "Available for Global Contract & Full-Time Work",
+    "title": "Delivering Real Business Value & High-Impact Systems",
+    "subheading": "Full-Stack Engineer specializing in scalable web applications, autonomous AI agents, school systems, and social media automation.",
+    "viewProjects": "View Projects",
+    "contactMe": "Contact Me"
+  },
+  "services": {
+    "title": "Services & Automated Solutions",
+    "subheading": "Custom web platforms, intelligent AI agents, EdTech school systems, and end-to-end social media automation."
+  },
+  "cta": {
+    "title": "Let's Connect & Build Together",
+    "subtitle": "Have a project in mind, need technical consultation, or want to schedule a call? Reach out directly below."
+  }
+}

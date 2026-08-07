@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "projects": "Projets",
+    "blogs": "Écrits & Perspectives",
+    "contact": "Contact",
+    "hireMe": "Me Recruter"
+  },
+  "hero": {
+    "badge": "Disponible pour contrats mondiaux et temps plein",
+    "title": "Créer de la Valeur Métier Réelle et des Systèmes à Fort Impact",
+    "subheading": "Ingénieur Full-Stack spécialisé dans les applications web scalables et agents IA autonomes.",
+    "viewProjects": "Voir les Projets",
+    "contactMe": "Me Contacter"
+  },
+  "services": {
+    "title": "Services & Solutions Automatisées",
+    "subheading": "Plateformes web sur mesure, agents IA intelligents et automatisation."
+  },
+  "cta": {
+    "title": "Connectons-nous et Construisons Ensemble",
+    "subtitle": "Vous avez un projet en tête ou souhaitez planifier un appel ? Contactez-moi ci-dessous."
+  }
+}

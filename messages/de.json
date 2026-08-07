@@ -1,0 +1,25 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "projects": "Projekte",
+    "blogs": "Artikel & Einblicke",
+    "contact": "Kontakt",
+    "hireMe": "Beauftragen"
+  },
+  "hero": {
+    "badge": "Verfügbar für globale Verträge & Vollzeit",
+    "title": "Echter Mehrwert & Hochleistungs-Systeme",
+    "subheading": "Full-Stack-Ingenieur für skalierbare Webanwendungen, KI-Agenten und Prozessautomatisierung.",
+    "viewProjects": "Projekte Ansehen",
+    "contactMe": "Kontaktieren"
+  },
+  "services": {
+    "title": "Dienstleistungen & Automatisierung",
+    "subheading": "Individuelle Webplattformen, intelligente KI-Agenten und Automatisierung."
+  },
+  "cta": {
+    "title": "Lassen Sie uns Gemeinsam Bauen",
+    "subtitle": "Haben Sie ein Projekt im Sinn oder möchten Sie ein Gespräch vereinbaren? Kontaktieren Sie mich unten."
+  }
+}

@@ -5,6 +5,7 @@ import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { AnimatedGrid } from './ui/grid-background';
 import Link from 'next/link';
+import { useLanguage } from '../context/language-context';
 
 const DEFAULT_HERO = {
   badgeText: 'Available for new projects',
@@ -23,6 +24,7 @@ const DEFAULT_HERO = {
 
 export function Hero() {
   const [hero, setHero] = useState(DEFAULT_HERO);
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     async function fetchHeroSettings() {
@@ -41,12 +43,17 @@ export function Hero() {
     fetchHeroSettings();
   }, []);
 
+  const badgeText = language !== 'en' ? t('hero.badge') : hero.badgeText;
+  const titleLine1 = language !== 'en' ? t('hero.title') : hero.titleLine1;
+  const descriptionText = language !== 'en' ? t('hero.subheading') : hero.description;
+  const primaryCta = language !== 'en' ? t('hero.viewProjects') : hero.primaryCtaText;
+
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
       <AnimatedGrid className="z-0" />
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl">
-          {hero.badgeText && (
+          {badgeText && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -59,7 +66,7 @@ export function Hero() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary-500"></span>
                 </span>
               )}
-              {hero.badgeText}
+              {badgeText}
             </motion.div>
           )}
 
@@ -69,21 +76,21 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-5xl md:text-7xl font-bold text-primary-600 leading-tight mb-8"
           >
-            {hero.titleLine1}{' '}
-            {hero.titleHighlight && (
+            {titleLine1}{' '}
+            {language === 'en' && hero.titleHighlight && (
               <span className="text-secondary-600">{hero.titleHighlight} </span>
             )}
-            {hero.titleLine2}
+            {language === 'en' && hero.titleLine2}
           </motion.h1>
 
-          {hero.description && (
+          {descriptionText && (
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-xl text-primary-600 mb-10 max-w-2xl leading-relaxed"
             >
-              {hero.description}
+              {descriptionText}
             </motion.p>
           )}
 
@@ -93,10 +100,10 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            {hero.primaryCtaText && (
-              <Link href={hero.primaryCtaLink || '#projects'}>
+            {primaryCta && (
+              <Link href={hero.primaryCtaLink || '/projects'}>
                 <button className="px-8 py-4 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all flex items-center justify-center gap-2 group shadow-lg shadow-primary-600/20 w-full sm:w-auto">
-                  {hero.primaryCtaText}
+                  {primaryCta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
