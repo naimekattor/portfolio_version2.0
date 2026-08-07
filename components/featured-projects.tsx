@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { useLanguage } from "../context/language-context";
 
 const INITIAL_PROJECTS = [
   {
@@ -30,6 +32,7 @@ const INITIAL_PROJECTS = [
 ];
 
 export function FeaturedProjects() {
+  const { t } = useLanguage();
   const [projects, setProjects] = useState<any[]>(INITIAL_PROJECTS);
 
   useEffect(() => {
@@ -50,20 +53,22 @@ export function FeaturedProjects() {
   }, []);
 
   return (
-    <section id="projects" className="py-24 bg-slate-50">
+    <section id="projects" className="py-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <div className="container mx-auto px-6">
         <motion.div className="flex justify-between items-end mb-16">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
               Featured Projects
             </h2>
-            <p className="text-slate-600 max-w-2xl">
+            <p className="text-slate-600 dark:text-slate-300 max-w-2xl">
               Deep dives into how I deliver value through technology.
             </p>
           </div>
-          <button className="hidden md:block text-primary-600 font-semibold hover:underline">
-            View all projects
-          </button>
+          <Link href="/projects">
+            <button className="hidden md:block text-primary-600 font-semibold hover:underline">
+              View all projects
+            </button>
+          </Link>
         </motion.div>
         <div className="grid md:grid-cols-2 gap-12">
           {projects.map((project, i) => {
@@ -78,7 +83,7 @@ export function FeaturedProjects() {
 
             return (
               <motion.div key={project.id || i} className="group">
-                <div className="relative aspect-video rounded-2xl overflow-hidden mb-6 border border-slate-200 shadow-sm">
+                <div className="relative aspect-video rounded-2xl overflow-hidden mb-6 border border-slate-200 dark:border-slate-800 shadow-sm">
                   <img
                     src={imgSrc}
                     alt={project.title}
@@ -90,24 +95,24 @@ export function FeaturedProjects() {
                   {techList.map((t: string, j: number) => (
                     <span
                       key={j}
-                      className="px-2 py-1 bg-white border border-slate-200 rounded text-[10px] font-bold text-slate-500 uppercase tracking-wider"
+                      className="px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3">
                   {project.title}
                 </h3>
-                <p className="text-slate-600 mb-6 line-clamp-2">
+                <p className="text-slate-600 dark:text-slate-300 mb-6 line-clamp-2">
                   {project.description || project.solution}
                 </p>
                 {project.impact && (
-                  <div className="p-4 bg-secondary-50 rounded-xl mb-6">
-                    <p className="text-xs font-bold text-secondary-600 uppercase tracking-wider mb-1">
+                  <div className="p-4 bg-secondary-50 dark:bg-slate-900 border border-secondary-100 dark:border-slate-800 rounded-xl mb-6">
+                    <p className="text-xs font-bold text-secondary-600 dark:text-secondary-400 uppercase tracking-wider mb-1">
                       Impact
                     </p>
-                    <p className="text-slate-900 font-medium">
+                    <p className="text-slate-900 dark:text-slate-100 font-medium">
                       {project.impact}
                     </p>
                   </div>
@@ -117,7 +122,7 @@ export function FeaturedProjects() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open(liveLink, "_blank")}
-                    className="flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-primary-600 transition-colors"
+                    className="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-slate-100 hover:text-primary-600 transition-colors"
                   >
                     <ExternalLink className="w-4 h-4" /> Live Demo
                   </motion.button>
@@ -125,7 +130,7 @@ export function FeaturedProjects() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => window.open(githubLink, "_blank")}
-                    className="flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-primary-600 transition-colors"
+                    className="flex items-center gap-2 text-sm font-bold text-slate-900 dark:text-slate-100 hover:text-primary-600 transition-colors"
                   >
                     <Github className="w-4 h-4" /> Source Code
                   </motion.button>
