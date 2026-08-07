@@ -1,38 +1,72 @@
 import type { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://naimdev-hazel.vercel.app";
+  const currentDate = new Date().toISOString();
 
-  return [
+  // Primary static routes
+  const routes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: "weekly",
-      priority: 1,
+      priority: 1.0,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/projects`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/writing`,
-      lastModified: new Date(),
+      url: `${baseUrl}/blogs`,
+      lastModified: currentDate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      lastModified: currentDate,
       changeFrequency: "monthly",
-      priority: 0.6,
+      priority: 0.7,
     },
   ];
+
+  // Dynamic blog post routes
+  let blogSlugs = [
+    "architecting-for-scale",
+    "future-of-ai-workflows",
+  ];
+
+  try {
+    const res = await fetch("http://localhost:4000/api/v1/blogs", {
+      next: { revalidate: 3600 },
+    });
+    if (res.ok) {
+      const json = await res.json();
+      if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+        const fetchedSlugs = json.data.map((b: any) => b.slug).filter(Boolean);
+        if (fetchedSlugs.length > 0) {
+          blogSlugs = Array.from(new Set([...blogSlugs, ...fetchedSlugs]));
+        }
+      }
+    }
+  } catch (err) {
+    // Fallback to static blogSlugs if backend is unreachable during build
+  }
+
+  const blogPostRoutes: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
+    url: `${baseUrl}/blogs/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [...routes, ...blogPostRoutes];
 }
