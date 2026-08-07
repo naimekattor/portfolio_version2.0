@@ -2,16 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const FONT = "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif";
-
 const metrics = [
-  { value: 60,    suffix: "%",   label: "Latency Reduction",    sub: "Across core API endpoints",    color: "#174d4d", prefix: "" },
-  { value: 85,    suffix: "%",   label: "Process Automation",   sub: "Manual tasks eliminated",      color: "#a67a3b", prefix: "" },
-  { value: 180,   suffix: "k",   label: "Annual Cost Savings",  sub: "Infrastructure optimization",  color: "#174d4d", prefix: "$" },
-  { value: 2.4,   suffix: "x",   label: "User Growth",          sub: "Post-redesign performance",    color: "#a67a3b", prefix: "" },
+  { value: 60, suffix: "%", label: "Latency Reduction", sub: "Across core API endpoints", color: "#174d4d", prefix: "" },
+  { value: 85, suffix: "%", label: "Process Automation", sub: "Manual tasks eliminated", color: "#a67a3b", prefix: "" },
+  { value: 180, suffix: "k", label: "Annual Cost Savings", sub: "Infrastructure optimization", color: "#174d4d", prefix: "$" },
+  { value: 2.4, suffix: "x", label: "User Growth", sub: "Post-redesign performance", color: "#a67a3b", prefix: "" },
 ];
 
-// Easing: easeOutExpo
 function easeOutExpo(t: number) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }
@@ -54,7 +51,8 @@ function MetricCard({
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 80 + index * 110);
+    const timer = setTimeout(() => setVisible(true), 80 + index * 110);
+    return () => clearTimeout(timer);
   }, [index]);
 
   const displayValue = decimals > 0 ? count.toFixed(1) : Math.round(count);
@@ -63,101 +61,85 @@ function MetricCard({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      className={`relative rounded-2xl px-7 py-8 text-center cursor-default overflow-hidden transition-all duration-500 backdrop-blur-md ${
+        hovered
+          ? "bg-white -translate-y-2 scale-[1.02] shadow-2xl"
+          : "bg-white/65 translate-y-0 scale-100 shadow-sm"
+      } ${visible ? "opacity-100" : "opacity-0"}`}
       style={{
-        position: "relative",
-        background: hovered ? "#ffffff" : "rgba(255,255,255,0.65)",
         border: `1.5px solid ${hovered ? metric.color + "30" : "rgba(23,60,60,0.08)"}`,
-        borderRadius: "22px",
-        padding: "36px 28px 32px",
-        textAlign: "center",
-        transition: "all 0.45s cubic-bezier(0.16,1,0.3,1)",
-        transform: hovered ? "translateY(-7px) scale(1.02)" : `translateY(0) scale(1)`,
-        opacity: visible ? 1 : 0,
-        boxShadow: hovered
-          ? `0 20px 56px ${metric.color}16, 0 4px 16px rgba(0,0,0,0.06), 0 0 0 1.5px ${metric.color}28`
-          : "0 2px 10px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.03)",
-        backdropFilter: "blur(12px)",
-        cursor: "default",
-        overflow: "hidden",
       }}
     >
       {/* Top accent strip */}
-      <div style={{
-        position: "absolute", top: 0, left: "28px", right: "28px", height: "3px",
-        background: `linear-gradient(90deg, transparent, ${metric.color}, transparent)`,
-        borderRadius: "0 0 4px 4px",
-        opacity: hovered ? 1 : 0,
-        transition: "opacity 0.4s",
-      }} />
+      <div
+        className={`absolute top-0 left-7 right-7 h-[3px] rounded-b transition-opacity duration-400 ${
+          hovered ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          background: `linear-gradient(90deg, transparent, ${metric.color}, transparent)`,
+        }}
+      />
 
       {/* Radial glow */}
-      <div style={{
-        position: "absolute", inset: 0, borderRadius: "22px", pointerEvents: "none",
-        background: `radial-gradient(ellipse 90% 55% at 50% 0%, ${metric.color}0a, transparent)`,
-        opacity: hovered ? 1 : 0,
-        transition: "opacity 0.4s",
-      }} />
+      <div
+        className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-400 ${
+          hovered ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          background: `radial-gradient(ellipse 90% 55% at 50% 0%, ${metric.color}0a, transparent)`,
+        }}
+      />
 
       {/* Index badge */}
-      <div style={{
-        display: "inline-flex", alignItems: "center", gap: "5px",
-        fontFamily: FONT, fontSize: "9.5px", fontWeight: 700,
-        letterSpacing: "2.5px", textTransform: "uppercase",
-        color: metric.color, marginBottom: "20px",
-        padding: "4px 12px", borderRadius: "100px",
-        background: `${metric.color}0d`, border: `1px solid ${metric.color}22`,
-      }}>
-        <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: metric.color, display: "inline-block" }} />
+      <div
+        className="inline-flex items-center gap-1.5 text-[9.5px] font-bold tracking-[2.5px] uppercase mb-5 px-3 py-1 rounded-full"
+        style={{
+          color: metric.color,
+          background: `${metric.color}0d`,
+          border: `1px solid ${metric.color}22`,
+        }}
+      >
+        <span
+          className="w-1 h-1 rounded-full inline-block"
+          style={{ background: metric.color }}
+        />
         {String(index + 1).padStart(2, "0")}
       </div>
 
       {/* Counter */}
-      <div style={{
-        fontFamily: FONT,
-        fontSize: "clamp(42px, 5vw, 54px)",
-        fontWeight: 800,
-        lineHeight: 1,
-        letterSpacing: "-2px",
-        color: metric.color,
-        marginBottom: "14px",
-        transition: "color 0.3s",
-        fontVariantNumeric: "tabular-nums",
-      }}>
-        {metric.prefix}{displayValue}{metric.suffix}
+      <div
+        className="text-4xl md:text-5xl font-extrabold leading-none tracking-tight mb-3 tabular-nums transition-colors duration-300"
+        style={{ color: metric.color }}
+      >
+        {metric.prefix}
+        {displayValue}
+        {metric.suffix}
       </div>
 
       {/* Expanding divider */}
-      <div style={{
-        height: "1px",
-        background: `linear-gradient(90deg, transparent, ${metric.color}40, transparent)`,
-        marginBottom: "14px",
-        width: hovered ? "80%" : "30%",
-        margin: "0 auto 14px",
-        transition: "width 0.55s cubic-bezier(0.16,1,0.3,1)",
-      }} />
+      <div
+        className="h-px mx-auto mb-3.5 transition-all duration-500"
+        style={{
+          background: `linear-gradient(90deg, transparent, ${metric.color}40, transparent)`,
+          width: hovered ? "80%" : "30%",
+        }}
+      />
 
       {/* Label */}
-      <p style={{
-        fontFamily: FONT,
-        fontSize: "14px",
-        fontWeight: 700,
-        color: hovered ? "#0c1c1c" : "#2a3a3a",
-        marginBottom: "6px",
-        letterSpacing: "-0.2px",
-        transition: "color 0.3s",
-      }}>
+      <p
+        className={`text-sm font-bold mb-1.5 tracking-tight transition-colors duration-300 ${
+          hovered ? "text-[#0c1c1c]" : "text-[#2a3a3a]"
+        }`}
+      >
         {metric.label}
       </p>
 
       {/* Sub */}
-      <p style={{
-        fontFamily: FONT,
-        fontSize: "12.5px",
-        fontWeight: 400,
-        color: hovered ? "#5e7878" : "#8a9e9e",
-        lineHeight: 1.5,
-        transition: "color 0.3s",
-      }}>
+      <p
+        className={`text-xs font-normal leading-relaxed transition-colors duration-300 ${
+          hovered ? "text-[#5e7878]" : "text-[#8a9e9e]"
+        }`}
+      >
         {metric.sub}
       </p>
     </div>
@@ -170,108 +152,89 @@ export function BusinessValue() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 60);
+    const timer = setTimeout(() => setVisible(true), 60);
 
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setStarted(true); observer.disconnect(); } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarted(true);
+          observer.disconnect();
+        }
+      },
       { threshold: 0.2 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <section
       ref={sectionRef}
       id="value"
-      style={{
-        padding: "96px 0 112px",
-        background: "linear-gradient(165deg,#f0f2ed 0%,#eceee9 45%,#f2ede8 100%)",
-        position: "relative",
-        overflow: "hidden",
-      }}
+      className="relative py-24 md:py-28 overflow-hidden bg-gradient-to-b from-[#f0f2ed] via-[#eceee9] to-[#f2ede8]"
     >
       {/* Corner glows */}
-      <div style={{ position: "absolute", top: "-100px", right: "-100px", width: "450px", height: "450px", borderRadius: "50%", background: "radial-gradient(circle,rgba(23,77,77,0.07) 0%,transparent 65%)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: "-80px", left: "-80px", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle,rgba(166,122,59,0.08) 0%,transparent 65%)", pointerEvents: "none" }} />
+      <div className="absolute -top-24 -right-24 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(23,77,77,0.07)_0%,transparent_65%)] pointer-events-none" />
+      <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(166,122,59,0.08)_0%,transparent_65%)] pointer-events-none" />
 
       {/* Dot texture */}
-      <div style={{
-        position: "absolute", inset: 0, pointerEvents: "none",
-        backgroundImage: "radial-gradient(circle,rgba(23,77,77,0.07) 1px,transparent 1px)",
-        backgroundSize: "28px 28px",
-        maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%,black 20%,transparent 100%)",
-        WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%,black 20%,transparent 100%)",
-      }} />
+      <div
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle,rgba(23,77,77,0.07)_1px,transparent_1px)] bg-[size:28px_28px]"
+        style={{
+          maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
+        }}
+      />
 
-      <div style={{ maxWidth: "1160px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
-
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <div style={{
-          display: "flex", flexDirection: "column", alignItems: "center",
-          textAlign: "center", marginBottom: "64px",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(22px)",
-          transition: "all 0.9s cubic-bezier(0.16,1,0.3,1)",
-        }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: "8px",
-            fontFamily: FONT, fontSize: "10px", fontWeight: 700,
-            letterSpacing: "3.5px", textTransform: "uppercase", color: "#174d4d",
-            marginBottom: "20px", padding: "6px 18px", borderRadius: "100px",
-            background: "rgba(23,77,77,0.08)", border: "1.5px solid rgba(23,77,77,0.15)",
-          }}>
-            <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#174d4d", display: "inline-block" }} />
+        <div
+          className={`flex flex-col items-center text-center mb-16 transition-all duration-900 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-5 px-4.5 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
             Impact & Results
           </div>
 
-          <h2 style={{
-            fontFamily: FONT,
-            fontSize: "clamp(34px,5vw,58px)", fontWeight: 800,
-            lineHeight: 1.06, letterSpacing: "-2px", color: "#0a1a1a", marginBottom: "16px",
-          }}>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-[#0a1a1a] leading-tight tracking-tight mb-4">
             Delivering{" "}
-            <span style={{ background: "linear-gradient(130deg,#174d4d,#2a8a7a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            <span className="bg-gradient-to-r from-[#174d4d] to-[#2a8a7a] bg-clip-text text-transparent">
               Business
             </span>{" "}
-            <span style={{ background: "linear-gradient(130deg,#a67a3b,#d4a055)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            <span className="bg-gradient-to-r from-[#a67a3b] to-[#d4a055] bg-clip-text text-transparent">
               Value
             </span>
           </h2>
 
-          <p style={{
-            fontFamily: FONT, fontSize: "17px", color: "#5e7878",
-            maxWidth: "460px", lineHeight: 1.75, fontWeight: 400,
-          }}>
+          <p className="text-base md:text-lg text-[#5e7878] max-w-md leading-relaxed font-normal">
             Work measured by real impact — on the bottom line and the people who use it.
           </p>
         </div>
 
         {/* Metric cards */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))",
-          gap: "20px",
-        }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {metrics.map((metric, i) => (
             <MetricCard key={i} metric={metric} index={i} started={started} />
           ))}
         </div>
 
         {/* Bottom divider */}
-        <div style={{
-          display: "flex", alignItems: "center", justifyContent: "center",
-          gap: "20px", marginTop: "52px",
-          opacity: visible ? 1 : 0,
-          transition: "opacity 1s ease 0.7s",
-        }}>
-          <div style={{ height: "1px", flex: 1, background: "linear-gradient(90deg,transparent,rgba(23,77,77,0.15))" }} />
-          <span style={{ fontFamily: FONT, fontSize: "10px", fontWeight: 700, letterSpacing: "3px", textTransform: "uppercase", color: "rgba(23,77,77,0.3)", whiteSpace: "nowrap" }}>
+        <div
+          className={`flex items-center justify-center gap-5 mt-14 transition-opacity duration-1000 delay-700 ${
+            visible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#174d4d]/20" />
+          <span className="text-[10px] font-bold tracking-[3px] uppercase text-[#174d4d]/40 whitespace-nowrap">
             Numbers don't lie
           </span>
-          <div style={{ height: "1px", flex: 1, background: "linear-gradient(90deg,rgba(23,77,77,0.15),transparent)" }} />
+          <div className="h-px flex-1 bg-gradient-to-r from-[#174d4d]/20 to-transparent" />
         </div>
-
       </div>
     </section>
   );

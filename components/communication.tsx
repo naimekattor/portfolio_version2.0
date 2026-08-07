@@ -38,115 +38,100 @@ function BookIcon() {
   );
 }
 
-function PostCard({ post, index }) {
+function PostCard({ post, index }: { post: any; index: number }) {
   const [hovered, setHovered] = useState(false);
   const [visible, setVisible] = useState(false);
-  useEffect(() => { setTimeout(() => setVisible(true), 100 + index * 140); }, [index]);
+  useEffect(() => {
+    const timer = setTimeout(() => setVisible(true), 100 + index * 140);
+    return () => clearTimeout(timer);
+  }, [index]);
 
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => window.open(post.url, "_blank")}
+      className={`relative rounded-3xl p-8 md:p-9 cursor-pointer overflow-hidden transition-all duration-500 backdrop-blur-md ${
+        hovered
+          ? "bg-white -translate-y-1.5 shadow-2xl"
+          : "bg-white/70 translate-y-0 shadow-sm"
+      } ${visible ? "opacity-100" : "opacity-0"}`}
       style={{
-        position: "relative",
-        background: hovered ? "#ffffff" : "rgba(255,255,255,0.72)",
         border: `1.5px solid ${hovered ? post.accent + "30" : "rgba(23,60,60,0.09)"}`,
-        borderRadius: "24px",
-        padding: "36px 32px 32px",
-        cursor: "pointer",
-        transition: "all 0.45s cubic-bezier(0.16,1,0.3,1)",
-        transform: hovered ? "translateY(-6px)" : "translateY(0)",
-        boxShadow: hovered
-          ? `0 24px 60px ${post.accent}14, 0 4px 20px rgba(0,0,0,0.07)`
-          : "0 2px 12px rgba(0,0,0,0.05)",
-        backdropFilter: "blur(12px)",
-        opacity: visible ? 1 : 0,
-        overflow: "hidden",
       }}
     >
       {/* Top accent bar */}
-      <div style={{
-        position: "absolute", top: 0, left: 0, right: 0, height: "3px",
-        background: `linear-gradient(90deg, ${post.accent}, ${post.accent}44)`,
-        opacity: hovered ? 1 : 0,
-        transition: "opacity 0.4s",
-      }} />
+      <div
+        className={`absolute top-0 left-0 right-0 h-[3px] transition-opacity duration-400 ${
+          hovered ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          background: `linear-gradient(90deg, ${post.accent}, ${post.accent}44)`,
+        }}
+      />
 
       {/* Glow */}
-      <div style={{
-        position: "absolute", inset: 0, borderRadius: "24px", pointerEvents: "none",
-        background: `radial-gradient(ellipse 80% 45% at 0% 0%, ${post.accent}08, transparent)`,
-        opacity: hovered ? 1 : 0,
-        transition: "opacity 0.4s",
-      }} />
+      <div
+        className={`absolute inset-0 rounded-3xl pointer-events-none transition-opacity duration-400 ${
+          hovered ? "opacity-100" : "opacity-0"
+        }`}
+        style={{
+          background: `radial-gradient(ellipse 80% 45% at 0% 0%, ${post.accent}08, transparent)`,
+        }}
+      />
 
       {/* Tag row */}
-      <div style={{
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        marginBottom: "22px",
-      }}>
-        <div style={{
-          display: "inline-flex", alignItems: "center", gap: "6px",
-          fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "10px", fontWeight: 700,
-          letterSpacing: "2.5px", textTransform: "uppercase",
-          color: post.accent,
-          padding: "4px 12px", borderRadius: "100px",
-          background: `${post.accent}0e`, border: `1px solid ${post.accent}22`,
-        }}>
+      <div className="flex items-center justify-between mb-5">
+        <div
+          className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[2.5px] uppercase px-3 py-1 rounded-full"
+          style={{
+            color: post.accent,
+            background: `${post.accent}0e`,
+            border: `1px solid ${post.accent}22`,
+          }}
+        >
           <BookIcon />
           {post.tag}
         </div>
-        <span style={{
-          fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "12px",
-          color: "#a0b4b4", fontWeight: 500,
-        }}>
+        <span className="text-xs font-medium text-slate-400">
           {post.readTime}
         </span>
       </div>
 
       {/* Title */}
-      <h3 style={{
-        fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif",
-        fontSize: "clamp(18px,2vw,22px)", fontWeight: 800,
-        color: hovered ? "#0a1a1a" : "#1c3030",
-        lineHeight: 1.25, letterSpacing: "-0.4px",
-        marginBottom: "14px",
-        transition: "color 0.3s",
-      }}>
+      <h3
+        className={`text-xl md:text-2xl font-extrabold leading-snug tracking-tight mb-3.5 transition-colors duration-300 ${
+          hovered ? "text-[#0a1a1a]" : "text-[#1c3030]"
+        }`}
+      >
         {post.title}
       </h3>
 
       {/* Excerpt */}
-      <p style={{
-        fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "14.5px",
-        color: hovered ? "#4a6060" : "#8aacac",
-        lineHeight: 1.7, marginBottom: "28px",
-        transition: "color 0.3s",
-      }}>
+      <p
+        className={`text-sm leading-relaxed mb-7 transition-colors duration-300 ${
+          hovered ? "text-[#4a6060]" : "text-slate-500"
+        }`}
+      >
         {post.excerpt}
       </p>
 
       {/* Footer */}
-      <div style={{
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        paddingTop: "20px",
-        borderTop: `1px solid ${hovered ? post.accent + "18" : "rgba(23,60,60,0.07)"}`,
-        transition: "border-color 0.3s",
-      }}>
-        <span style={{
-          fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "12.5px",
-          color: "#a0b4b4", fontWeight: 500,
-        }}>
+      <div
+        className="flex items-center justify-between pt-5 transition-colors duration-300"
+        style={{
+          borderTop: `1px solid ${hovered ? post.accent + "18" : "rgba(23,60,60,0.07)"}`,
+        }}
+      >
+        <span className="text-xs font-medium text-slate-400">
           {post.date}
         </span>
-        <div style={{
-          display: "flex", alignItems: "center", gap: "6px",
-          fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "12px", fontWeight: 700,
-          color: post.accent,
-          transform: hovered ? "translateX(3px)" : "translateX(0)",
-          transition: "transform 0.35s cubic-bezier(0.34,1.56,0.64,1)",
-        }}>
+        <div
+          className={`flex items-center gap-1.5 text-xs font-bold transition-transform duration-350 ${
+            hovered ? "translate-x-1" : "translate-x-0"
+          }`}
+          style={{ color: post.accent }}
+        >
           Read article <ArrowIcon />
         </div>
       </div>
@@ -169,8 +154,11 @@ export default function Communication() {
   });
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 60);
+    const timer = setTimeout(() => setVisible(true), 60);
+    return () => clearTimeout(timer);
+  }, []);
 
+  useEffect(() => {
     async function fetchData() {
       try {
         const [resBlogs, resSet] = await Promise.all([
@@ -219,132 +207,90 @@ export default function Communication() {
   }, []);
 
   return (
-    <>
-      <style>{`
-        * { box-sizing: border-box; }
-        body { margin: 0; }
-      `}</style>
+    <section className="relative py-24 md:py-28 overflow-hidden bg-gradient-to-b from-[#f0f2ed] via-[#eceee9] to-[#f2ede8]">
+      {/* Bg glows */}
+      <div className="absolute -top-20 -right-20 w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle,rgba(23,77,77,0.07)_0%,transparent_65%)] pointer-events-none" />
+      <div className="absolute -bottom-16 -left-16 w-[380px] h-[380px] rounded-full bg-[radial-gradient(circle,rgba(166,122,59,0.08)_0%,transparent_65%)] pointer-events-none" />
 
-      <section style={{
-        padding: "96px 0 112px",
-        background: "linear-gradient(165deg,#f0f2ed 0%,#eceee9 45%,#f2ede8 100%)",
-        position: "relative", overflow: "hidden",
-      }}>
-        {/* Bg glows */}
-        <div style={{ position: "absolute", top: "-80px", right: "-80px", width: "420px", height: "420px", borderRadius: "50%", background: "radial-gradient(circle,rgba(23,77,77,0.07) 0%,transparent 65%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: "-60px", left: "-60px", width: "380px", height: "380px", borderRadius: "50%", background: "radial-gradient(circle,rgba(166,122,59,0.08) 0%,transparent 65%)", pointerEvents: "none" }} />
+      {/* Dot texture */}
+      <div
+        className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle,rgba(23,77,77,0.07)_1px,transparent_1px)] bg-[size:28px_28px]"
+        style={{
+          maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
+        }}
+      />
 
-        {/* Dot texture */}
-        <div style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "radial-gradient(circle,rgba(23,77,77,0.07) 1px,transparent 1px)",
-          backgroundSize: "28px 28px",
-          maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%,black 20%,transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%,black 20%,transparent 100%)",
-        }} />
-
-        <div style={{ maxWidth: "1160px", margin: "0 auto", padding: "0 24px", position: "relative", zIndex: 1 }}>
-
-          {/* ── Header row ── */}
-          <div style={{
-            display: "flex", flexDirection: "row", flexWrap: "wrap",
-            alignItems: "flex-end", justifyContent: "space-between",
-            gap: "24px", marginBottom: "56px",
-            opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.9s cubic-bezier(0.16,1,0.3,1)",
-          }}>
-            <div style={{ maxWidth: "560px" }}>
-              {/* Eyebrow */}
-              <div style={{
-                display: "inline-flex", alignItems: "center", gap: "8px",
-                fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "10px", fontWeight: 700,
-                letterSpacing: "3.5px", textTransform: "uppercase", color: "#174d4d",
-                marginBottom: "18px", padding: "5px 16px", borderRadius: "100px",
-                background: "rgba(23,77,77,0.08)", border: "1.5px solid rgba(23,77,77,0.15)",
-              }}>
-                <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#174d4d", display: "inline-block" }} />
-                {headerInfo.badge || "Writing & Insights"}
-              </div>
-
-              <h2 style={{
-                fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif",
-                fontSize: "clamp(32px,4.5vw,52px)", fontWeight: 800,
-                lineHeight: 1.08, letterSpacing: "-1.5px", color: "#0a1a1a",
-                marginBottom: "14px",
-              }}>
-                {headerInfo.title || "Technical Communication"}
-              </h2>
-
-              <p style={{
-                fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "16px",
-                color: "#5e7878", lineHeight: 1.75,
-              }}>
-                {headerInfo.subheading || "I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations."}
-              </p>
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        {/* ── Header row ── */}
+        <div
+          className={`flex flex-wrap items-end justify-between gap-6 mb-14 transition-all duration-900 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+          }`}
+        >
+          <div className="max-w-xl">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-4.5 px-4 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
+              {headerInfo.badge || "Writing & Insights"}
             </div>
 
-            {/* CTA Button */}
-            <button
-              onMouseEnter={() => setBtnHover(true)}
-              onMouseLeave={() => setBtnHover(false)}
-              onClick={() => {
-                if (headerInfo.buttonUrl && headerInfo.buttonUrl !== "#") {
-                  window.open(headerInfo.buttonUrl, "_blank");
-                }
-              }}
-              style={{
-                display: "inline-flex", alignItems: "center", gap: "8px",
-                fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "13px", fontWeight: 700,
-                letterSpacing: "0.3px",
-                padding: "13px 26px", borderRadius: "14px",
-                border: `1.5px solid ${btnHover ? "#174d4d" : "rgba(23,77,77,0.2)"}`,
-                background: btnHover ? "#174d4d" : "rgba(255,255,255,0.8)",
-                color: btnHover ? "#ffffff" : "#174d4d",
-                cursor: "pointer", transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
-                transform: btnHover ? "translateY(-2px)" : "translateY(0)",
-                boxShadow: btnHover ? "0 8px 28px rgba(23,77,77,0.2)" : "0 2px 10px rgba(0,0,0,0.05)",
-                backdropFilter: "blur(10px)",
-              }}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0a1a1a] leading-tight tracking-tight mb-3.5">
+              {headerInfo.title || "Technical Communication"}
+            </h2>
+
+            <p className="text-base text-[#5e7878] leading-relaxed font-normal">
+              {headerInfo.subheading ||
+                "I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations."}
+            </p>
+          </div>
+
+          {/* CTA Button */}
+          <button
+            onMouseEnter={() => setBtnHover(true)}
+            onMouseLeave={() => setBtnHover(false)}
+            onClick={() => {
+              if (headerInfo.buttonUrl && headerInfo.buttonUrl !== "#") {
+                window.open(headerInfo.buttonUrl, "_blank");
+              }
+            }}
+            className={`inline-flex items-center gap-2 text-xs font-bold tracking-wide px-6 py-3.5 rounded-xl border transition-all duration-300 cursor-pointer backdrop-blur-md ${
+              btnHover
+                ? "bg-[#174d4d] border-[#174d4d] text-white -translate-y-0.5 shadow-xl shadow-[#174d4d]/20"
+                : "bg-white/80 border-[#174d4d]/20 text-[#174d4d] translate-y-0 shadow-sm"
+            }`}
+          >
+            {headerInfo.buttonText || "Read all posts"}
+            <span
+              className={`flex transition-transform duration-300 ${
+                btnHover ? "translate-x-1" : "translate-x-0"
+              }`}
             >
-              {headerInfo.buttonText || "Read all posts"}
-              <span style={{ transform: btnHover ? "translateX(3px)" : "translateX(0)", transition: "transform 0.3s", display: "flex" }}>
-                <ArrowIcon />
-              </span>
-            </button>
-          </div>
-
-          {/* ── Cards ── */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))",
-            gap: "22px",
-          }}>
-            {posts.map((post, i) => (
-              <PostCard key={i} post={post} index={i} />
-            ))}
-          </div>
-
-          {/* ── Bottom editorial strip ── */}
-          <div style={{
-            display: "flex", alignItems: "center", justifyContent: "center",
-            gap: "20px", marginTop: "52px",
-            opacity: visible ? 1 : 0,
-            transition: "opacity 1s ease 0.6s",
-          }}>
-            <div style={{ height: "1px", flex: 1, background: "linear-gradient(90deg,transparent,rgba(23,77,77,0.15))" }} />
-            <span style={{
-              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "10px", fontWeight: 700,
-              letterSpacing: "3px", textTransform: "uppercase", color: "rgba(23,77,77,0.35)",
-              whiteSpace: "nowrap",
-            }}>
-              {headerInfo.bottomStripText || "More articles coming soon"}
+              <ArrowIcon />
             </span>
-            <div style={{ height: "1px", flex: 1, background: "linear-gradient(90deg,rgba(23,77,77,0.15),transparent)" }} />
-          </div>
-
+          </button>
         </div>
-      </section>
-    </>
+
+        {/* ── Cards ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {posts.map((post, i) => (
+            <PostCard key={i} post={post} index={i} />
+          ))}
+        </div>
+
+        {/* ── Bottom editorial strip ── */}
+        <div
+          className={`flex items-center justify-center gap-5 mt-14 transition-opacity duration-1000 delay-600 ${
+            visible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#174d4d]/20" />
+          <span className="text-[10px] font-bold tracking-[3px] uppercase text-[#174d4d]/35 whitespace-nowrap">
+            {headerInfo.bottomStripText || "More articles coming soon"}
+          </span>
+          <div className="h-px flex-1 bg-gradient-to-r from-[#174d4d]/20 to-transparent" />
+        </div>
+      </div>
+    </section>
   );
 }
