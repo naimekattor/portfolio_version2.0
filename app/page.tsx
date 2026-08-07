@@ -6,6 +6,7 @@ import { Footer } from '../components/footer';
 import { Hero } from '../components/hero';
 import { Navbar } from '../components/navbar';
 import { ProblemSolving } from '../components/problem-solving';
+import { ServicesSection } from '../components/services-section';
 import { ProductionSystems } from '../components/production-systems';
 import { Testimonials } from '../components/testimonials';
 import  ChatBot  from '../components/ChatBot';
@@ -18,6 +19,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <ProblemSolving />
+      <ServicesSection />
       <ProductionSystems />
       <FeaturedProjects />
       <TechnicalExpertise />

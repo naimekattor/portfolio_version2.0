@@ -18,6 +18,9 @@ import {
   Shield,
   RefreshCw,
   MessageSquare,
+  Sparkles,
+  Zap,
+  Sliders,
 } from 'lucide-react';
 
 function AdminShell({ children }: { children: React.ReactNode }) {
@@ -91,7 +94,9 @@ function AdminShell({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { href: '/admin', label: 'Overview', icon: Activity },
-    { href: '/admin/analytics', label: 'Retention & Stats', icon: TrendingUp },
+    { href: '/admin/hero', label: 'Hero Section', icon: Sparkles },
+    { href: '/admin/services', label: 'Services', icon: Briefcase },
+    { href: '/admin/problems', label: 'Solving Problems', icon: Zap },
     { href: '/admin/projects', label: 'Projects CMS', icon: FolderGit2 },
     { href: '/admin/skills', label: 'Skills', icon: Code2 },
     { href: '/admin/experiences', label: 'Experience', icon: Briefcase },
@@ -99,7 +104,8 @@ function AdminShell({ children }: { children: React.ReactNode }) {
     { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquare },
     { href: '/admin/contacts', label: 'Messages', icon: Mail },
     { href: '/admin/subscribers', label: 'Newsletter', icon: Send },
-    { href: '/admin/settings', label: 'Site Settings', icon: Settings },
+    { href: '/admin/analytics', label: 'Retention & Stats', icon: TrendingUp },
+    { href: '/admin/settings', label: 'Site Settings', icon: Sliders },
   ];
 
   return (
