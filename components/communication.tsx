@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 
-const BLOG_POSTS = [
+const INITIAL_BLOG_POSTS = [
   {
     title: "Architecting for Scale: Lessons from 1M Users",
     excerpt: "How we handled a sudden 10x traffic spike without downtime using serverless functions and edge caching.",
@@ -157,7 +157,66 @@ function PostCard({ post, index }) {
 export default function Communication() {
   const [visible, setVisible] = useState(false);
   const [btnHover, setBtnHover] = useState(false);
-  useEffect(() => { setTimeout(() => setVisible(true), 60); }, []);
+  const [posts, setPosts] = useState<any[]>(INITIAL_BLOG_POSTS);
+  const [headerInfo, setHeaderInfo] = useState({
+    badge: "Writing & Insights",
+    title: "Technical Communication",
+    subheading:
+      "I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations.",
+    buttonText: "Read all posts",
+    buttonUrl: "#",
+    bottomStripText: "More articles coming soon",
+  });
+
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 60);
+
+    async function fetchData() {
+      try {
+        const [resBlogs, resSet] = await Promise.all([
+          fetch("http://localhost:4000/api/v1/blogs"),
+          fetch("http://localhost:4000/api/v1/site-settings"),
+        ]);
+
+        if (resSet.ok) {
+          const jsonSet = await resSet.json();
+          if (jsonSet.data?.blogs_section_header) {
+            setHeaderInfo((prev) => ({ ...prev, ...jsonSet.data.blogs_section_header }));
+          }
+        }
+
+        if (resBlogs.ok) {
+          const jsonBlogs = await resBlogs.json();
+          if (jsonBlogs.data && jsonBlogs.data.length > 0) {
+            const formatted = jsonBlogs.data.map((b: any, idx: number) => {
+              const formattedDate = b.publishedAt
+                ? new Date(b.publishedAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })
+                : "Oct 12, 2023";
+
+              return {
+                title: b.title,
+                excerpt: b.excerpt || b.content,
+                date: formattedDate,
+                readTime: b.readingTime ? `${b.readingTime} min read` : "5 min read",
+                tag: b.category?.name || (idx % 2 === 0 ? "Infrastructure" : "AI / LLM"),
+                url: b.slug ? `/blogs/${b.slug}` : "#",
+                accent: idx % 2 === 0 ? "#174d4d" : "#a67a3b",
+              };
+            });
+            setPosts(formatted);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load blog section data:", err);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -205,7 +264,7 @@ export default function Communication() {
                 background: "rgba(23,77,77,0.08)", border: "1.5px solid rgba(23,77,77,0.15)",
               }}>
                 <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#174d4d", display: "inline-block" }} />
-                Writing & Insights
+                {headerInfo.badge || "Writing & Insights"}
               </div>
 
               <h2 style={{
@@ -214,20 +273,14 @@ export default function Communication() {
                 lineHeight: 1.08, letterSpacing: "-1.5px", color: "#0a1a1a",
                 marginBottom: "14px",
               }}>
-                Technical{" "}
-                <span style={{
-                  background: "linear-gradient(130deg,#174d4d,#2a8a7a)",
-                  WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-                }}>
-                  Communication
-                </span>
+                {headerInfo.title || "Technical Communication"}
               </h2>
 
               <p style={{
                 fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "16px",
                 color: "#5e7878", lineHeight: 1.75,
               }}>
-                I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations.
+                {headerInfo.subheading || "I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations."}
               </p>
             </div>
 
@@ -235,6 +288,11 @@ export default function Communication() {
             <button
               onMouseEnter={() => setBtnHover(true)}
               onMouseLeave={() => setBtnHover(false)}
+              onClick={() => {
+                if (headerInfo.buttonUrl && headerInfo.buttonUrl !== "#") {
+                  window.open(headerInfo.buttonUrl, "_blank");
+                }
+              }}
               style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
                 fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "13px", fontWeight: 700,
@@ -249,7 +307,7 @@ export default function Communication() {
                 backdropFilter: "blur(10px)",
               }}
             >
-              Read all posts
+              {headerInfo.buttonText || "Read all posts"}
               <span style={{ transform: btnHover ? "translateX(3px)" : "translateX(0)", transition: "transform 0.3s", display: "flex" }}>
                 <ArrowIcon />
               </span>
@@ -262,7 +320,7 @@ export default function Communication() {
             gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))",
             gap: "22px",
           }}>
-            {BLOG_POSTS.map((post, i) => (
+            {posts.map((post, i) => (
               <PostCard key={i} post={post} index={i} />
             ))}
           </div>
@@ -280,7 +338,7 @@ export default function Communication() {
               letterSpacing: "3px", textTransform: "uppercase", color: "rgba(23,77,77,0.35)",
               whiteSpace: "nowrap",
             }}>
-              More articles coming soon
+              {headerInfo.bottomStripText || "More articles coming soon"}
             </span>
             <div style={{ height: "1px", flex: 1, background: "linear-gradient(90deg,rgba(23,77,77,0.15),transparent)" }} />
           </div>
