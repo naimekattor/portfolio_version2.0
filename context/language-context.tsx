@@ -9,8 +9,9 @@ import frMessages from '../messages/fr.json';
 import deMessages from '../messages/de.json';
 import bnMessages from '../messages/bn.json';
 import jaMessages from '../messages/ja.json';
+import arMessages from '../messages/ar.json';
 
-type Language = 'en' | 'es' | 'fr' | 'de' | 'bn' | 'ja';
+type Language = 'en' | 'es' | 'fr' | 'de' | 'bn' | 'ja' | 'ar';
 
 const MESSAGES_MAP: Record<Language, any> = {
   en: enMessages,
@@ -19,6 +20,7 @@ const MESSAGES_MAP: Record<Language, any> = {
   de: deMessages,
   bn: bnMessages,
   ja: jaMessages,
+  ar: arMessages,
 };
 
 interface LanguageContextType {
@@ -36,24 +38,32 @@ const LanguageContext = createContext<LanguageContextType>({
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en');
 
+  const updateAttributes = (lang: Language) => {
+    document.documentElement.setAttribute('lang', lang);
+    if (lang === 'ar') {
+      document.documentElement.setAttribute('dir', 'rtl');
+    } else {
+      document.documentElement.setAttribute('dir', 'ltr');
+    }
+  };
+
   useEffect(() => {
     const stored = localStorage.getItem('user_language') as Language;
     if (stored && MESSAGES_MAP[stored]) {
       setLanguageState(stored);
-      document.documentElement.setAttribute('lang', stored);
+      updateAttributes(stored);
     }
   }, []);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('user_language', lang);
-    document.documentElement.setAttribute('lang', lang);
+    updateAttributes(lang);
   };
 
   const currentMessages = MESSAGES_MAP[language] || enMessages;
 
   const t = (key: string): string => {
-    // Helper function to resolve nested keys like "nav.home"
     const keys = key.split('.');
     let result = currentMessages;
     for (const k of keys) {

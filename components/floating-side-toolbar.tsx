@@ -21,6 +21,7 @@ const LANGUAGES = [
   { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
   { code: 'bn', name: 'বাংলা', flag: '🇧🇩' },
   { code: 'ja', name: '日本語', flag: '🇯🇵' },
+  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
 ];
 
 export function FloatingSideToolbar() {
