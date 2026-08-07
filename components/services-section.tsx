@@ -32,33 +32,49 @@ const ICON_MAP: Record<string, any> = {
 };
 
 const DEFAULT_SERVICES = {
-  sectionTitle: 'Services & Engineering Solutions',
+  sectionTitle: 'Services & Automated Solutions',
   sectionSubtitle:
-    'End-to-end software development services built for speed, scale, and long-term maintainability.',
+    'Custom web platforms, intelligent AI agents, EdTech school systems, and end-to-end social media automation.',
   items: [
     {
       id: '1',
-      title: 'Full-Stack Web Development',
+      title: 'E-commerce & SaaS Platforms',
       description:
-        'Building high-performance React/Next.js frontends and robust Node.js/Express backend APIs with clean, maintainable architecture.',
+        'Building scalable online stores, multi-vendor marketplaces, and full-featured SaaS web applications with Next.js, Stripe, and PostgreSQL.',
       icon: 'Code',
-      tags: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL'],
+      tags: ['E-commerce', 'SaaS', 'Next.js', 'Stripe', 'PostgreSQL'],
     },
     {
       id: '2',
-      title: 'AI & LLM Workflows Integration',
+      title: 'AI Agent Building & Chatbots',
       description:
-        'Embedding generative AI capabilities, smart automated workflows, and RAG-driven AI assistants into enterprise web applications.',
+        'Architecting autonomous AI agents, intelligent RAG chatbots, and custom LLM assistants to automate customer support and business operations.',
       icon: 'Cpu',
-      tags: ['OpenAI API', 'LangChain', 'Python', 'Vector DBs'],
+      tags: ['AI Agents', 'AI Chatbots', 'OpenAI', 'LangChain'],
     },
     {
       id: '3',
-      title: 'Database Architecture & Microservices',
+      title: 'n8n & Social Media Automation',
       description:
-        'Designing scalable PostgreSQL database schemas, Redis caching systems, and decoupled microservices for high throughput.',
-      icon: 'Server',
-      tags: ['Prisma', 'Redis', 'Docker', 'Microservices'],
+        'Automating user engagement and lead generation across WhatsApp, Messenger, and Instagram alongside complex n8n backend workflows.',
+      icon: 'Zap',
+      tags: ['n8n', 'WhatsApp API', 'Messenger', 'Instagram Automation'],
+    },
+    {
+      id: '4',
+      title: 'AI Education & School Systems',
+      description:
+        'Developing modern learning management portals, student record systems, and AI-assisted grading/curriculum tools for educational institutions.',
+      icon: 'Layers',
+      tags: ['School Systems', 'Education', 'LMS', 'AI Portal'],
+    },
+    {
+      id: '5',
+      title: 'AI-Powered Websites',
+      description:
+        'Transforming traditional marketing sites into intelligent, interactive web platforms with real-time AI personalization.',
+      icon: 'Sparkles',
+      tags: ['AI-Powered', 'Personalization', 'React', 'TypeScript'],
     },
   ],
 };

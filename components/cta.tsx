@@ -175,12 +175,17 @@ export function CTA() {
   const [selectedServices, setSelectedServices] = useState([]);
 
   const availableServices = [
-    "Paid Media",
-    "Content Creation",
-    "Digital Experience",
-    "Strategy & Consulting",
-    "Email",
-    "Other",
+    "E-commerce Website",
+    "SaaS Website",
+    "AI Agent Building",
+    "AI Chatbot",
+    "n8n Automation",
+    "Education & School Systems",
+    "AI-Powered Website",
+    "WhatsApp Automation",
+    "Messenger Automation",
+    "Instagram Automation",
+    "Other / Custom Request",
   ];
 
   const timeSlots = [
