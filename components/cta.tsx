@@ -118,26 +118,36 @@ function HandshakeIllustration() {
   );
 }
 
+interface FormFieldProps {
+  label: string;
+  required?: boolean;
+  type?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  placeholder?: string;
+  as?: "input" | "textarea";
+}
+
 function FormField({
   label,
-  required,
+  required = false,
   type = "text",
   value,
   onChange,
   placeholder,
-  as,
-}) {
-  const Tag = as || "input";
+  as = "input",
+}: FormFieldProps) {
+  const Tag = as;
   return (
     <div>
       <label className="block text-[13px] text-[#171310] mb-1.5">
         {label} {required && <span className="text-[#b5502f]">*</span>}
       </label>
       <Tag
-        type={as ? undefined : type}
+        type={as === "input" ? type : undefined}
         required={required}
         value={value}
-        onChange={onChange}
+        onChange={onChange as any}
         placeholder={placeholder}
         rows={as === "textarea" ? 2 : undefined}
         className="w-full bg-transparent border-b border-[#171310]/25 focus:border-[#171310] py-1.5 text-sm text-[#171310] placeholder:text-[#171310]/35 focus:outline-none transition-colors duration-200 resize-none"
@@ -332,6 +342,32 @@ export function CTA() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Mode Switcher Tabs */}
+                <div className="flex items-center gap-6 border-b border-[#171310]/15 pb-4 mb-2">
+                  <button
+                    type="button"
+                    onClick={() => setMode("email")}
+                    className={`flex items-center gap-2 text-xs uppercase font-bold tracking-wider pb-1.5 border-b-2 transition-all cursor-pointer ${
+                      mode === "email"
+                        ? "border-[#b5502f] text-[#171310]"
+                        : "border-transparent text-[#171310]/40 hover:text-[#171310]"
+                    }`}
+                  >
+                    <Send className="w-3.5 h-3.5" /> Send Message
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMode("call")}
+                    className={`flex items-center gap-2 text-xs uppercase font-bold tracking-wider pb-1.5 border-b-2 transition-all cursor-pointer ${
+                      mode === "call"
+                        ? "border-[#b5502f] text-[#171310]"
+                        : "border-transparent text-[#171310]/40 hover:text-[#171310]"
+                    }`}
+                  >
+                    <Calendar className="w-3.5 h-3.5" /> Schedule a Call
+                  </button>
+                </div>
+
                 {errorMsg && (
                   <div className="text-[13px] text-[#b5502f]">{errorMsg}</div>
                 )}
@@ -346,41 +382,42 @@ export function CTA() {
                   />
                   <FormField
                     label="Company"
-                    required
                     value={form.company}
                     placeholder="Type company name"
                     onChange={(e) =>
                       setForm({ ...form, company: e.target.value })
                     }
                   />
-                  <FormField
-                    label={mode === "call" ? "Phone / WhatsApp" : "Phone"}
-                    required={mode === "call"}
-                    type="tel"
-                    value={form.phone}
-                    placeholder="Type phone number"
-                    onChange={(e) =>
-                      setForm({ ...form, phone: e.target.value })
-                    }
-                  />
-                  <FormField
-                    label="Email Address"
-                    required
-                    type="email"
-                    value={form.email}
-                    placeholder="Type email address"
-                    onChange={(e) =>
-                      setForm({ ...form, email: e.target.value })
-                    }
-                  />
-                </div>
+                <FormField
+                  label="Phone / WhatsApp"
+                  type="tel"
+                  value={form.phone}
+                  placeholder="Type phone number"
+                  onChange={(e) =>
+                    setForm({ ...form, phone: e.target.value })
+                  }
+                />
+                <FormField
+                  label="Email Address"
+                  required
+                  type="email"
+                  value={form.email}
+                  placeholder="Type email address"
+                  onChange={(e) =>
+                    setForm({ ...form, email: e.target.value })
+                  }
+                />
+              </div>
 
-                {mode === "call" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+              {mode === "call" && (
+                <div className="bg-[#171310]/5 p-4 rounded-2xl space-y-4 border border-[#171310]/10 animate-fade-in">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[#b5502f] flex items-center gap-1.5">
+                    <Calendar className="w-4 h-4" /> Select Call Slot
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
                     <div>
-                      <label className="block text-[13px] text-[#171310] mb-1.5">
-                        Preferred call date{" "}
-                        <span className="text-[#b5502f]">*</span>
+                      <label className="block text-[13px] text-[#171310] mb-1.5 font-medium">
+                        Preferred Call Date *
                       </label>
                       <input
                         type="date"
@@ -390,20 +427,19 @@ export function CTA() {
                         onChange={(e) =>
                           setForm({ ...form, callDate: e.target.value })
                         }
-                        className="w-full bg-transparent border-b border-[#171310]/25 focus:border-[#171310] py-1.5 text-sm text-[#171310] focus:outline-none transition-colors"
+                        className="w-full bg-white/80 border border-[#171310]/20 rounded-xl px-3 py-2 text-sm text-[#171310] focus:outline-none focus:border-[#171310]"
                       />
                     </div>
                     <div>
-                      <label className="block text-[13px] text-[#171310] mb-1.5">
-                        Time slot (EST){" "}
-                        <span className="text-[#b5502f]">*</span>
+                      <label className="block text-[13px] text-[#171310] mb-1.5 font-medium">
+                        Time Slot (EST) *
                       </label>
                       <select
                         value={form.timeSlot}
                         onChange={(e) =>
                           setForm({ ...form, timeSlot: e.target.value })
                         }
-                        className="w-full bg-transparent border-b border-[#171310]/25 focus:border-[#171310] py-1.5 text-sm text-[#171310] focus:outline-none transition-colors"
+                        className="w-full bg-white/80 border border-[#171310]/20 rounded-xl px-3 py-2 text-sm text-[#171310] focus:outline-none focus:border-[#171310]"
                       >
                         {timeSlots.map((slot) => (
                           <option key={slot} value={slot}>
@@ -413,18 +449,19 @@ export function CTA() {
                       </select>
                     </div>
                   </div>
-                )}
+                </div>
+              )}
 
-                <FormField
-                  label="How can we help?"
-                  required
-                  as="textarea"
-                  value={form.message}
-                  placeholder="A brief description here"
-                  onChange={(e) =>
-                    setForm({ ...form, message: e.target.value })
-                  }
-                />
+              <FormField
+                label={mode === "call" ? "Call Agenda / Notes (Optional)" : "How can we help? *"}
+                required={mode === "email"}
+                as="textarea"
+                value={form.message}
+                placeholder={mode === "call" ? "Describe project scope or agenda..." : "A brief description here"}
+                onChange={(e) =>
+                  setForm({ ...form, message: e.target.value })
+                }
+              />
 
                 <div>
                   <label className="block text-[13px] text-[#171310] mb-3">
