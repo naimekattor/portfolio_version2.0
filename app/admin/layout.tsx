@@ -17,6 +17,7 @@ import {
   LogOut,
   Shield,
   RefreshCw,
+  MessageSquare,
 } from 'lucide-react';
 
 function AdminShell({ children }: { children: React.ReactNode }) {
@@ -95,6 +96,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
     { href: '/admin/skills', label: 'Skills', icon: Code2 },
     { href: '/admin/experiences', label: 'Experience', icon: Briefcase },
     { href: '/admin/blogs', label: 'Blog Posts', icon: FileText },
+    { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquare },
     { href: '/admin/contacts', label: 'Messages', icon: Mail },
     { href: '/admin/subscribers', label: 'Newsletter', icon: Send },
     { href: '/admin/settings', label: 'Site Settings', icon: Settings },
