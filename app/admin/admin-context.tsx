@@ -209,6 +209,10 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       if (res.ok) {
         await fetchDashboardData();
         return true;
+      } else if (res.status === 401) {
+        alert('Your admin session has expired. Please sign in again.');
+        handleLogout();
+        return false;
       } else {
         alert('Failed to save site settings');
         return false;

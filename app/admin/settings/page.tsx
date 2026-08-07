@@ -7,7 +7,7 @@ import { Sliders, Languages, Type, Palette, Globe, Save } from 'lucide-react';
 const DEFAULT_GLOBAL_SETTINGS = {
   language: 'en',
   fontFamily: 'Inter',
-  colorTheme: 'warm-amber',
+  colorTheme: 'system',
   siteTitle: "Naim's Portfolio - Full-Stack Developer",
   metaDescription:
     'Full-Stack Developer building scalable AI-powered web applications and robust microservices.',
@@ -17,7 +17,7 @@ const DEFAULT_GLOBAL_SETTINGS = {
 };
 
 const LANGUAGES = [
-  { code: 'en', label: 'English (US)' },
+  { code: 'en', label: 'English (US) - Default' },
   { code: 'es', label: 'Spanish (Español)' },
   { code: 'fr', label: 'French (Français)' },
   { code: 'de', label: 'German (Deutsch)' },
@@ -35,6 +35,7 @@ const FONTS = [
 ];
 
 const COLOR_THEMES = [
+  { id: 'system', label: 'System Theme (Default)', primary: '#0f172a', accent: '#6366f1' },
   { id: 'warm-amber', label: 'Warm Amber & Dark Forest', primary: '#171310', accent: '#b5502f' },
   { id: 'emerald-dark', label: 'Emerald Tech', primary: '#064e3b', accent: '#10b981' },
   { id: 'deep-indigo', label: 'Deep Indigo Modern', primary: '#1e1b4b', accent: '#6366f1' },
