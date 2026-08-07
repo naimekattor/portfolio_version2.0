@@ -1,59 +1,130 @@
 'use client';
 
-import { CheckCircle2, Zap, Shield, BarChart3 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import {
+  Zap,
+  Shield,
+  BarChart3,
+  Code,
+  Cpu,
+  CheckCircle2,
+  Server,
+  Terminal,
+  Wrench,
+  Layers,
+  Sparkles,
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const problems = [
-  {
-    title: "Scalability Bottlenecks",
-    problem: "Legacy systems failing under high traffic loads during peak hours.",
-    solution: "Implemented microservices architecture with Redis caching and horizontal scaling, reducing latency by 60%.",
-    icon: Zap,
-  },
-  {
-    title: "Data Security Risks",
-    problem: "Vulnerable authentication flows and unencrypted sensitive user data.",
-    solution: "Architected a secure OAuth2/OIDC flow with end-to-end encryption and automated security audits.",
-    icon: Shield,
-  },
-  {
-    title: "Inefficient Workflows",
-    problem: "Manual data entry processes costing teams 20+ hours per week.",
-    solution: "Built an AI-powered automation engine that reduced manual effort by 85% using LLM-based extraction.",
-    icon: BarChart3,
-  }
-];
+const ICON_MAP: Record<string, any> = {
+  Zap,
+  Shield,
+  BarChart3,
+  Code,
+  Cpu,
+  CheckCircle2,
+  Server,
+  Terminal,
+  Wrench,
+  Layers,
+  Sparkles,
+};
+
+const DEFAULT_PROBLEM_SOLVING = {
+  sectionTitle: 'Solving Real Problems',
+  sectionSubtitle: "I don't just write code; I engineer solutions that address critical business pain points.",
+  items: [
+    {
+      id: '1',
+      title: 'Scalability Bottlenecks',
+      problem: 'Legacy systems failing under high traffic loads during peak hours.',
+      solution: 'Implemented microservices architecture with Redis caching and horizontal scaling, reducing latency by 60%.',
+      icon: 'Zap',
+    },
+    {
+      id: '2',
+      title: 'Data Security Risks',
+      problem: 'Vulnerable authentication flows and unencrypted sensitive user data.',
+      solution: 'Architected a secure OAuth2/OIDC flow with end-to-end encryption and automated security audits.',
+      icon: 'Shield',
+    },
+    {
+      id: '3',
+      title: 'Inefficient Workflows',
+      problem: 'Manual data entry processes costing teams 20+ hours per week.',
+      solution: 'Built an AI-powered automation engine that reduced manual effort by 85% using LLM-based extraction.',
+      icon: 'BarChart3',
+    },
+  ],
+};
 
 export function ProblemSolving() {
+  const [data, setData] = useState(DEFAULT_PROBLEM_SOLVING);
+
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const res = await fetch('http://localhost:4000/api/v1/site-settings');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data?.problem_solving_section) {
+            setData((prev) => ({
+              ...prev,
+              ...json.data.problem_solving_section,
+            }));
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load problem solving section settings:', err);
+      }
+    }
+    fetchSettings();
+  }, []);
+
   return (
     <section className="py-24 bg-slate-50">
       <div className="container mx-auto px-6">
         <div className="mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Solving Real Problems</h2>
-          <p className="text-slate-600 max-w-2xl">I don't just write code; I engineer solutions that address critical business pain points.</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            {data.sectionTitle}
+          </h2>
+          <p className="text-slate-600 max-w-2xl">{data.sectionSubtitle}</p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
-          {problems.map((item, i) => (
-            <motion.div 
-              key={i}
-              className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center mb-6">
-                <item.icon className="w-6 h-6 text-primary-600" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-4">{item.title}</h3>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">The Problem</p>
-                  <p className="text-slate-600 text-sm leading-relaxed">{item.problem}</p>
+          {data.items?.map((item: any, i: number) => {
+            const IconComponent = ICON_MAP[item.icon] || Zap;
+            return (
+              <motion.div
+                key={item.id || i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center mb-6">
+                  <IconComponent className="w-6 h-6 text-primary-600" />
                 </div>
-                <div>
-                  <p className="text-xs font-bold text-secondary-500 uppercase tracking-wider mb-1">The Solution</p>
-                  <p className="text-slate-900 text-sm font-medium leading-relaxed">{item.solution}</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{item.title}</h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                      The Problem
+                    </p>
+                    <p className="text-slate-600 text-sm leading-relaxed">{item.problem}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-secondary-500 uppercase tracking-wider mb-1">
+                      The Solution
+                    </p>
+                    <p className="text-slate-900 text-sm font-medium leading-relaxed">
+                      {item.solution}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
