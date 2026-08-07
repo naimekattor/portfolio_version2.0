@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { AnimatedGrid } from './ui/grid-background';
-import Link from 'next/link';
-import { useLanguage } from '../context/language-context';
+import { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { AnimatedGrid } from "./ui/grid-background";
+import Link from "next/link";
+import { useLanguage } from "../context/language-context";
 
 const DEFAULT_HERO = {
-  badgeText: 'Available for new projects',
+  badgeText: "Available for new projects",
   badgeDotPulse: true,
-  titleLine1: 'Full-Stack Developer Building',
-  titleHighlight: 'Scalable AI-Powered',
-  titleLine2: 'Web Applications',
+  titleLine1: "Full-Stack Developer Building",
+  titleHighlight: "Scalable AI-Powered",
+  titleLine2: "Web Applications",
   description:
-    'I bridge the gap between complex technical problems and elegant, production-ready solutions that deliver real business value.',
-  primaryCtaText: 'View Projects',
-  primaryCtaLink: '#projects',
-  secondaryCtaText: 'Download Resume',
+    "I bridge the gap between complex technical problems and elegant, production-ready solutions that deliver real business value.",
+  primaryCtaText: "View Projects",
+  primaryCtaLink: "#projects",
+  secondaryCtaText: "Download Resume",
   secondaryCtaLink:
-    'https://drive.google.com/file/d/1wlKh0G_yN_v7uOFnVjonwCqk9_ROxuPB/view?usp=sharing',
+    "https://drive.google.com/file/d/1wlKh0G_yN_v7uOFnVjonwCqk9_ROxuPB/view?usp=sharing",
 };
 
 export function Hero() {
@@ -29,7 +29,7 @@ export function Hero() {
   useEffect(() => {
     async function fetchHeroSettings() {
       try {
-        const res = await fetch('http://localhost:4000/api/v1/site-settings');
+        const res = await fetch("http://localhost:4000/api/v1/site-settings");
         if (res.ok) {
           const json = await res.json();
           if (json.data?.hero_section) {
@@ -37,16 +37,18 @@ export function Hero() {
           }
         }
       } catch (err) {
-        console.error('Failed to load hero settings:', err);
+        console.error("Failed to load hero settings:", err);
       }
     }
     fetchHeroSettings();
   }, []);
 
-  const badgeText = language !== 'en' ? t('hero.badge') : hero.badgeText;
-  const titleLine1 = language !== 'en' ? t('hero.title') : hero.titleLine1;
-  const descriptionText = language !== 'en' ? t('hero.subheading') : hero.description;
-  const primaryCta = language !== 'en' ? t('hero.viewProjects') : hero.primaryCtaText;
+  const badgeText = language !== "en" ? t("hero.badge") : hero.badgeText;
+  const titleLine1 = language !== "en" ? t("hero.title") : hero.titleLine1;
+  const descriptionText =
+    language !== "en" ? t("hero.subheading") : hero.description;
+  const primaryCta =
+    language !== "en" ? t("hero.viewProjects") : hero.primaryCtaText;
 
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
@@ -76,11 +78,13 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-slate-100 leading-tight mb-8"
           >
-            {titleLine1}{' '}
-            {language === 'en' && hero.titleHighlight && (
+            <span className="text-primary-600 dark:text-primary-400">{titleLine1}</span>{" "}
+            {language === "en" && hero.titleHighlight && (
               <span className="text-secondary-600">{hero.titleHighlight} </span>
             )}
-            {language === 'en' && hero.titleLine2}
+            {language === "en" && hero.titleLine2 && (
+              <span className="text-primary-600 dark:text-primary-400">{hero.titleLine2}</span>
+            )}
           </motion.h1>
 
           {descriptionText && (
@@ -101,7 +105,7 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-4"
           >
             {primaryCta && (
-              <Link href={hero.primaryCtaLink || '/projects'}>
+              <Link href={hero.primaryCtaLink || "/projects"}>
                 <button className="px-8 py-4 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all flex items-center justify-center gap-2 group shadow-lg shadow-primary-600/20 w-full sm:w-auto">
                   {primaryCta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl-flip" />
@@ -111,9 +115,11 @@ export function Hero() {
 
             {hero.secondaryCtaText && (
               <a
-                target={hero.secondaryCtaLink?.startsWith('http') ? '_blank' : '_self'}
+                target={
+                  hero.secondaryCtaLink?.startsWith("http") ? "_blank" : "_self"
+                }
                 rel="noopener noreferrer"
-                href={hero.secondaryCtaLink || '#'}
+                href={hero.secondaryCtaLink || "#"}
                 className="inline-block"
               >
                 <button className="px-8 py-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all w-full sm:w-auto">
