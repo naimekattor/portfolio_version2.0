@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import { LanguageProvider } from "../context/language-context";
 import { FloatingSideToolbar } from "../components/floating-side-toolbar";
-
+import { Analytics } from "@vercel/analytics/next";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
