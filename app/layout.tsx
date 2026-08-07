@@ -17,13 +17,41 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Naim's Portfolio | Full Stack Engineer & Web Developer",
-  description: "Showcase of professional expertise in full stack development, cloud architecture, and innovative problem-solving. Explore projects, technical skills, and real-world solutions.",
-  keywords: ["full stack developer", "web developer", "software engineer", "typescript", "react", "next.js"],
-  authors: [{ name: "Naimur Rahman Naim" }],
+  metadataBase: new URL("https://naimdev-hazel.vercel.app/"),
+
+  title: {
+    default: "Naim Hossen | Frontend Developer",
+    template: "%s | Naim Hossen",
+  },
+
+  description:
+    "Naim Hossen is a frontend developer specializing in Next.js, React, TypeScript, and modern web applications.",
+
+  keywords: [
+    "Naim Hossen",
+    "Frontend Developer",
+    "Next.js Developer",
+    "React Developer",
+    "TypeScript Developer",
+  ],
+
+  authors: [
+    {
+      name: "Naim Hossen",
+    },
+  ],
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
   openGraph: {
-    title: "Naim's Portfolio | Full Stack Engineer",
-    description: "Professional portfolio showcasing full stack development expertise and innovative projects.",
+    title: "Naim Hossen | Frontend Developer",
+    description:
+      "Frontend developer specializing in Next.js, React and TypeScript.",
+    url: "https://naimdev-hazel.vercel.app/",
+    siteName: "Naim Hossen",
     type: "website",
   },
 };

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
 import { useLanguage } from "../context/language-context";
@@ -82,13 +82,7 @@ const INITIAL_SKILLS: SkillCategory[] = [
   },
 ];
 
-function SkillBar({
-  level,
-  animate,
-}: {
-  level: number;
-  animate: boolean;
-}) {
+function SkillBar({ level, animate }: { level: number; animate: boolean }) {
   return (
     <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
       <div
@@ -154,20 +148,26 @@ function SkillCard({
             {skill.category}
           </h3>
         </div>
-        <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all duration-300 ${isActive ? "rotate-12 scale-110 bg-primary-50 text-primary-600" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"}`}>
+        <div
+          className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all duration-300 ${isActive ? "rotate-12 scale-110 bg-primary-50 text-primary-600" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"}`}
+        >
           {skill.icon}
         </div>
       </div>
 
       {/* Expanding divider */}
-      <div className={`h-px mb-5 transition-all duration-500 bg-gradient-to-r from-primary-600/40 to-transparent ${isActive ? "w-full" : "w-1/3"}`} />
+      <div
+        className={`h-px mb-5 transition-all duration-500 bg-gradient-to-r from-primary-600/40 to-transparent ${isActive ? "w-full" : "w-1/3"}`}
+      />
 
       {/* Skills List */}
       <div className="space-y-3.5">
         {skill.items.map((item, idx) => (
           <div key={idx} className="group/item">
             <div className="flex items-center justify-between text-xs font-semibold mb-1">
-              <span className={`transition-colors ${item.featured ? "text-slate-900 dark:text-slate-100 font-bold" : "text-slate-600 dark:text-slate-400"}`}>
+              <span
+                className={`transition-colors ${item.featured ? "text-slate-900 dark:text-slate-100 font-bold" : "text-slate-600 dark:text-slate-400"}`}
+              >
                 {item.name}
               </span>
               <span className="text-[10.5px] font-mono font-bold text-primary-600 dark:text-primary-400 ml-2">
@@ -211,7 +211,10 @@ export default function TechnicalExpertise() {
         if (resSet.ok) {
           const jsonSet = await resSet.json();
           if (jsonSet.data?.skills_section_header) {
-            setHeaderInfo((prev) => ({ ...prev, ...jsonSet.data.skills_section_header }));
+            setHeaderInfo((prev) => ({
+              ...prev,
+              ...jsonSet.data.skills_section_header,
+            }));
           }
         }
 
@@ -220,7 +223,8 @@ export default function TechnicalExpertise() {
           if (jsonSkills.data && jsonSkills.data.length > 0) {
             const groupedMap = new Map<string, any[]>();
             jsonSkills.data.forEach((s: any) => {
-              const catName = s.category?.name || s.category || "General Engineering";
+              const catName =
+                s.category?.name || s.category || "General Engineering";
               if (!groupedMap.has(catName)) {
                 groupedMap.set(catName, []);
               }
@@ -248,7 +252,10 @@ export default function TechnicalExpertise() {
           }
         }
       } catch (err) {
-        console.error("Failed to load technical expertise data from backend:", err);
+        console.error(
+          "Failed to load technical expertise data from backend:",
+          err,
+        );
       }
     }
 
@@ -261,7 +268,7 @@ export default function TechnicalExpertise() {
       ? Math.round(
           skillCategories
             .flatMap((s) => s.items)
-            .reduce((a, i) => a + i.level, 0) / totalSkills
+            .reduce((a, i) => a + i.level, 0) / totalSkills,
         )
       : 0;
 
@@ -274,7 +281,7 @@ export default function TechnicalExpertise() {
 
   return (
     <section className="relative py-24 md:py-28 overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div
           className={`flex flex-col items-center text-center mb-16 transition-all duration-900 ${
@@ -283,20 +290,27 @@ export default function TechnicalExpertise() {
         >
           <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-5 px-4.5 py-1.5 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
             <span className="w-1.5 h-1.5 rounded-full bg-primary-600 inline-block" />
-            {language !== 'en' ? t('expertise.badge') : headerInfo.badge || "Technical Stack"}
+            {language !== "en"
+              ? t("expertise.badge")
+              : headerInfo.badge || "Technical Stack"}
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4 max-w-3xl">
-            {language !== 'en' ? t('expertise.title') : (
+            {language !== "en" ? (
+              t("expertise.title")
+            ) : (
               <>
-                Built to Scale. <span className="text-primary-600">Wired to Deliver.</span>
+                Built to Scale.{" "}
+                <span className="text-primary-600">Wired to Deliver.</span>
               </>
             )}
           </h2>
 
           <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-medium">
-            {language !== 'en' ? t('expertise.subheading') : headerInfo.subheading ||
-              "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered."}
+            {language !== "en"
+              ? t("expertise.subheading")
+              : headerInfo.subheading ||
+                "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered."}
           </p>
 
           {/* Stats */}

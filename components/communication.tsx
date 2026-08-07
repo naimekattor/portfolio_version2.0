@@ -1,26 +1,28 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useLanguage } from '../context/language-context';
-import { BookOpen, ArrowRight, Clock, Calendar, FileText } from 'lucide-react';
-import Link from 'next/link';
+import { useState, useEffect } from "react";
+import { useLanguage } from "../context/language-context";
+import { BookOpen, ArrowRight, Clock, Calendar, FileText } from "lucide-react";
+import Link from "next/link";
 
 const INITIAL_BLOG_POSTS = [
   {
-    title: 'Architecting for Scale: Lessons from 1M Users',
-    excerpt: 'How we handled a sudden 10x traffic spike without downtime using serverless functions and edge caching.',
-    date: 'Oct 12, 2023',
-    readTime: '8 min read',
-    tag: 'Infrastructure',
-    url: '/blogs/architecting-for-scale',
+    title: "Architecting for Scale: Lessons from 1M Users",
+    excerpt:
+      "How we handled a sudden 10x traffic spike without downtime using serverless functions and edge caching.",
+    date: "Oct 12, 2023",
+    readTime: "8 min read",
+    tag: "Infrastructure",
+    url: "/blogs/architecting-for-scale",
   },
   {
-    title: 'The Future of AI Workflows in Web Development',
-    excerpt: 'Beyond simple chatbots: Integrating LLMs directly into core application business logic for smarter user experiences.',
-    date: 'Sep 28, 2023',
-    readTime: '6 min read',
-    tag: 'AI / LLM',
-    url: '/blogs/future-of-ai-workflows',
+    title: "The Future of AI Workflows in Web Development",
+    excerpt:
+      "Beyond simple chatbots: Integrating LLMs directly into core application business logic for smarter user experiences.",
+    date: "Sep 28, 2023",
+    readTime: "6 min read",
+    tag: "AI / LLM",
+    url: "/blogs/future-of-ai-workflows",
   },
 ];
 
@@ -29,13 +31,13 @@ export default function Communication() {
   const [visible, setVisible] = useState(false);
   const [posts, setPosts] = useState<any[]>(INITIAL_BLOG_POSTS);
   const [headerInfo, setHeaderInfo] = useState({
-    badge: 'Writing & Insights',
-    title: 'Technical Communication',
+    badge: "Writing & Insights",
+    title: "Technical Communication",
     subheading:
-      'I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations.',
-    buttonText: 'Read all posts',
-    buttonUrl: '/blogs',
-    bottomStripText: 'More articles coming soon',
+      "I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations.",
+    buttonText: "Read all posts",
+    buttonUrl: "/blogs",
+    bottomStripText: "More articles coming soon",
   });
 
   useEffect(() => {
@@ -47,14 +49,17 @@ export default function Communication() {
     async function fetchData() {
       try {
         const [resBlogs, resSet] = await Promise.all([
-          fetch('http://localhost:4000/api/v1/blogs'),
-          fetch('http://localhost:4000/api/v1/site-settings'),
+          fetch("http://localhost:4000/api/v1/blogs"),
+          fetch("http://localhost:4000/api/v1/site-settings"),
         ]);
 
         if (resSet.ok) {
           const jsonSet = await resSet.json();
           if (jsonSet.data?.blogs_section_header) {
-            setHeaderInfo((prev) => ({ ...prev, ...jsonSet.data.blogs_section_header }));
+            setHeaderInfo((prev) => ({
+              ...prev,
+              ...jsonSet.data.blogs_section_header,
+            }));
           }
         }
 
@@ -63,27 +68,31 @@ export default function Communication() {
           if (jsonBlogs.data && jsonBlogs.data.length > 0) {
             const formatted = jsonBlogs.data.map((b: any, idx: number) => {
               const formattedDate = b.publishedAt
-                ? new Date(b.publishedAt).toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
+                ? new Date(b.publishedAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
                   })
-                : 'Oct 12, 2023';
+                : "Oct 12, 2023";
 
               return {
                 title: b.title,
                 excerpt: b.excerpt || b.content,
                 date: formattedDate,
-                readTime: b.readingTime ? `${b.readingTime} min read` : '5 min read',
-                tag: b.category?.name || (idx % 2 === 0 ? 'Infrastructure' : 'AI / LLM'),
-                url: b.slug ? `/blogs/${b.slug}` : '/blogs',
+                readTime: b.readingTime
+                  ? `${b.readingTime} min read`
+                  : "5 min read",
+                tag:
+                  b.category?.name ||
+                  (idx % 2 === 0 ? "Infrastructure" : "AI / LLM"),
+                url: b.slug ? `/blogs/${b.slug}` : "/blogs",
               };
             });
             setPosts(formatted);
           }
         }
       } catch (err) {
-        console.error('Failed to load blog section data:', err);
+        console.error("Failed to load blog section data:", err);
       }
     }
 
@@ -92,36 +101,47 @@ export default function Communication() {
 
   return (
     <section className="relative py-24 md:py-28 overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div
           className={`flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8 transition-all duration-900 ${
-            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
           <div className="max-w-xl">
             <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-4 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-600 inline-block" />
-              {language !== 'en' ? t('blogsSection.badge') : headerInfo.badge || 'Writing & Insights'}
+              {language !== "en"
+                ? t("blogsSection.badge")
+                : headerInfo.badge || "Writing & Insights"}
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
-              {language !== 'en' ? t('blogsSection.title') : (
+              {language !== "en" ? (
+                t("blogsSection.title")
+              ) : (
                 <>
-                  Technical <span className="text-primary-600">Communication & Insights</span>
+                  Technical{" "}
+                  <span className="text-primary-600">
+                    Communication & Insights
+                  </span>
                 </>
               )}
             </h2>
 
             <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-              {language !== 'en' ? t('blogsSection.subheading') : headerInfo.subheading ||
-                'I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations.'}
+              {language !== "en"
+                ? t("blogsSection.subheading")
+                : headerInfo.subheading ||
+                  "I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations."}
             </p>
           </div>
 
           <Link href="/blogs">
             <button className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white transition-all shadow-md">
-              {language !== 'en' ? t('blogsSection.readAll') : headerInfo.buttonText || 'Read all posts'}
+              {language !== "en"
+                ? t("blogsSection.readAll")
+                : headerInfo.buttonText || "Read all posts"}
               <ArrowRight className="w-4 h-4 rtl-flip" />
             </button>
           </Link>
@@ -172,7 +192,9 @@ export default function Communication() {
         <div className="flex items-center justify-center gap-5 mt-14">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-300 dark:to-slate-800" />
           <span className="text-[10px] font-bold tracking-[3px] uppercase text-slate-400 dark:text-slate-500 whitespace-nowrap">
-            {language !== 'en' ? t('blogsSection.comingSoon') : headerInfo.bottomStripText || 'More articles coming soon'}
+            {language !== "en"
+              ? t("blogsSection.comingSoon")
+              : headerInfo.bottomStripText || "More articles coming soon"}
           </span>
           <div className="h-px flex-1 bg-gradient-to-r from-slate-300 dark:from-slate-800 to-transparent" />
         </div>

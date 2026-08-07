@@ -1,20 +1,49 @@
-'use client';
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../context/language-context";
 
 const metrics = [
-  { value: 60, suffix: "%", label: "Latency Reduction", sub: "Across core API endpoints", prefix: "" },
-  { value: 85, suffix: "%", label: "Process Automation", sub: "Manual tasks eliminated", prefix: "" },
-  { value: 180, suffix: "k", label: "Annual Cost Savings", sub: "Infrastructure optimization", prefix: "$" },
-  { value: 2.4, suffix: "x", label: "User Growth", sub: "Post-redesign performance", prefix: "" },
+  {
+    value: 60,
+    suffix: "%",
+    label: "Latency Reduction",
+    sub: "Across core API endpoints",
+    prefix: "",
+  },
+  {
+    value: 85,
+    suffix: "%",
+    label: "Process Automation",
+    sub: "Manual tasks eliminated",
+    prefix: "",
+  },
+  {
+    value: 180,
+    suffix: "k",
+    label: "Annual Cost Savings",
+    sub: "Infrastructure optimization",
+    prefix: "$",
+  },
+  {
+    value: 2.4,
+    suffix: "x",
+    label: "User Growth",
+    sub: "Post-redesign performance",
+    prefix: "",
+  },
 ];
 
 function easeOutExpo(t: number) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }
 
-function useCountUp(target: number, duration = 1600, decimals = 0, start = false) {
+function useCountUp(
+  target: number,
+  duration = 1600,
+  decimals = 0,
+  start = false,
+) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -116,7 +145,7 @@ export function BusinessValue() {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => {
@@ -125,9 +154,14 @@ export function BusinessValue() {
     };
   }, []);
 
-  const badgeText = language !== 'en' ? t('businessValue.badge') : 'Impact & Results';
-  const titleText = language !== 'en' ? t('businessValue.title') : 'Delivering Business Value';
-  const subtitleText = language !== 'en' ? t('businessValue.subheading') : 'Work measured by real impact — on the bottom line and the people who use it.';
+  const badgeText =
+    language !== "en" ? t("businessValue.badge") : "Impact & Results";
+  const titleText =
+    language !== "en" ? t("businessValue.title") : "Delivering Business Value";
+  const subtitleText =
+    language !== "en"
+      ? t("businessValue.subheading")
+      : "Work measured by real impact — on the bottom line and the people who use it.";
 
   return (
     <section
@@ -135,7 +169,7 @@ export function BusinessValue() {
       id="value"
       className="relative py-24 md:py-28 overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300"
     >
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div
           className={`flex flex-col items-center text-center mb-16 transition-all duration-900 ${
@@ -148,9 +182,14 @@ export function BusinessValue() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
-            {language !== 'en' ? t('businessValue.title') : (
+            {language !== "en" ? (
+              t("businessValue.title")
+            ) : (
               <>
-                Delivering <span className="text-primary-600">Measurable Business Value</span>
+                Delivering{" "}
+                <span className="text-primary-600">
+                  Measurable Business Value
+                </span>
               </>
             )}
           </h2>
