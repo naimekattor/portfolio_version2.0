@@ -48,16 +48,46 @@
   }
 }
 
-/* Force light mode regardless of browser dark mode preference */
-@media (prefers-color-scheme: dark) {
-  html {
-    background-color: white !important;
-  }
-  
-  body {
-    background-color: white !important;
-    color: rgb(15, 23, 42) !important;
-  }
+/* Dynamic Theme Variables */
+:root {
+  --primary-color: #174d4d;
+  --secondary-color: #a67a3b;
+}
+
+[data-theme="emerald-tech"] {
+  --primary-color: #065f46;
+  --secondary-color: #10b981;
+}
+
+[data-theme="deep-indigo"] {
+  --primary-color: #4338ca;
+  --secondary-color: #6366f1;
+}
+
+[data-theme="slate-minimal"] {
+  --primary-color: #0f172a;
+  --secondary-color: #0284c7;
+}
+
+[data-theme="sunset-purple"] {
+  --primary-color: #6b21a8;
+  --secondary-color: #a855f7;
+}
+
+[data-theme="warm-amber"] {
+  --primary-color: #174d4d;
+  --secondary-color: #a67a3b;
+}
+
+/* Dark mode styling overrides */
+html.dark {
+  background-color: #0b0f17 !important;
+  color: #f8fafc !important;
+}
+
+html.dark body {
+  background-color: #0b0f17 !important;
+  color: #f8fafc !important;
 }
 
 /* Animated Grid Styles */
