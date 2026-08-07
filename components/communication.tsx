@@ -118,7 +118,7 @@ export default function Communication() {
           <Link href="/blogs">
             <button className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white transition-all shadow-md">
               {language !== 'en' ? t('blogsSection.readAll') : headerInfo.buttonText || 'Read all posts'}
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 rtl-flip" />
             </button>
           </Link>
         </div>
@@ -157,7 +157,7 @@ export default function Communication() {
                   href={post.url}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 dark:text-primary-400 group-hover:translate-x-1 transition-all"
                 >
-                  Read Article <ArrowRight className="w-3.5 h-3.5" />
+                  Read Article <ArrowRight className="w-3.5 h-3.5 rtl-flip" />
                 </Link>
               </div>
             </div>

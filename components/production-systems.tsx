@@ -2,24 +2,31 @@
 
 import { Server, Database, Cpu, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/language-context';
 
 export function ProductionSystems() {
+  const { t } = useLanguage();
+
+  const systemItems = [
+    { icon: Server, label: t('productionSystems.microservices'), desc: "Node.js & Go" },
+    { icon: Database, label: t('productionSystems.dataLayer'), desc: "PostgreSQL & Redis" },
+    { icon: Cpu, label: t('productionSystems.aiIntegration'), desc: "OpenAI & LangChain" },
+    { icon: Globe, label: t('productionSystems.edgeComputing'), desc: "Next.js & Vercel" }
+  ];
+
   return (
     <section className="py-24 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="lg:w-1/2">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-6">Production-Ready Systems</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-6">
+              {t('productionSystems.title')}
+            </h2>
             <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
-              I specialize in building robust, distributed systems that are designed for high availability, security, and maintainability. My architecture decisions are driven by performance metrics and long-term scalability.
+              {t('productionSystems.subheading')}
             </p>
             <div className="grid grid-cols-2 gap-6">
-              {[
-                { icon: Server, label: "Microservices", desc: "Node.js & Go" },
-                { icon: Database, label: "Data Layer", desc: "PostgreSQL & Redis" },
-                { icon: Cpu, label: "AI Integration", desc: "OpenAI & LangChain" },
-                { icon: Globe, label: "Edge Computing", desc: "Next.js & Vercel" }
-              ].map((item, i) => (
+              {systemItems.map((item, i) => (
                 <div key={i} className="flex gap-4">
                   <div className="flex-shrink-0 w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center">
                     <item.icon className="w-5 h-5 text-slate-600 dark:text-slate-300" />

@@ -58,15 +58,15 @@ export function FeaturedProjects() {
         <motion.div className="flex justify-between items-end mb-16">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-              Featured Projects
+              {t('featuredProjects.title')}
             </h2>
             <p className="text-slate-600 dark:text-slate-300 max-w-2xl">
-              Deep dives into how I deliver value through technology.
+              {t('featuredProjects.subheading')}
             </p>
           </div>
           <Link href="/projects">
             <button className="hidden md:block text-primary-600 font-semibold hover:underline">
-              View all projects
+              {t('featuredProjects.viewAll')}
             </button>
           </Link>
         </motion.div>

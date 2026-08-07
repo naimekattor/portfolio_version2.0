@@ -19,6 +19,19 @@
     "title": "Engineering Custom Platforms & AI Systems",
     "subheading": "Custom web platforms, intelligent AI agents, EdTech school systems, and end-to-end social media automation."
   },
+  "featuredProjects": {
+    "title": "Featured Projects",
+    "subheading": "Deep dives into how I deliver value through technology.",
+    "viewAll": "View all projects"
+  },
+  "productionSystems": {
+    "title": "Production-Ready Systems",
+    "subheading": "I specialize in building robust, distributed systems that are designed for high availability, security, and maintainability. My architecture decisions are driven by performance metrics and long-term scalability.",
+    "microservices": "Microservices",
+    "dataLayer": "Data Layer",
+    "aiIntegration": "AI Integration",
+    "edgeComputing": "Edge Computing"
+  },
   "problems": {
     "badge": "Case Studies & Problem Solving",
     "title": "Solving Real-World Technical Challenges",

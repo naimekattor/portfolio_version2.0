@@ -124,6 +124,14 @@ export function ServicesSection() {
         <div className="grid md:grid-cols-3 gap-8">
           {data.items?.map((item: any, i: number) => {
             const IconComponent = ICON_MAP[item.icon] || Code;
+            const itemKey = String(i + 1);
+            const itemTitle = language !== 'en' && t(`serviceItems.${itemKey}.title`) !== `serviceItems.${itemKey}.title`
+              ? t(`serviceItems.${itemKey}.title`)
+              : item.title;
+            const itemDesc = language !== 'en' && t(`serviceItems.${itemKey}.description`) !== `serviceItems.${itemKey}.description`
+              ? t(`serviceItems.${itemKey}.description`)
+              : item.description;
+
             return (
               <motion.div
                 key={item.id || i}
@@ -131,17 +139,17 @@ export function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-slate-50 hover:bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
+                className="bg-slate-50 dark:bg-slate-800/60 hover:bg-white dark:hover:bg-slate-800 p-8 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
               >
                 <div>
                   <div className="w-14 h-14 bg-primary-600 group-hover:bg-secondary-500 rounded-2xl flex items-center justify-center mb-6 text-white transition-colors duration-300 shadow-md">
                     <IconComponent className="w-7 h-7" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-primary-600 transition-colors">
-                    {item.title}
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-primary-600 transition-colors">
+                    {itemTitle}
                   </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                    {item.description}
+                  <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                    {itemDesc}
                   </p>
                 </div>
 

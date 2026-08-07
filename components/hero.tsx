@@ -49,7 +49,7 @@ export function Hero() {
   const primaryCta = language !== 'en' ? t('hero.viewProjects') : hero.primaryCtaText;
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <AnimatedGrid className="z-0" />
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl">
@@ -58,7 +58,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-50 border border-secondary-100 text-secondary-600 text-xs font-bold uppercase tracking-wider mb-6"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-50 dark:bg-slate-900 border border-secondary-100 dark:border-slate-800 text-secondary-600 dark:text-secondary-400 text-xs font-bold uppercase tracking-wider mb-6"
             >
               {hero.badgeDotPulse && (
                 <span className="relative flex h-2 w-2">
@@ -74,7 +74,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold text-primary-600 leading-tight mb-8"
+            className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-slate-100 leading-tight mb-8"
           >
             {titleLine1}{' '}
             {language === 'en' && hero.titleHighlight && (
@@ -88,7 +88,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl text-primary-600 mb-10 max-w-2xl leading-relaxed"
+              className="text-xl text-slate-600 dark:text-slate-300 mb-10 max-w-2xl leading-relaxed"
             >
               {descriptionText}
             </motion.p>
@@ -104,7 +104,7 @@ export function Hero() {
               <Link href={hero.primaryCtaLink || '/projects'}>
                 <button className="px-8 py-4 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all flex items-center justify-center gap-2 group shadow-lg shadow-primary-600/20 w-full sm:w-auto">
                   {primaryCta}
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl-flip" />
                 </button>
               </Link>
             )}
@@ -116,7 +116,7 @@ export function Hero() {
                 href={hero.secondaryCtaLink || '#'}
                 className="inline-block"
               >
-                <button className="px-8 py-4 bg-white text-primary-600 font-semibold rounded-xl border border-primary-100 hover:border-primary-200 hover:bg-primary-50 transition-all w-full sm:w-auto">
+                <button className="px-8 py-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-semibold rounded-xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all w-full sm:w-auto">
                   {hero.secondaryCtaText}
                 </button>
               </a>

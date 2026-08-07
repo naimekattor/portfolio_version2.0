@@ -221,6 +221,7 @@ export function CTA() {
                     <input
                       type="text"
                       name="name"
+                      dir="auto"
                       required
                       placeholder="Jane Doe"
                       value={form.name}
@@ -236,6 +237,7 @@ export function CTA() {
                     <input
                       type="email"
                       name="email"
+                      dir="auto"
                       required
                       placeholder="jane@company.com"
                       value={form.email}
@@ -253,6 +255,7 @@ export function CTA() {
                     <input
                       type="text"
                       name="company"
+                      dir="auto"
                       placeholder="Acme Corp"
                       value={form.company}
                       onChange={handleChange}
@@ -267,6 +270,7 @@ export function CTA() {
                     <input
                       type="text"
                       name="phone"
+                      dir="auto"
                       placeholder="+1 (555) 000-0000"
                       value={form.phone}
                       onChange={handleChange}
@@ -343,6 +347,7 @@ export function CTA() {
                   </label>
                   <textarea
                     name="message"
+                    dir="auto"
                     required
                     rows={4}
                     placeholder="Tell me about your project goals, scope, timeline, or requirements..."
@@ -363,7 +368,7 @@ export function CTA() {
                   ) : (
                     <>
                       {mode === 'call' ? t('cta.scheduleBtn') : t('cta.submitBtn')}
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4 rtl-flip" />
                     </>
                   )}
                 </button>

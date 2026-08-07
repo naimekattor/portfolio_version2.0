@@ -40,11 +40,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const updateAttributes = (lang: Language) => {
     document.documentElement.setAttribute('lang', lang);
-    if (lang === 'ar') {
-      document.documentElement.setAttribute('dir', 'rtl');
-    } else {
-      document.documentElement.setAttribute('dir', 'ltr');
-    }
+    // Keep root visual DOM layout direction strictly LTR to preserve approved design composition (no UI mirroring)
+    document.documentElement.setAttribute('dir', 'ltr');
   };
 
   useEffect(() => {
@@ -52,6 +49,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     if (stored && MESSAGES_MAP[stored]) {
       setLanguageState(stored);
       updateAttributes(stored);
+    } else if (typeof navigator !== 'undefined' && navigator.language) {
+      const browserLang = navigator.language.split('-')[0] as Language;
+      if (MESSAGES_MAP[browserLang]) {
+        setLanguageState(browserLang);
+        updateAttributes(browserLang);
+      } else {
+        updateAttributes('en');
+      }
     }
   }, []);
 

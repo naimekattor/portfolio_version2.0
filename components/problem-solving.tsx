@@ -102,6 +102,17 @@ export function ProblemSolving() {
         <div className="grid md:grid-cols-3 gap-8">
           {data.items?.map((item: any, i: number) => {
             const IconComponent = ICON_MAP[item.icon] || Zap;
+            const itemKey = String(i + 1);
+            const itemTitle = language !== 'en' && t(`problemItems.${itemKey}.title`) !== `problemItems.${itemKey}.title`
+              ? t(`problemItems.${itemKey}.title`)
+              : item.title;
+            const itemProblem = language !== 'en' && t(`problemItems.${itemKey}.problem`) !== `problemItems.${itemKey}.problem`
+              ? t(`problemItems.${itemKey}.problem`)
+              : item.problem;
+            const itemSolution = language !== 'en' && t(`problemItems.${itemKey}.solution`) !== `problemItems.${itemKey}.solution`
+              ? t(`problemItems.${itemKey}.solution`)
+              : item.solution;
+
             return (
               <motion.div
                 key={item.id || i}
@@ -109,25 +120,25 @@ export function ProblemSolving() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center mb-6">
+                <div className="w-12 h-12 bg-primary-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-6">
                   <IconComponent className="w-6 h-6 text-primary-600" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-4">{item.title}</h3>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">{itemTitle}</h3>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
-                      The Problem
+                    <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">
+                      {language === 'ar' ? 'المشكلة' : 'The Problem'}
                     </p>
-                    <p className="text-slate-600 text-sm leading-relaxed">{item.problem}</p>
+                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{itemProblem}</p>
                   </div>
                   <div>
                     <p className="text-xs font-bold text-secondary-500 uppercase tracking-wider mb-1">
-                      The Solution
+                      {language === 'ar' ? 'الحل الهندسي' : 'The Solution'}
                     </p>
-                    <p className="text-slate-900 text-sm font-medium leading-relaxed">
-                      {item.solution}
+                    <p className="text-slate-900 dark:text-slate-100 text-sm font-medium leading-relaxed">
+                      {itemSolution}
                     </p>
                   </div>
                 </div>

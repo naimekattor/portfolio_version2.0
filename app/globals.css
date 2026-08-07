@@ -45,6 +45,11 @@
   .text-balance { 
     text-wrap: balance; 
   }
+  
+  /* RTL Action Arrow Flip */
+  html[dir="rtl"] .rtl-flip {
+    transform: scaleX(-1);
+  }
 }
 
 /* Dynamic Theme Variables */
