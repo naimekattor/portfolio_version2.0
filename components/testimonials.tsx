@@ -91,7 +91,6 @@ export function Testimonials() {
           }
           if (json.data?.testimonials_items && Array.isArray(json.data.testimonials_items) && json.data.testimonials_items.length > 0) {
             setTestimonials(json.data.testimonials_items);
-            emblaApi?.reInit();
           }
         }
       } catch (err) {
@@ -101,6 +100,10 @@ export function Testimonials() {
 
     fetchSettings();
   }, [emblaApi]);
+
+  useEffect(() => {
+    emblaApi?.reInit();
+  }, [emblaApi, testimonials]);
 
   useEffect(() => {
     if (!emblaApi) return;
