@@ -59,6 +59,26 @@
     "submitBtn": "Enviar Mensaje",
     "scheduleBtn": "Confirmar Cita"
   },
+  "projectsPage": {
+    "badge": "Escaparate de Portafolio",
+    "title": "Proyectos Destacados de Ingeniería",
+    "subheading": "Explora aplicaciones web en producción, integraciones de IA, microservicios y soluciones full-stack creadas para un impacto real.",
+    "searchPlaceholder": "Buscar por título o tecnología...",
+    "liveDemo": "Demo en Vivo",
+    "internalProject": "Proyecto Interno",
+    "noProjectsTitle": "No se encontraron proyectos",
+    "noProjectsSub": "Intenta ajustar tu filtro de búsqueda o categoría."
+  },
+  "blogsPage": {
+    "badge": "Escritos e Ideas Técnicas",
+    "title": "Artículos y Reflexiones sobre Ingeniería de Sistemas",
+    "subheading": "Ensayos detallados sobre rendimiento web, arquitectura de sistemas, flujos de trabajo de IA y microservicios.",
+    "searchPlaceholder": "Buscar artículos...",
+    "minRead": "min de lectura",
+    "readArticle": "Leer Artículo",
+    "noArticlesTitle": "No se encontraron artículos",
+    "noArticlesSub": "Intenta ajustar tu consulta de búsqueda."
+  },
   "footer": {
     "rights": "Todos los derechos reservados.",
     "builtWith": "Construido con Next.js, TypeScript y Tailwind CSS"

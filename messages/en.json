@@ -59,6 +59,26 @@
     "submitBtn": "Send Message",
     "scheduleBtn": "Confirm Appointment"
   },
+  "projectsPage": {
+    "badge": "Portfolio Showcase",
+    "title": "Featured Engineering Projects",
+    "subheading": "Explore production web applications, AI integrations, microservice systems, and full-stack solutions built for real business impact.",
+    "searchPlaceholder": "Search by title or tech...",
+    "liveDemo": "Live Demo",
+    "internalProject": "Internal Project",
+    "noProjectsTitle": "No Projects Found",
+    "noProjectsSub": "Try adjusting your search filter or category selection."
+  },
+  "blogsPage": {
+    "badge": "Writing & Technical Insights",
+    "title": "Articles & System Engineering Thoughts",
+    "subheading": "In-depth essays on web performance, system architecture, AI workflows, microservices, and modern frontend development.",
+    "searchPlaceholder": "Search articles...",
+    "minRead": "min read",
+    "readArticle": "Read Article",
+    "noArticlesTitle": "No Articles Found",
+    "noArticlesSub": "Try adjusting your search query or tag selection."
+  },
   "footer": {
     "rights": "All rights reserved.",
     "builtWith": "Built with Next.js, TypeScript & Tailwind CSS"

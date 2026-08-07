@@ -6,12 +6,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/language-context';
 
 const COLOR_THEMES = [
-  { id: 'system', name: 'System Default', color: '#174d4d', badge: 'Auto' },
-  { id: 'warm-amber', name: 'Warm Amber', color: '#b5502f', badge: 'Amber' },
-  { id: 'emerald-tech', name: 'Emerald Tech', color: '#10b981', badge: 'Emerald' },
-  { id: 'deep-indigo', name: 'Deep Indigo', color: '#6366f1', badge: 'Indigo' },
-  { id: 'slate-minimal', name: 'Minimalist Slate', color: '#38bdf8', badge: 'Slate' },
-  { id: 'sunset-purple', name: 'Sunset Violet', color: '#a855f7', badge: 'Violet' },
+  { id: 'system', name: 'System Default', color: '#174d4d', primary: '#174d4d', secondary: '#a67a3b' },
+  { id: 'warm-amber', name: 'Warm Amber', color: '#b5502f', primary: '#b5502f', secondary: '#174d4d' },
+  { id: 'emerald-tech', name: 'Emerald Tech', color: '#10b981', primary: '#065f46', secondary: '#10b981' },
+  { id: 'deep-indigo', name: 'Deep Indigo', color: '#6366f1', primary: '#4338ca', secondary: '#6366f1' },
+  { id: 'slate-minimal', name: 'Minimalist Slate', color: '#38bdf8', primary: '#0f172a', secondary: '#0284c7' },
+  { id: 'sunset-purple', name: 'Sunset Violet', color: '#a855f7', primary: '#6b21a8', secondary: '#a855f7' },
 ];
 
 const LANGUAGES = [
@@ -28,33 +28,35 @@ export function FloatingSideToolbar() {
   const [activePanel, setActivePanel] = useState<'theme' | 'language' | null>(null);
   const [selectedTheme, setSelectedTheme] = useState('system');
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const applyThemeColors = (themeId: string) => {
+    const themeObj = COLOR_THEMES.find((t) => t.id === themeId) || COLOR_THEMES[0];
+    document.documentElement.setAttribute('data-theme', themeId);
+    document.documentElement.style.setProperty('--primary-color', themeObj.primary);
+    document.documentElement.style.setProperty('--secondary-color', themeObj.secondary);
+    document.documentElement.style.setProperty('--color-primary-600', themeObj.primary);
+    document.documentElement.style.setProperty('--color-secondary-600', themeObj.secondary);
+    document.documentElement.style.setProperty('--color-primary-500', themeObj.primary);
+    document.documentElement.style.setProperty('--color-secondary-500', themeObj.secondary);
+  };
 
   useEffect(() => {
-    // Load stored theme & dark mode
     const storedTheme = localStorage.getItem('user_color_theme') || 'system';
     const storedDark = localStorage.getItem('user_dark_mode') === 'true';
 
     setSelectedTheme(storedTheme);
-    document.documentElement.setAttribute('data-theme', storedTheme);
+    applyThemeColors(storedTheme);
 
     setIsDarkMode(storedDark);
     if (storedDark) {
       document.documentElement.classList.add('dark');
     }
-
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleThemeSelect = (themeId: string) => {
     setSelectedTheme(themeId);
     localStorage.setItem('user_color_theme', themeId);
-    document.documentElement.setAttribute('data-theme', themeId);
+    applyThemeColors(themeId);
     setActivePanel(null);
   };
 
@@ -206,19 +208,17 @@ export function FloatingSideToolbar() {
           </span>
         </button>
 
-        {/* Scroll To Top Button */}
-        {showScrollTop && (
-          <button
-            onClick={scrollToTop}
-            title="Scroll to Top"
-            className="p-3.5 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 transition-colors relative group"
-          >
-            <ArrowUp className="w-5 h-5" />
-            <span className="absolute right-full mr-2.5 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-900 text-white text-[11px] font-semibold rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md">
-              Scroll to Top
-            </span>
-          </button>
-        )}
+        {/* Permanent Scroll To Top Button */}
+        <button
+          onClick={scrollToTop}
+          title="Scroll to Top"
+          className="p-3.5 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 transition-colors relative group"
+        >
+          <ArrowUp className="w-5 h-5" />
+          <span className="absolute right-full mr-2.5 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-900 text-white text-[11px] font-semibold rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-md">
+            Scroll to Top
+          </span>
+        </button>
       </div>
     </div>
   );

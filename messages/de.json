@@ -59,6 +59,26 @@
     "submitBtn": "Nachricht Absenden",
     "scheduleBtn": "Termin Bestätigen"
   },
+  "projectsPage": {
+    "badge": "Portfolio-Übersicht",
+    "title": "Ausgewählte Entwicklungsprojekte",
+    "subheading": "Entdecken Sie produktive Webanwendungen, KI-Integrationen und Mikrodienste mit messbarem Wert.",
+    "searchPlaceholder": "Nach Titel oder Technologie suchen...",
+    "liveDemo": "Live-Demo",
+    "internalProject": "Internes Projekt",
+    "noProjectsTitle": "Keine Projekte gefunden",
+    "noProjectsSub": "Versuchen Sie, Ihre Suchfilter anzupassen."
+  },
+  "blogsPage": {
+    "badge": "Artikel & Technische Einblicke",
+    "title": "Artikel & Gedanken zur Systemtechnik",
+    "subheading": "Ausführliche Essays über Web-Performance, Systemarchitektur und KI-Workflows.",
+    "searchPlaceholder": "Artikel suchen...",
+    "minRead": "Min. Lesezeit",
+    "readArticle": "Artikel Lesen",
+    "noArticlesTitle": "Keine Artikel gefunden",
+    "noArticlesSub": "Versuchen Sie, Ihre Suchanfrage anzupassen."
+  },
   "footer": {
     "rights": "Alle Rechte vorbehalten.",
     "builtWith": "Erstellt mit Next.js, TypeScript & Tailwind CSS"

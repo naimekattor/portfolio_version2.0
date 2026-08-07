@@ -63,7 +63,10 @@ function StarRow({ color }: { color: string }) {
   );
 }
 
+import { useLanguage } from '../context/language-context';
+
 export function Testimonials() {
+  const { t, language } = useLanguage();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' }, [
     Autoplay({ delay: 4500, stopOnInteraction: false, stopOnMouseEnter: true }),
   ]);
@@ -117,6 +120,10 @@ export function Testimonials() {
 
   const scrollTo = useCallback((i: number) => emblaApi?.scrollTo(i), [emblaApi]);
 
+  const badgeText = language !== 'en' ? t('testimonialsSection.badge') : headerInfo.badge || 'Client Stories';
+  const titleText = language !== 'en' ? t('testimonialsSection.title') : headerInfo.title || 'Trusted by Teams that Ship';
+  const subtitleText = language !== 'en' ? t('testimonialsSection.subheading') : headerInfo.subheading || 'Real words from the people behind the products.';
+
   return (
     <section className="py-24 bg-gradient-to-b from-slate-50 via-slate-100/60 to-slate-50 relative overflow-hidden">
       {/* Ambient background glows */}
@@ -132,15 +139,15 @@ export function Testimonials() {
         >
           <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-5 px-4.5 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
             <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
-            {headerInfo.badge || 'Client Stories'}
+            {badgeText}
           </div>
 
           <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-            {headerInfo.title || 'Trusted by Teams that Ship'}
+            {titleText}
           </h2>
 
           <p className="text-base md:text-lg text-slate-600 max-w-md leading-relaxed font-medium">
-            {headerInfo.subheading || 'Real words from the people behind the products.'}
+            {subtitleText}
           </p>
         </div>
 

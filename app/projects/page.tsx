@@ -5,6 +5,7 @@ import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
 import { Search, ExternalLink, Github, Sparkles, FolderGit2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/language-context';
 
 const DEFAULT_PROJECTS = [
   {
@@ -49,6 +50,7 @@ const DEFAULT_PROJECTS = [
 ];
 
 export default function ProjectsPage() {
+  const { t } = useLanguage();
   const [projects, setProjects] = useState<any[]>(DEFAULT_PROJECTS);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -97,13 +99,13 @@ export default function ProjectsPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-xs font-bold uppercase tracking-wider mb-4">
-              <FolderGit2 className="w-3.5 h-3.5" /> Portfolio Showcase
+              <FolderGit2 className="w-3.5 h-3.5" /> {t('projectsPage.badge')}
             </div>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-4">
-              Featured Engineering Projects
+              {t('projectsPage.title')}
             </h1>
             <p className="text-lg text-slate-600 leading-relaxed">
-              Explore production web applications, AI integrations, microservice systems, and full-stack solutions built for real business impact.
+              {t('projectsPage.subheading')}
             </p>
           </div>
         </div>
@@ -134,7 +136,7 @@ export default function ProjectsPage() {
             <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Search by title or tech..."
+              placeholder={t('projectsPage.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-primary-600 transition-colors shadow-2xs"
@@ -213,10 +215,10 @@ export default function ProjectsPage() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-primary-600 hover:text-primary-800 transition-colors"
                       >
-                        Live Demo <ExternalLink className="w-3.5 h-3.5" />
+                        {t('projectsPage.liveDemo')} <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                     ) : (
-                      <span className="text-xs text-slate-400 font-medium">Internal Project</span>
+                      <span className="text-xs text-slate-400 font-medium">{t('projectsPage.internalProject')}</span>
                     )}
 
                     {project.githubUrl && (
@@ -237,8 +239,8 @@ export default function ProjectsPage() {
           ) : (
             <div className="text-center py-20 bg-white rounded-2xl border border-slate-200">
               <FolderGit2 className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <h3 className="text-lg font-bold text-slate-800 mb-1">No Projects Found</h3>
-              <p className="text-xs text-slate-500">Try adjusting your search filter or category selection.</p>
+              <h3 className="text-lg font-bold text-slate-800 mb-1">{t('projectsPage.noProjectsTitle')}</h3>
+              <p className="text-xs text-slate-500">{t('projectsPage.noProjectsSub')}</p>
             </div>
           )}
         </div>

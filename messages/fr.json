@@ -59,6 +59,26 @@
     "submitBtn": "Envoyer le Message",
     "scheduleBtn": "Confirmer le Rendez-vous"
   },
+  "projectsPage": {
+    "badge": "Vitrine de Projets",
+    "title": "Projets Phares d'Ingénierie",
+    "subheading": "Découvrez des applications web en production, des intégrations d'IA et des microservices conçus pour un réel impact.",
+    "searchPlaceholder": "Rechercher par titre ou technologie...",
+    "liveDemo": "Démo en Direct",
+    "internalProject": "Projet Interne",
+    "noProjectsTitle": "Aucun projet trouvé",
+    "noProjectsSub": "Essayez de modifier votre filtre de recherche."
+  },
+  "blogsPage": {
+    "badge": "Écrits & Perspectives Techniques",
+    "title": "Articles & Réflexions sur l'Ingénierie Système",
+    "subheading": "Essais approfondis sur la performance web, l'architecture système et les workflows d'IA.",
+    "searchPlaceholder": "Rechercher des articles...",
+    "minRead": "min de lecture",
+    "readArticle": "Lire l'Article",
+    "noArticlesTitle": "Aucun article trouvé",
+    "noArticlesSub": "Essayez de modifier votre recherche."
+  },
   "footer": {
     "rights": "Tous droits réservés.",
     "builtWith": "Construit avec Next.js, TypeScript & Tailwind CSS"

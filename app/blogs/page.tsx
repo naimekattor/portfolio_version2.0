@@ -6,6 +6,7 @@ import { Footer } from '@/components/footer';
 import { Search, BookOpen, Clock, Calendar, ArrowRight, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/language-context';
 
 const DEFAULT_BLOGS = [
   {
@@ -47,6 +48,7 @@ const DEFAULT_BLOGS = [
 ];
 
 export default function BlogsPage() {
+  const { t } = useLanguage();
   const [blogs, setBlogs] = useState<any[]>(DEFAULT_BLOGS);
   const [selectedTag, setSelectedTag] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -96,13 +98,13 @@ export default function BlogsPage() {
         <div className="container mx-auto px-6">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary-50 border border-secondary-100 text-secondary-600 text-xs font-bold uppercase tracking-wider mb-4">
-              <BookOpen className="w-3.5 h-3.5" /> Writing & Technical Insights
+              <BookOpen className="w-3.5 h-3.5" /> {t('blogsPage.badge')}
             </div>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-4">
-              Articles & System Engineering Thoughts
+              {t('blogsPage.title')}
             </h1>
             <p className="text-lg text-slate-600 leading-relaxed">
-              In-depth essays on web performance, system architecture, AI workflows, microservices, and modern frontend development.
+              {t('blogsPage.subheading')}
             </p>
           </div>
         </div>
@@ -131,7 +133,7 @@ export default function BlogsPage() {
             <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Search articles..."
+              placeholder={t('blogsPage.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-secondary-600 transition-colors shadow-2xs"
@@ -170,7 +172,7 @@ export default function BlogsPage() {
                           {categoryName}
                         </span>
                         <span className="flex items-center gap-1 text-[11px] text-slate-400 font-medium">
-                          <Clock className="w-3.5 h-3.5" /> {blog.readingTime || 5} min read
+                          <Clock className="w-3.5 h-3.5" /> {blog.readingTime || 5} {t('blogsPage.minRead')}
                         </span>
                       </div>
 
@@ -191,7 +193,7 @@ export default function BlogsPage() {
                         href={`/blogs/${blog.slug || blog.id}`}
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-secondary-600 group-hover:translate-x-1 transition-all"
                       >
-                        Read Article <ArrowRight className="w-3.5 h-3.5" />
+                        {t('blogsPage.readArticle')} <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
                   </motion.div>
@@ -201,8 +203,8 @@ export default function BlogsPage() {
           ) : (
             <div className="text-center py-20 bg-white rounded-2xl border border-slate-200">
               <FileText className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <h3 className="text-lg font-bold text-slate-800 mb-1">No Articles Found</h3>
-              <p className="text-xs text-slate-500">Try adjusting your search query or tag selection.</p>
+              <h3 className="text-lg font-bold text-slate-800 mb-1">{t('blogsPage.noArticlesTitle')}</h3>
+              <p className="text-xs text-slate-500">{t('blogsPage.noArticlesSub')}</p>
             </div>
           )}
         </div>

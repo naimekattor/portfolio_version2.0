@@ -59,6 +59,26 @@
     "submitBtn": "送信する",
     "scheduleBtn": "予約を確定する"
   },
+  "projectsPage": {
+    "badge": "ポートフォリオショーケース",
+    "title": "注目のエンジニアリングプロジェクト",
+    "subheading": "生産用Webアプリケーション、AI統合、マイクロサービスソリューションをご覧ください。",
+    "searchPlaceholder": "タイトルや技術で検索...",
+    "liveDemo": "ライブデモ",
+    "internalProject": "学内・社内プロジェクト",
+    "noProjectsTitle": "プロジェクトが見つかりません",
+    "noProjectsSub": "検索キーワードやカテゴリを変更してください。"
+  },
+  "blogsPage": {
+    "badge": "記事と技術的インサイト",
+    "title": "システムエンジニアリング記事",
+    "subheading": "Webパフォーマンス、システムアーキテクチャ、AIワークフローに関する詳細な記事。",
+    "searchPlaceholder": "記事を検索...",
+    "minRead": "分で読める",
+    "readArticle": "記事を読む",
+    "noArticlesTitle": "記事が見つかりません",
+    "noArticlesSub": "検索キーワードを変更してください。"
+  },
   "footer": {
     "rights": "無断転載を禁じます。",
     "builtWith": "Next.js、TypeScript、Tailwind CSSで構築"
