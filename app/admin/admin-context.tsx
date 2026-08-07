@@ -132,7 +132,8 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
   const handleDelete = async (type: string, id: string) => {
     if (!confirm('Are you sure you want to delete this item?')) return;
     try {
-      const res = await fetch(`${API_BASE}/${type}/${id}`, {
+      const endpoint = type === 'contacts' ? 'contact' : type;
+      const res = await fetch(`${API_BASE}/${endpoint}/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });

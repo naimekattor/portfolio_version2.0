@@ -64,8 +64,9 @@ function StarRow({ color }: { color: string }) {
 }
 
 export function Testimonials() {
-  const autoplay = Autoplay({ delay: 4500, stopOnInteraction: true, stopOnMouseEnter: true });
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' }, [autoplay]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' }, [
+    Autoplay({ delay: 4500, stopOnInteraction: false, stopOnMouseEnter: true }),
+  ]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [visible, setVisible] = useState(false);
 
@@ -90,6 +91,7 @@ export function Testimonials() {
           }
           if (json.data?.testimonials_items && Array.isArray(json.data.testimonials_items) && json.data.testimonials_items.length > 0) {
             setTestimonials(json.data.testimonials_items);
+            emblaApi?.reInit();
           }
         }
       } catch (err) {
@@ -98,7 +100,7 @@ export function Testimonials() {
     }
 
     fetchSettings();
-  }, []);
+  }, [emblaApi]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -125,8 +127,8 @@ export function Testimonials() {
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-teal-900 mb-5 px-4.5 py-1.5 rounded-full bg-teal-900/10 border border-teal-900/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-teal-900 inline-block" />
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-5 px-4.5 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
             {headerInfo.badge || 'Client Stories'}
           </div>
 
@@ -140,12 +142,12 @@ export function Testimonials() {
         </div>
 
         {/* Carousel viewport */}
-        <div ref={emblaRef} className="overflow-hidden cursor-grab active:cursor-grabbing">
-          <div className="flex gap-5">
+        <div ref={emblaRef} className="overflow-hidden w-full cursor-grab active:cursor-grabbing">
+          <div className="flex -ml-5">
             {testimonials.map((t, i) => {
               const isActive = i === selectedIndex;
               return (
-                <div key={i} className="flex-[0_0_min(680px,90vw)] min-w-0">
+                <div key={i} className="flex-[0_0_88%] md:flex-[0_0_660px] min-w-0 pl-5">
                   <div
                     className={`relative rounded-3xl p-8 md:p-11 transition-all duration-500 backdrop-blur-xl border ${
                       isActive
@@ -155,7 +157,7 @@ export function Testimonials() {
                   >
                     {/* Top indicator bar */}
                     <div
-                      className={`absolute top-0 left-11 right-11 h-1 rounded-b bg-gradient-to-r from-transparent via-teal-800 to-transparent transition-opacity duration-300 ${
+                      className={`absolute top-0 left-11 right-11 h-1 rounded-b bg-gradient-to-r from-transparent via-[#174d4d] to-transparent transition-opacity duration-300 ${
                         isActive ? 'opacity-100' : 'opacity-0'
                       }`}
                     />
@@ -176,7 +178,7 @@ export function Testimonials() {
 
                       {/* Divider line */}
                       <div
-                        className={`h-px bg-gradient-to-r from-teal-900/30 to-transparent mb-6 transition-all duration-700 ${
+                        className={`h-px bg-gradient-to-r from-[#174d4d]/30 to-transparent mb-6 transition-all duration-700 ${
                           isActive ? 'w-full' : 'w-2/5'
                         }`}
                       />
@@ -209,7 +211,7 @@ export function Testimonials() {
               key={i}
               onClick={() => scrollTo(i)}
               className={`h-2 rounded-full transition-all duration-300 ${
-                i === selectedIndex ? 'w-7 bg-teal-900 shadow' : 'w-2 bg-slate-300'
+                i === selectedIndex ? 'w-7 bg-[#174d4d] shadow' : 'w-2 bg-slate-300'
               }`}
             />
           ))}

@@ -46,6 +46,8 @@ const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
   const padding = 20;
   const pathD = `M ${-padding},${y} L ${width + padding},${y}`;
 
+  const initialX1 = config.reverse ? "100%" : "-20%";
+  const initialX2 = config.reverse ? "120%" : "0%";
   const x1Anim = config.reverse ? ["100%", "-20%"] : ["-20%", "120%"];
   const x2Anim = config.reverse ? ["120%", "0%"] : ["0%", "140%"];
 
@@ -63,10 +65,10 @@ const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
         <motion.linearGradient
           id={gradientId}
           gradientUnits="userSpaceOnUse"
-          x1="0%"
-          x2="0%"
-          y1={`${config.row * 100}%`}
-          y2={`${config.row * 100}%`}
+          x1={initialX1}
+          x2={initialX2}
+          y1="0%"
+          y2="0%"
           animate={{ x1: x1Anim, x2: x2Anim }}
           transition={{
             delay: config.delay,
@@ -142,8 +144,10 @@ export const AnimatedGrid: React.FC<{ className?: string }> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dims, setDims] = useState({ width: 0, height: 0 });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const el = containerRef.current;
     if (!el) return;
 
@@ -217,16 +221,18 @@ export const AnimatedGrid: React.FC<{ className?: string }> = ({
       />
 
       {/* ── Beam SVG ── */}
-      <svg
-        className="absolute inset-0 w-full h-full"
-        viewBox={`0 0 ${dims.width} ${dims.height}`}
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        {beams.map((beam, i) => (
-          <AnimatedBeam key={i} config={beam} containerDimensions={dims} />
-        ))}
-      </svg>
+      {mounted && dims.width > 0 && dims.height > 0 && (
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox={`0 0 ${dims.width} ${dims.height}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {beams.map((beam, i) => (
+            <AnimatedBeam key={i} config={beam} containerDimensions={dims} />
+          ))}
+        </svg>
+      )}
 
       {/* ── Radial fade mask ── */}
       <div
