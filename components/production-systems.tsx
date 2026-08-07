@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../context/language-context';
 
 export function ProductionSystems() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const systemItems = [
     { icon: Server, label: t('productionSystems.microservices'), desc: "Node.js & Go" },
@@ -19,8 +19,12 @@ export function ProductionSystems() {
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="lg:w-1/2">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-6">
-              {t('productionSystems.title')}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-6">
+              {language !== 'en' ? t('productionSystems.title') : (
+                <>
+                  Production-Ready <span className="text-primary-600">Systems</span>
+                </>
+              )}
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
               {t('productionSystems.subheading')}

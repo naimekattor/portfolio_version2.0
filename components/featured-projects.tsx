@@ -32,7 +32,7 @@ const INITIAL_PROJECTS = [
 ];
 
 export function FeaturedProjects() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [projects, setProjects] = useState<any[]>(INITIAL_PROJECTS);
 
   useEffect(() => {
@@ -57,8 +57,12 @@ export function FeaturedProjects() {
       <div className="container mx-auto px-6">
         <motion.div className="flex justify-between items-end mb-16">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-              {t('featuredProjects.title')}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+              {language !== 'en' ? t('featuredProjects.title') : (
+                <>
+                  Featured <span className="text-primary-600">Projects</span>
+                </>
+              )}
             </h2>
             <p className="text-slate-600 dark:text-slate-300 max-w-2xl">
               {t('featuredProjects.subheading')}

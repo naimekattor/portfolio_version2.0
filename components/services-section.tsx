@@ -115,8 +115,12 @@ export function ServicesSection() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-wider mb-4">
             <Sparkles className="w-3.5 h-3.5" /> {badgeText}
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            {titleText}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+            {language !== 'en' ? t('services.title') : (
+              <>
+                Engineering Custom Platforms <span className="text-primary-600">& AI Systems</span>
+              </>
+            )}
           </h2>
           <p className="text-slate-600 dark:text-slate-300 max-w-2xl text-base">{subtitleText}</p>
         </div>

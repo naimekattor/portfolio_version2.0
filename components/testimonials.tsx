@@ -141,8 +141,12 @@ export function Testimonials() {
             {badgeText}
           </div>
 
-          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mb-4">
-            {titleText}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+            {language !== 'en' ? t('testimonialsSection.title') : (
+              <>
+                Trusted by <span className="text-primary-600">Teams that Ship</span>
+              </>
+            )}
           </h2>
 
           <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-md leading-relaxed font-medium">

@@ -286,8 +286,12 @@ export default function TechnicalExpertise() {
             {language !== 'en' ? t('expertise.badge') : headerInfo.badge || "Technical Stack"}
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-slate-100 leading-tight tracking-tight mb-4 max-w-3xl">
-            {language !== 'en' ? t('expertise.title') : headerInfo.title || "Built to Scale. Wired to Deliver."}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4 max-w-3xl">
+            {language !== 'en' ? t('expertise.title') : (
+              <>
+                Built to Scale. <span className="text-primary-600">Wired to Deliver.</span>
+              </>
+            )}
           </h2>
 
           <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-medium">

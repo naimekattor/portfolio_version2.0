@@ -147,8 +147,12 @@ export function BusinessValue() {
             {badgeText}
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-slate-100 leading-tight tracking-tight mb-4">
-            {titleText}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+            {language !== 'en' ? t('businessValue.title') : (
+              <>
+                Delivering <span className="text-primary-600">Measurable Business Value</span>
+              </>
+            )}
           </h2>
 
           <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-md leading-relaxed font-normal">
