@@ -35,9 +35,9 @@ const DEFAULT_SERVICES = {
       id: '2',
       title: 'AI Agent Building & Chatbots',
       description:
-        'Architecting autonomous AI agents, intelligent RAG chatbots, and custom LLM assistants to automate customer support and business operations.',
+        'Building specialized autonomous AI agents including HR Agents (onboarding & Q&A), AI Receptionists (24/7 message handling), Sales & Lead Qualification Agents, Appointment Booking Agents, and Support RAG Assistants.',
       icon: 'Cpu',
-      tags: ['AI Agents', 'AI Chatbots', 'OpenAI', 'LangChain'],
+      tags: ['HR Agent', 'AI Receptionist', 'Sales Agent', 'Booking Agent', 'Support RAG'],
     },
     {
       id: '3',
