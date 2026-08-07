@@ -4,35 +4,41 @@ import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../context/language-context";
 
 const metrics = [
-  { value: 60, suffix: "%", label: "Latency Reduction", sub: "Across core API endpoints", color: "#174d4d", prefix: "" },
-  { value: 85, suffix: "%", label: "Process Automation", sub: "Manual tasks eliminated", color: "#a67a3b", prefix: "" },
-  { value: 180, suffix: "k", label: "Annual Cost Savings", sub: "Infrastructure optimization", color: "#174d4d", prefix: "$" },
-  { value: 2.4, suffix: "x", label: "User Growth", sub: "Post-redesign performance", color: "#a67a3b", prefix: "" },
+  { value: 60, suffix: "%", label: "Latency Reduction", sub: "Across core API endpoints", prefix: "" },
+  { value: 85, suffix: "%", label: "Process Automation", sub: "Manual tasks eliminated", prefix: "" },
+  { value: 180, suffix: "k", label: "Annual Cost Savings", sub: "Infrastructure optimization", prefix: "$" },
+  { value: 2.4, suffix: "x", label: "User Growth", sub: "Post-redesign performance", prefix: "" },
 ];
 
 function easeOutExpo(t: number) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }
 
-function useCountUp(target: number, duration = 2000, decimals = 0, started = false) {
+function useCountUp(target: number, duration = 1600, decimals = 0, start = false) {
   const [count, setCount] = useState(0);
-  const rafRef = useRef<number>(0);
 
   useEffect(() => {
-    if (!started) return;
-    const startTime = performance.now();
+    if (!start) return;
+    let startTime: number | null = null;
+    let animId: number;
 
-    const tick = (now: number) => {
-      const elapsed = now - startTime;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const eased = easeOutExpo(progress);
-      setCount(parseFloat((eased * target).toFixed(decimals)));
-      if (progress < 1) rafRef.current = requestAnimationFrame(tick);
+      setCount(eased * target);
+
+      if (progress < 1) {
+        animId = requestAnimationFrame(step);
+      } else {
+        setCount(target);
+      }
     };
 
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [target, duration, decimals, started]);
+    animId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animId);
+  }, [target, duration, start]);
 
   return count;
 }
@@ -42,7 +48,7 @@ function MetricCard({
   index,
   started,
 }: {
-  metric: typeof metrics[0];
+  metric: (typeof metrics)[0];
   index: number;
   started: boolean;
 }) {
@@ -62,87 +68,34 @@ function MetricCard({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative rounded-2xl px-7 py-8 text-center cursor-default overflow-hidden transition-all duration-500 backdrop-blur-md ${
+      className={`relative rounded-2xl px-7 py-8 text-center cursor-default overflow-hidden transition-all duration-500 backdrop-blur-md border ${
         hovered
-          ? "bg-white -translate-y-2 scale-[1.02] shadow-2xl"
-          : "bg-white/65 translate-y-0 scale-100 shadow-sm"
+          ? "bg-white dark:bg-slate-900 -translate-y-2 scale-[1.02] shadow-2xl border-primary-600"
+          : "bg-white/80 dark:bg-slate-900/80 translate-y-0 scale-100 shadow-sm border-slate-200 dark:border-slate-800"
       } ${visible ? "opacity-100" : "opacity-0"}`}
-      style={{
-        border: `1.5px solid ${hovered ? metric.color + "30" : "rgba(23,60,60,0.08)"}`,
-      }}
     >
       {/* Top accent strip */}
       <div
         className={`absolute top-0 left-7 right-7 h-[3px] rounded-b transition-opacity duration-400 ${
           hovered ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          background: `linear-gradient(90deg, transparent, ${metric.color}, transparent)`,
-        }}
+        } bg-gradient-to-r from-primary-600 to-secondary-500`}
       />
 
-      {/* Radial glow */}
-      <div
-        className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-400 ${
-          hovered ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          background: `radial-gradient(ellipse 90% 55% at 50% 0%, ${metric.color}0a, transparent)`,
-        }}
-      />
+      <div className="relative z-10">
+        <div className="text-4xl md:text-5xl font-black font-mono tracking-tight mb-2 text-primary-600 dark:text-primary-400">
+          <span>{metric.prefix}</span>
+          <span>{displayValue}</span>
+          <span>{metric.suffix}</span>
+        </div>
 
-      {/* Index badge */}
-      <div
-        className="inline-flex items-center gap-1.5 text-[9.5px] font-bold tracking-[2.5px] uppercase mb-5 px-3 py-1 rounded-full"
-        style={{
-          color: metric.color,
-          background: `${metric.color}0d`,
-          border: `1px solid ${metric.color}22`,
-        }}
-      >
-        <span
-          className="w-1 h-1 rounded-full inline-block"
-          style={{ background: metric.color }}
-        />
-        {String(index + 1).padStart(2, "0")}
+        <h3 className="text-sm font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-1">
+          {metric.label}
+        </h3>
+
+        <p className="text-xs font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
+          {metric.sub}
+        </p>
       </div>
-
-      {/* Counter */}
-      <div
-        className="text-4xl md:text-5xl font-extrabold leading-none tracking-tight mb-3 tabular-nums transition-colors duration-300"
-        style={{ color: metric.color }}
-      >
-        {metric.prefix}
-        {displayValue}
-        {metric.suffix}
-      </div>
-
-      {/* Expanding divider */}
-      <div
-        className="h-px mx-auto mb-3.5 transition-all duration-500"
-        style={{
-          background: `linear-gradient(90deg, transparent, ${metric.color}40, transparent)`,
-          width: hovered ? "80%" : "30%",
-        }}
-      />
-
-      {/* Label */}
-      <p
-        className={`text-sm font-bold mb-1.5 tracking-tight transition-colors duration-300 ${
-          hovered ? "text-[#0c1c1c]" : "text-[#2a3a3a]"
-        }`}
-      >
-        {metric.label}
-      </p>
-
-      {/* Sub */}
-      <p
-        className={`text-xs font-normal leading-relaxed transition-colors duration-300 ${
-          hovered ? "text-[#5e7878]" : "text-[#8a9e9e]"
-        }`}
-      >
-        {metric.sub}
-      </p>
     </div>
   );
 }
@@ -180,21 +133,8 @@ export function BusinessValue() {
     <section
       ref={sectionRef}
       id="value"
-      className="relative py-24 md:py-28 overflow-hidden bg-gradient-to-b from-[#f0f2ed] via-[#eceee9] to-[#f2ede8]"
+      className="relative py-24 md:py-28 overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300"
     >
-      {/* Corner glows */}
-      <div className="absolute -top-24 -right-24 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(23,77,77,0.07)_0%,transparent_65%)] pointer-events-none" />
-      <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(166,122,59,0.08)_0%,transparent_65%)] pointer-events-none" />
-
-      {/* Dot texture */}
-      <div
-        className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle,rgba(23,77,77,0.07)_1px,transparent_1px)] bg-[size:28px_28px]"
-        style={{
-          maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
-        }}
-      />
-
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div
@@ -202,16 +142,16 @@ export function BusinessValue() {
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-5 px-4.5 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-5 px-4.5 py-1.5 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-600 inline-block" />
             {badgeText}
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-extrabold text-[#0a1a1a] leading-tight tracking-tight mb-4">
+          <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-slate-100 leading-tight tracking-tight mb-4">
             {titleText}
           </h2>
 
-          <p className="text-base md:text-lg text-[#5e7878] max-w-md leading-relaxed font-normal">
+          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-md leading-relaxed font-normal">
             {subtitleText}
           </p>
         </div>
@@ -229,11 +169,11 @@ export function BusinessValue() {
             visible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#174d4d]/20" />
-          <span className="text-[10px] font-bold tracking-[3px] uppercase text-[#174d4d]/40 whitespace-nowrap">
-            Numbers don't lie
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-300 dark:to-slate-800" />
+          <span className="text-[10px] font-bold tracking-[3px] uppercase text-slate-400 dark:text-slate-500 whitespace-nowrap">
+            Measurable Results
           </span>
-          <div className="h-px flex-1 bg-gradient-to-r from-[#174d4d]/20 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-slate-300 dark:from-slate-800 to-transparent" />
         </div>
       </div>
     </section>

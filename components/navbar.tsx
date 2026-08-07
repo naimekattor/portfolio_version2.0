@@ -18,11 +18,11 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: '/', label: t('home') },
-    { href: '/about', label: t('about') },
-    { href: '/projects', label: t('projects') },
-    { href: '/blogs', label: t('blogs') },
-    { href: '/contact', label: t('contact') },
+    { href: '/', label: t('nav.home') },
+    { href: '/about', label: t('nav.about') },
+    { href: '/projects', label: t('nav.projects') },
+    { href: '/blogs', label: t('nav.blogs') },
+    { href: '/contact', label: t('nav.contact') },
   ];
 
   return (
@@ -59,7 +59,7 @@ export function Navbar() {
             href="/contact"
             className="px-5 py-2.5 bg-primary-600 text-white text-sm font-medium rounded-full hover:bg-primary-700 transition-all shadow-sm"
           >
-            {t('hireMe')}
+            {t('nav.hireMe')}
           </Link>
         </div>
       </div>

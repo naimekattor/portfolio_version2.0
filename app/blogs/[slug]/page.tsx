@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
-import { ArrowLeft, Clock, Calendar, Share2, Sparkles, BookOpen } from 'lucide-react';
+import { ArrowLeft, Clock, Calendar } from 'lucide-react';
 import Link from 'next/link';
 
 export default function SingleBlogPage() {
@@ -22,7 +22,6 @@ export default function SingleBlogPage() {
           const json = await res.json();
           setBlog(json.data);
         } else {
-          // Fallback static mock
           setBlog({
             title: slug.replace(/-/g, ' ').toUpperCase(),
             slug,
@@ -58,7 +57,7 @@ By prioritizing scalable foundational architecture early, systems maintain extre
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <main className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
         <div className="text-slate-500 text-sm font-medium animate-pulse">Loading article...</div>
       </main>
     );
@@ -73,22 +72,22 @@ By prioritizing scalable foundational architecture early, systems maintain extre
     : 'Recent';
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
+    <main className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-300">
       <Navbar />
 
       <article className="pt-36 pb-20 flex-1">
         <div className="max-w-4xl mx-auto px-6">
           <Link
             href="/blogs"
-            className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-slate-900 transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Writing & Insights
           </Link>
 
           {/* Article Header */}
-          <div className="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 shadow-sm mb-10">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-sm mb-10">
             <div className="flex items-center gap-3 mb-6">
-              <span className="px-3.5 py-1 bg-secondary-50 text-secondary-600 border border-secondary-100 text-xs font-bold uppercase tracking-wider rounded-full">
+              <span className="px-3.5 py-1 bg-secondary-50 dark:bg-slate-800 text-secondary-600 dark:text-secondary-400 border border-secondary-100 dark:border-slate-700 text-xs font-bold uppercase tracking-wider rounded-full">
                 {typeof blog?.category === 'object' ? blog?.category?.name : blog?.category || 'Engineering'}
               </span>
               <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
@@ -99,19 +98,19 @@ By prioritizing scalable foundational architecture early, systems maintain extre
               </span>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+            <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight mb-6">
               {blog?.title}
             </h1>
 
             {blog?.excerpt && (
-              <p className="text-lg text-slate-600 leading-relaxed border-l-4 border-secondary-500 pl-4 py-1 italic font-serif">
+              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed border-l-4 border-secondary-500 pl-4 py-1 font-medium">
                 {blog.excerpt}
               </p>
             )}
           </div>
 
           {/* Article Body */}
-          <div className="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 shadow-sm space-y-6 text-slate-800 leading-relaxed text-base">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 text-slate-800 dark:text-slate-200 leading-relaxed text-base">
             <div className="whitespace-pre-line">{blog?.content}</div>
           </div>
         </div>

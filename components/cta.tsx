@@ -1,253 +1,111 @@
 'use client';
 
-import React, { useState } from "react";
-import { Calendar, CheckCircle2, Send } from "lucide-react";
+import React, { useState } from 'react';
+import { Mail, Calendar, Clock, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
+import { useLanguage } from '../context/language-context';
 
-function HandshakeIllustration() {
-  return (
-    <svg
-      width="380"
-      height="200"
-      viewBox="0 0 340 180"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="max-w-full h-auto"
-    >
-      <path
-        d="M 10 130 L 70 85 L 110 115 L 50 160 Z"
-        fill="#171310"
-        stroke="#171310"
-        strokeWidth="2"
-      />
-      <path
-        d="M 65 82 L 80 72 L 95 85 L 80 95 Z"
-        fill="#f4e9df"
-        stroke="#171310"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M 330 130 L 270 85 L 230 115 L 290 160 Z"
-        fill="#171310"
-        stroke="#171310"
-        strokeWidth="2"
-      />
-      <path
-        d="M 275 82 L 260 72 L 245 85 L 260 95 Z"
-        fill="#f4e9df"
-        stroke="#171310"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M 90 75 Q 120 45 150 70 Q 165 85 180 85 Q 195 85 200 95 Q 170 120 130 110 C 110 105 100 90 90 75 Z"
-        fill="#fdfbf7"
-        stroke="#171310"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M 250 75 Q 220 45 190 70 Q 175 85 160 85 Q 145 85 140 95 Q 170 125 210 110 C 230 105 240 90 250 75 Z"
-        fill="#fdfbf7"
-        stroke="#171310"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M 140 75 Q 155 88 170 85"
-        stroke="#171310"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 145 85 Q 160 98 175 95"
-        stroke="#171310"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 150 95 Q 165 108 180 105"
-        stroke="#171310"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 200 75 Q 185 88 170 85"
-        stroke="#171310"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 195 85 Q 180 98 165 95"
-        stroke="#171310"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 190 95 Q 175 108 160 105"
-        stroke="#171310"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      {/* halftone stipple on cuffs, matching reference */}
-      {Array.from({ length: 24 }).map((_, i) => {
-        const row = Math.floor(i / 6);
-        const col = i % 6;
-        return (
-          <circle
-            key={`l-${i}`}
-            cx={22 + col * 7 - row * 2}
-            cy={128 + row * 8}
-            r="1.4"
-            fill="#f4e9df"
-          />
-        );
-      })}
-      {Array.from({ length: 24 }).map((_, i) => {
-        const row = Math.floor(i / 6);
-        const col = i % 6;
-        return (
-          <circle
-            key={`r-${i}`}
-            cx={318 - col * 7 + row * 2}
-            cy={128 + row * 8}
-            r="1.4"
-            fill="#f4e9df"
-          />
-        );
-      })}
-    </svg>
-  );
-}
+const availableServices = [
+  'E-commerce Website',
+  'SaaS Website',
+  'AI Agent Building',
+  'AI Chatbot',
+  'n8n Automation',
+  'Education & School Systems',
+  'AI-Powered Website',
+  'WhatsApp Automation',
+  'Messenger Automation',
+  'Instagram Automation',
+  'Other / Custom Request',
+];
 
-interface FormFieldProps {
-  label: string;
-  required?: boolean;
-  type?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  placeholder?: string;
-  as?: "input" | "textarea";
-}
-
-function FormField({
-  label,
-  required = false,
-  type = "text",
-  value,
-  onChange,
-  placeholder,
-  as = "input",
-}: FormFieldProps) {
-  const Tag = as;
-  return (
-    <div>
-      <label className="block text-[13px] text-[#171310] mb-1.5">
-        {label} {required && <span className="text-[#b5502f]">*</span>}
-      </label>
-      <Tag
-        type={as === "input" ? type : undefined}
-        required={required}
-        value={value}
-        onChange={onChange as any}
-        placeholder={placeholder}
-        rows={as === "textarea" ? 2 : undefined}
-        className="w-full bg-transparent border-b border-[#171310]/25 focus:border-[#171310] py-1.5 text-sm text-[#171310] placeholder:text-[#171310]/35 focus:outline-none transition-colors duration-200 resize-none"
-      />
-    </div>
-  );
-}
-
-import { useLanguage } from "../context/language-context";
+const timeSlots = [
+  '09:00 AM - 09:30 AM',
+  '10:00 AM - 10:30 AM',
+  '11:00 AM - 11:30 AM',
+  '02:00 PM - 02:30 PM',
+  '03:30 PM - 04:00 PM',
+  '05:00 PM - 05:30 PM',
+];
 
 export function CTA() {
   const { t, language } = useLanguage();
-  const [mode, setMode] = useState("email");
+  const [mode, setMode] = useState('email');
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState('');
 
   const [form, setForm] = useState({
-    name: "",
-    company: "",
-    phone: "",
-    email: "",
-    message: "",
-    callDate: new Date().toISOString().split("T")[0],
-    timeSlot: "02:00 PM - 02:30 PM",
+    name: '',
+    company: '',
+    phone: '',
+    email: '',
+    message: '',
+    callDate: new Date().toISOString().split('T')[0],
+    timeSlot: '02:00 PM - 02:30 PM',
   });
 
-  const [selectedServices, setSelectedServices] = useState([]);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
-  const availableServices = [
-    "E-commerce Website",
-    "SaaS Website",
-    "AI Agent Building",
-    "AI Chatbot",
-    "n8n Automation",
-    "Education & School Systems",
-    "AI-Powered Website",
-    "WhatsApp Automation",
-    "Messenger Automation",
-    "Instagram Automation",
-    "Other / Custom Request",
-  ];
-
-  const timeSlots = [
-    "09:00 AM - 09:30 AM",
-    "11:00 AM - 11:30 AM",
-    "02:00 PM - 02:30 PM",
-    "04:00 PM - 04:30 PM",
-    "07:00 PM - 07:30 PM",
-  ];
-
-  const toggleService = (service) => {
+  const toggleService = (service: string) => {
     setSelectedServices((prev) =>
-      prev.includes(service)
-        ? prev.filter((s) => s !== service)
-        : [...prev, service],
+      prev.includes(service) ? prev.filter((s) => s !== service) : [...prev, service]
     );
   };
 
-  const servicesText =
-    selectedServices.length > 0 ? selectedServices.join(", ") : "General Query";
-  const subjectPreview =
-    mode === "call"
-      ? `[Scheduled Call] ${servicesText} on ${form.callDate} @ ${form.timeSlot}`
-      : `[Inquiry] ${servicesText}`;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMsg("");
-
-    const formattedMessage =
-      mode === "call"
-        ? `Scheduled Call Request:\nDate: ${form.callDate}\nTime Slot: ${form.timeSlot}\nCompany: ${form.company || "N/A"}\nPhone/WhatsApp: ${form.phone || "N/A"}\nServices Requested: ${servicesText}\n\nProject Overview:\n${form.message || "No additional details provided."}`
-        : `Company: ${form.company || "N/A"}\nServices Requested: ${servicesText}\n\nProject Details:\n${form.message}`;
+    setErrorMsg('');
 
     try {
-      const res = await fetch("http://localhost:4000/api/v1/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      if (mode === 'email') {
+        const payload = {
           name: form.name,
           email: form.email,
           phone: form.phone,
-          subject: subjectPreview,
-          message: formattedMessage,
-        }),
-      });
+          company: form.company,
+          message: form.message,
+          services: selectedServices,
+        };
 
-      if (res.ok) {
-        setSubmitted(true);
+        const res = await fetch('http://localhost:4000/api/v1/contacts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to send contact message.');
+        }
       } else {
-        const json = await res.json();
-        setErrorMsg(
-          json.message || "Failed to submit form. Please check your details.",
-        );
+        const payload = {
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          company: form.company,
+          message: `[SCHEDULED CALL] Date: ${form.callDate}, Time: ${form.timeSlot}. Services: ${selectedServices.join(', ')}. ${form.message}`,
+          services: selectedServices,
+        };
+
+        const res = await fetch('http://localhost:4000/api/v1/contacts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to schedule call.');
+        }
       }
-    } catch (err) {
-      console.error("Failed to submit contact form:", err);
-      setErrorMsg("Server connection failed. Please try again.");
+
+      setSubmitted(true);
+    } catch (err: any) {
+      console.error(err);
+      setErrorMsg(err.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -255,193 +113,218 @@ export function CTA() {
 
   const handleReset = () => {
     setSubmitted(false);
-    setErrorMsg("");
     setForm({
-      name: "",
-      company: "",
-      phone: "",
-      email: "",
-      message: "",
-      callDate: new Date().toISOString().split("T")[0],
-      timeSlot: "02:00 PM - 02:30 PM",
+      name: '',
+      company: '',
+      phone: '',
+      email: '',
+      message: '',
+      callDate: new Date().toISOString().split('T')[0],
+      timeSlot: '02:00 PM - 02:30 PM',
     });
     setSelectedServices([]);
   };
 
   return (
-    <section
-      id="contact"
-      className="relative py-28 bg-[#eee1d2]"
-    >
+    <section id="contact" className="relative py-24 md:py-28 bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <div className="max-w-5xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
-          {/* ── Left Column ── */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
-            <div className="space-y-5">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#171310] leading-tight">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left Column */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 text-xs font-bold uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5" /> {t('cta.badge')}
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
                 {language !== 'en' ? t('cta.title') : (
                   <>
                     Let&rsquo;s scale your
                     <br />
-                    brand<span>, together.</span>
+                    brand<span className="text-primary-600">, together.</span>
                   </>
                 )}
               </h2>
 
-              <p className="text-[15px] text-[#171310]/70">
-                Get a start @{" "}
+              <p className="text-base text-slate-600 dark:text-slate-400">
+                Get in touch directly at{' '}
                 <a
                   href="mailto:naim.dev.tech@gmail.com"
-                  className="text-[#b5502f] underline decoration-[#b5502f]/50 underline-offset-4 hover:decoration-[#b5502f] transition-colors"
+                  className="text-primary-600 dark:text-primary-400 font-semibold underline decoration-primary-300 underline-offset-4 hover:text-primary-800 transition-colors"
                 >
                   naim.dev.tech@gmail.com
                 </a>
               </p>
 
-              <div className="flex items-center gap-5 pt-1 text-[13px] text-[#171310]/60">
+              <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-wider pt-2">
                 <button
                   type="button"
-                  onClick={() => setMode("email")}
-                  className={`transition-colors ${mode === "email" ? "text-[#171310] underline underline-offset-4 decoration-[#b5502f]" : "hover:text-[#171310]"}`}
+                  onClick={() => setMode('email')}
+                  className={`pb-1 border-b-2 transition-colors ${
+                    mode === 'email'
+                      ? 'border-primary-600 text-primary-600'
+                      : 'border-transparent text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                  }`}
                 >
                   {t('cta.sendMessage')}
                 </button>
-                <span className="text-[#171310]/25">/</span>
+                <span className="text-slate-300 dark:text-slate-700">/</span>
                 <button
                   type="button"
-                  onClick={() => setMode("call")}
-                  className={`transition-colors ${mode === "call" ? "text-[#171310] underline underline-offset-4 decoration-[#b5502f]" : "hover:text-[#171310]"}`}
+                  onClick={() => setMode('call')}
+                  className={`pb-1 border-b-2 transition-colors ${
+                    mode === 'call'
+                      ? 'border-primary-600 text-primary-600'
+                      : 'border-transparent text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                  }`}
                 >
                   {t('cta.scheduleCall')}
                 </button>
               </div>
             </div>
-
-            <div className="pt-14 lg:pt-0">
-              <HandshakeIllustration />
-            </div>
           </div>
 
-          {/* ── Right Column: Form ── */}
-          <div className="lg:col-span-7">
+          {/* Right Column Form */}
+          <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
             {submitted ? (
-              <div className="py-16 space-y-5">
-                <CheckCircle2 className="w-7 h-7 text-[#171310]" />
-                <h3 className="text-[#171310] font-serif text-2xl">
-                  {mode === "call" ? "Call scheduled." : "Message sent."}
+              <div className="py-12 space-y-6 text-center">
+                <CheckCircle2 className="w-12 h-12 text-primary-600 mx-auto" />
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+                  {mode === 'call' ? 'Call Scheduled!' : 'Message Sent!'}
                 </h3>
-                <p className="text-sm text-[#171310]/65 max-w-sm leading-relaxed">
-                  {mode === "call"
-                    ? `Thanks, ${form.name}. Your call request for ${form.callDate} at ${form.timeSlot} is in — confirming shortly via ${form.email}.`
-                    : `Thanks, ${form.name}. Your note landed in my inbox — expect a reply at ${form.email} within 24 hours.`}
+                <p className="text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto leading-relaxed">
+                  {mode === 'call'
+                    ? `Thanks, ${form.name}. Your call request for ${form.callDate} at ${form.timeSlot} is confirmed. A calendar invite will be sent to ${form.email}.`
+                    : `Thanks, ${form.name}. Your note landed in my inbox — expect a response at ${form.email} within 24 hours.`}
                 </p>
                 <button
                   onClick={handleReset}
-                  className="px-7 py-3 bg-[#171310] hover:bg-[#3a3128] text-white text-sm rounded-full transition-colors"
+                  className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md"
                 >
                   Send another message
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Mode Switcher Tabs */}
-                <div className="flex items-center gap-6 border-b border-[#171310]/15 pb-4 mb-2">
-                  <button
-                    type="button"
-                    onClick={() => setMode("email")}
-                    className={`flex items-center gap-2 text-xs uppercase font-bold tracking-wider pb-1.5 border-b-2 transition-all cursor-pointer ${
-                      mode === "email"
-                        ? "border-[#b5502f] text-[#171310]"
-                        : "border-transparent text-[#171310]/40 hover:text-[#171310]"
-                    }`}
-                  >
-                    <Send className="w-3.5 h-3.5" /> Send Message
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setMode("call")}
-                    className={`flex items-center gap-2 text-xs uppercase font-bold tracking-wider pb-1.5 border-b-2 transition-all cursor-pointer ${
-                      mode === "call"
-                        ? "border-[#b5502f] text-[#171310]"
-                        : "border-transparent text-[#171310]/40 hover:text-[#171310]"
-                    }`}
-                  >
-                    <Calendar className="w-3.5 h-3.5" /> Schedule a Call
-                  </button>
-                </div>
-
                 {errorMsg && (
-                  <div className="text-[13px] text-[#b5502f]">{errorMsg}</div>
+                  <div className="p-4 rounded-xl bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-xs font-semibold">
+                    {errorMsg}
+                  </div>
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
-                  <FormField
-                    label="Name"
-                    required
-                    value={form.name}
-                    placeholder="Type name"
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  />
-                  <FormField
-                    label="Company"
-                    value={form.company}
-                    placeholder="Type company name"
-                    onChange={(e) =>
-                      setForm({ ...form, company: e.target.value })
-                    }
-                  />
-                <FormField
-                  label="Phone / WhatsApp"
-                  type="tel"
-                  value={form.phone}
-                  placeholder="Type phone number"
-                  onChange={(e) =>
-                    setForm({ ...form, phone: e.target.value })
-                  }
-                />
-                <FormField
-                  label="Email Address"
-                  required
-                  type="email"
-                  value={form.email}
-                  placeholder="Type email address"
-                  onChange={(e) =>
-                    setForm({ ...form, email: e.target.value })
-                  }
-                />
-              </div>
-
-              {mode === "call" && (
-                <div className="bg-[#171310]/5 p-4 rounded-2xl space-y-4 border border-[#171310]/10 animate-fade-in">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#b5502f] flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4" /> Select Call Slot
+                {/* Form Fields */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                      Your Name <span className="text-primary-600">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="Jane Doe"
+                      value={form.name}
+                      onChange={handleChange}
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                    />
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                      Email Address <span className="text-primary-600">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="jane@company.com"
+                      value={form.email}
+                      onChange={handleChange}
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                      Company / Organization
+                    </label>
+                    <input
+                      type="text"
+                      name="company"
+                      placeholder="Acme Corp"
+                      value={form.company}
+                      onChange={handleChange}
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                      Phone / WhatsApp
+                    </label>
+                    <input
+                      type="text"
+                      name="phone"
+                      placeholder="+1 (555) 000-0000"
+                      value={form.phone}
+                      onChange={handleChange}
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                    />
+                  </div>
+                </div>
+
+                {/* Services Checkboxes */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-3">
+                    Services Needed
+                  </label>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {availableServices.map((service) => {
+                      const isChecked = selectedServices.includes(service);
+                      return (
+                        <label
+                          key={service}
+                          className="flex items-center gap-2 cursor-pointer select-none text-xs text-slate-700 dark:text-slate-300"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => toggleService(service)}
+                            className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-700 text-primary-600 focus:ring-0 cursor-pointer"
+                          />
+                          <span>{service}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Call schedule extra inputs if mode is call */}
+                {mode === 'call' && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-primary-50/50 dark:bg-slate-800/50 border border-primary-100 dark:border-slate-800">
                     <div>
-                      <label className="block text-[13px] text-[#171310] mb-1.5 font-medium">
-                        Preferred Call Date *
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                        Preferred Date
                       </label>
                       <input
                         type="date"
-                        required
-                        min={new Date().toISOString().split("T")[0]}
+                        name="callDate"
                         value={form.callDate}
-                        onChange={(e) =>
-                          setForm({ ...form, callDate: e.target.value })
-                        }
-                        className="w-full bg-white/80 border border-[#171310]/20 rounded-xl px-3 py-2 text-sm text-[#171310] focus:outline-none focus:border-[#171310]"
+                        onChange={handleChange}
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
                       />
                     </div>
                     <div>
-                      <label className="block text-[13px] text-[#171310] mb-1.5 font-medium">
-                        Time Slot (EST) *
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                        Time Slot
                       </label>
                       <select
+                        name="timeSlot"
                         value={form.timeSlot}
-                        onChange={(e) =>
-                          setForm({ ...form, timeSlot: e.target.value })
-                        }
-                        className="w-full bg-white/80 border border-[#171310]/20 rounded-xl px-3 py-2 text-sm text-[#171310] focus:outline-none focus:border-[#171310]"
+                        onChange={handleChange}
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
                       >
                         {timeSlots.map((slot) => (
                           <option key={slot} value={slot}>
@@ -451,70 +334,39 @@ export function CTA() {
                       </select>
                     </div>
                   </div>
-                </div>
-              )}
-
-              <FormField
-                label={mode === "call" ? "Call Agenda / Notes (Optional)" : "How can we help? *"}
-                required={mode === "email"}
-                as="textarea"
-                value={form.message}
-                placeholder={mode === "call" ? "Describe project scope or agenda..." : "A brief description here"}
-                onChange={(e) =>
-                  setForm({ ...form, message: e.target.value })
-                }
-              />
-
-                <div>
-                  <label className="block text-[13px] text-[#171310] mb-3">
-                    Services <span className="text-[#b5502f]">*</span>
-                  </label>
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-2.5">
-                    {availableServices.map((service) => {
-                      const isChecked = selectedServices.includes(service);
-                      return (
-                        <label
-                          key={service}
-                          className="flex items-center gap-2.5 cursor-pointer select-none text-[13px] text-[#171310]/85"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={() => toggleService(service)}
-                            className="w-3.5 h-3.5 rounded-sm border-[#171310]/40 text-[#171310] focus:ring-0 focus:ring-offset-0 cursor-pointer"
-                          />
-                          {service}
-                        </label>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {selectedServices.length > 0 && (
-                  <p className="text-[11px] text-[#171310]/40 font-mono">
-                    Subject line: {subjectPreview}
-                  </p>
                 )}
 
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="px-7 py-3 bg-[#171310] hover:bg-[#3a3128] text-white text-sm rounded-full transition-colors disabled:opacity-50 flex items-center gap-2"
-                  >
-                    {loading ? (
-                      "Sending..."
-                    ) : mode === "call" ? (
-                      <>
-                        <Calendar className="w-3.5 h-3.5" /> Schedule Call
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-3.5 h-3.5" /> Send Message
-                      </>
-                    )}
-                  </button>
+                {/* Message Box */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                    Project Details & Goals <span className="text-primary-600">*</span>
+                  </label>
+                  <textarea
+                    name="message"
+                    required
+                    rows={4}
+                    placeholder="Tell me about your project goals, scope, timeline, or requirements..."
+                    value={form.message}
+                    onChange={handleChange}
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                  />
                 </div>
+
+                {/* Submit button */}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-4 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  {loading ? (
+                    'Processing...'
+                  ) : (
+                    <>
+                      {mode === 'call' ? t('cta.scheduleBtn') : t('cta.submitBtn')}
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
               </form>
             )}
           </div>
@@ -523,5 +375,3 @@ export function CTA() {
     </section>
   );
 }
-
-export default CTA;

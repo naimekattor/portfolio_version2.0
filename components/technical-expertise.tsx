@@ -1,117 +1,100 @@
 'use client';
 
 import { useState, useEffect } from "react";
+import { useLanguage } from "../context/language-context";
 
-const INITIAL_SKILLS = [
+interface SkillItem {
+  name: string;
+  level: number;
+  featured?: boolean;
+}
+
+interface SkillCategory {
+  category: string;
+  icon: string;
+  color: string;
+  glow: string;
+  border: string;
+  tag: string;
+  items: SkillItem[];
+}
+
+const INITIAL_SKILLS: SkillCategory[] = [
   {
-    category: "Frontend",
-    icon: "⬡",
-    color: "#174d4d",
+    category: "Frontend Engineering",
+    icon: "❖",
+    color: "var(--primary-color, #174d4d)",
     glow: "rgba(23,77,77,0.08)",
     border: "rgba(23,77,77,0.18)",
-    tag: "UI Layer",
+    tag: "UI & State",
     items: [
-      { name: "React", level: 98 },
-      { name: "Next.js", level: 95 },
-      { name: "TypeScript", level: 93 },
-      { name: "Tailwind CSS", level: 97 },
-      { name: "Framer Motion", level: 88 },
+      { name: "React.js & Next.js (App Router)", level: 96, featured: true },
+      { name: "TypeScript & Strict Type Systems", level: 93, featured: true },
+      { name: "Tailwind CSS & Design Systems", level: 95 },
+      { name: "State Management (Zustand, Redux)", level: 90 },
+      { name: "Micro-frontends & Web Performance", level: 87 },
     ],
   },
   {
-    category: "Backend",
+    category: "Backend Architecture",
     icon: "◈",
-    color: "#a67a3b",
+    color: "var(--secondary-color, #a67a3b)",
     glow: "rgba(166,122,59,0.08)",
-    border: "rgba(166,122,59,0.2)",
-    tag: "Server Layer",
+    border: "rgba(166,122,59,0.18)",
+    tag: "Distributed & Scalable",
     items: [
-      { name: "Node.js", level: 94 },
-      { name: "Express", level: 92 },
-      { name: "PostgreSQL", level: 89 },
-      { name: "Redis", level: 85 },
-      { name: "GraphQL", level: 87 },
+      { name: "Node.js & Express / NestJS", level: 94, featured: true },
+      { name: "Python (FastAPI & Django)", level: 88 },
+      { name: "RESTful & GraphQL API Design", level: 92, featured: true },
+      { name: "Microservices & Message Queues", level: 85 },
+      { name: "Auth (OAuth2, JWT, NextAuth)", level: 91 },
     ],
   },
   {
-    category: "AI / LLM",
-    icon: "◎",
-    color: "#174d4d",
+    category: "Data & Storage",
+    icon: "◆",
+    color: "var(--primary-color, #174d4d)",
     glow: "rgba(23,77,77,0.08)",
     border: "rgba(23,77,77,0.18)",
-    tag: "Intelligence",
+    tag: "Persistence & Cache",
     items: [
-      { name: "OpenAI API", level: 96 },
-      { name: "Prompt Engineering", level: 94 },
+      { name: "PostgreSQL & Complex SQL", level: 91, featured: true },
+      { name: "MongoDB & Document Stores", level: 88 },
+      { name: "Redis Caching & Pub/Sub", level: 86 },
+      { name: "Prisma & ORM Optimization", level: 92 },
+      { name: "Vector Databases (Pinecone, PGVector)", level: 83 },
     ],
   },
   {
-    category: "Cloud / DevOps",
-    icon: "⬟",
-    color: "#a67a3b",
+    category: "AI & Automation",
+    icon: "▲",
+    color: "var(--secondary-color, #a67a3b)",
     glow: "rgba(166,122,59,0.08)",
-    border: "rgba(166,122,59,0.2)",
-    tag: "Infrastructure",
+    border: "rgba(166,122,59,0.18)",
+    tag: "LLMs & Agentic AI",
     items: [
-      { name: "AWS", level: 91 },
-      { name: "Docker", level: 93 },
-      { name: "CI/CD", level: 90 },
-      { name: "Vercel", level: 96 },
+      { name: "AI Agent Building & LangChain", level: 90, featured: true },
+      { name: "n8n & Workflow Automation", level: 93, featured: true },
+      { name: "RAG & Knowledge Assistants", level: 88 },
+      { name: "Social Media Bots (WhatsApp/IG)", level: 92 },
+      { name: "OpenAI API & Model Fine-tuning", level: 87 },
     ],
   },
 ];
 
-const CATEGORY_META: Record<
-  string,
-  { icon: string; color: string; glow: string; border: string; tag: string }
-> = {
-  Frontend: {
-    icon: "⬡",
-    color: "#174d4d",
-    glow: "rgba(23,77,77,0.08)",
-    border: "rgba(23,77,77,0.18)",
-    tag: "UI Layer",
-  },
-  Backend: {
-    icon: "◈",
-    color: "#a67a3b",
-    glow: "rgba(166,122,59,0.08)",
-    border: "rgba(166,122,59,0.2)",
-    tag: "Server Layer",
-  },
-  "AI / LLM": {
-    icon: "◎",
-    color: "#174d4d",
-    glow: "rgba(23,77,77,0.08)",
-    border: "rgba(23,77,77,0.18)",
-    tag: "Intelligence",
-  },
-  "Cloud / DevOps": {
-    icon: "⬟",
-    color: "#a67a3b",
-    glow: "rgba(166,122,59,0.08)",
-    border: "rgba(166,122,59,0.2)",
-    tag: "Infrastructure",
-  },
-};
-
 function SkillBar({
   level,
-  color,
   animate,
 }: {
   level: number;
-  color: string;
   animate: boolean;
 }) {
   return (
-    <div className="relative h-1 bg-black/10 rounded-full overflow-hidden">
+    <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
       <div
-        className="absolute inset-y-0 left-0 rounded-full transition-all duration-1000 ease-out"
+        className="h-full bg-gradient-to-r from-primary-600 to-secondary-500 rounded-full transition-all duration-1000 ease-out"
         style={{
           width: animate ? `${level}%` : "0%",
-          background: `linear-gradient(90deg, ${color}77, ${color})`,
-          boxShadow: `0 0 5px ${color}44`,
         }}
       />
     </div>
@@ -124,19 +107,19 @@ function SkillCard({
   globalActive,
   setGlobalActive,
 }: {
-  skill: any;
+  skill: SkillCategory;
   index: number;
   globalActive: number | null;
   setGlobalActive: (i: number | null) => void;
 }) {
   const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setMounted(true), 80 + index * 110);
-    return () => clearTimeout(timer);
-  }, [index]);
-
   const isActive = globalActive === index;
   const isDimmed = globalActive !== null && !isActive;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 100 + index * 120);
+    return () => clearTimeout(timer);
+  }, [index]);
 
   return (
     <div
@@ -144,46 +127,20 @@ function SkillCard({
       onMouseLeave={() => setGlobalActive(null)}
       className={`relative rounded-2xl p-7 md:p-8 cursor-default transition-all duration-500 backdrop-blur-md ${
         isActive
-          ? "bg-white -translate-y-2 scale-[1.015] shadow-2xl"
-          : "bg-white/65 translate-y-0 scale-100 shadow-sm"
-      } ${isDimmed ? "opacity-40" : mounted ? "opacity-100" : "opacity-0"}`}
-      style={{
-        border: `1.5px solid ${isActive ? skill.border : "rgba(23,60,60,0.08)"}`,
-      }}
+          ? "bg-white dark:bg-slate-900 -translate-y-2 scale-[1.015] shadow-2xl border-primary-600"
+          : "bg-white/80 dark:bg-slate-900/80 translate-y-0 scale-100 shadow-sm border-slate-200 dark:border-slate-800"
+      } ${isDimmed ? "opacity-40" : mounted ? "opacity-100" : "opacity-0"} border`}
     >
       {/* Top color strip */}
       <div
         className={`absolute top-0 left-7 right-7 h-[3px] rounded-b transition-opacity duration-400 ${
           isActive ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          background: `linear-gradient(90deg, transparent, ${skill.color}, transparent)`,
-        }}
-      />
-
-      {/* Radial glow */}
-      <div
-        className={`absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-400 ${
-          isActive ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          background: `radial-gradient(ellipse 90% 50% at 50% 0%, ${skill.glow}, transparent)`,
-        }}
+        } bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-600`}
       />
 
       {/* Tag */}
-      <div
-        className="inline-flex items-center gap-1.5 text-[9.5px] font-bold tracking-[2.5px] uppercase mb-4 px-3 py-1 rounded-full"
-        style={{
-          color: skill.color,
-          background: `${skill.color}0d`,
-          border: `1px solid ${skill.color}22`,
-        }}
-      >
-        <span
-          className="w-1 h-1 rounded-full inline-block"
-          style={{ background: skill.color }}
-        />
+      <div className="inline-flex items-center gap-1.5 text-[9.5px] font-bold tracking-[2.5px] uppercase mb-4 px-3 py-1 rounded-full text-primary-600 bg-primary-50 dark:bg-slate-800 dark:text-primary-400 border border-primary-100 dark:border-slate-700">
+        <span className="w-1 h-1 rounded-full bg-primary-600 inline-block" />
         {skill.tag}
       </div>
 
@@ -193,63 +150,37 @@ function SkillCard({
           <div className="text-[9.5px] font-bold tracking-[3px] uppercase text-slate-400 mb-1.5">
             {String(index + 1).padStart(2, "0")}
           </div>
-          <h3 className="text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
             {skill.category}
           </h3>
         </div>
-        <div
-          className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all duration-300 ${
-            isActive ? "rotate-12 scale-110" : ""
-          }`}
-          style={{
-            background: `${skill.color}10`,
-            border: `1.5px solid ${skill.color}22`,
-            color: skill.color,
-          }}
-        >
+        <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all duration-300 ${isActive ? "rotate-12 scale-110 bg-primary-50 text-primary-600" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"}`}>
           {skill.icon}
         </div>
       </div>
 
       {/* Expanding divider */}
-      <div
-        className="h-px mb-5 transition-all duration-500"
-        style={{
-          background: `linear-gradient(90deg, ${skill.color}40, transparent)`,
-          width: isActive ? "100%" : "35%",
-        }}
-      />
+      <div className={`h-px mb-5 transition-all duration-500 bg-gradient-to-r from-primary-600/40 to-transparent ${isActive ? "w-full" : "w-1/3"}`} />
 
-      {/* Skills */}
-      <div className="flex flex-col gap-3.5">
-        {skill.items.map((item: any, j: number) => (
-          <div key={j}>
-            <div className="flex justify-between items-center mb-1.5">
-              <span
-                className={`text-[13.5px] font-medium transition-colors ${
-                  isActive ? "text-slate-800" : "text-slate-500"
-                }`}
-              >
+      {/* Skills List */}
+      <div className="space-y-3.5">
+        {skill.items.map((item, idx) => (
+          <div key={idx} className="group/item">
+            <div className="flex items-center justify-between text-xs font-semibold mb-1">
+              <span className={`transition-colors ${item.featured ? "text-slate-900 dark:text-slate-100 font-bold" : "text-slate-600 dark:text-slate-400"}`}>
                 {item.name}
               </span>
-              <span
-                className={`text-[10.5px] font-bold transition-opacity ${
-                  isActive ? "opacity-100" : "opacity-0"
-                }`}
-                style={{ color: skill.color }}
-              >
+              <span className="text-[10.5px] font-mono font-bold text-primary-600 dark:text-primary-400 ml-2">
                 {item.level}%
               </span>
             </div>
-            <SkillBar level={item.level} color={skill.color} animate={mounted} />
+            <SkillBar level={item.level} animate={mounted} />
           </div>
         ))}
       </div>
     </div>
   );
 }
-
-import { useLanguage } from "../context/language-context";
 
 export default function TechnicalExpertise() {
   const { t, language } = useLanguage();
@@ -277,17 +208,10 @@ export default function TechnicalExpertise() {
           fetch("http://localhost:4000/api/v1/site-settings"),
         ]);
 
-        let metaData = CATEGORY_META;
         if (resSet.ok) {
           const jsonSet = await resSet.json();
           if (jsonSet.data?.skills_section_header) {
-            setHeaderInfo((prev) => ({
-              ...prev,
-              ...jsonSet.data.skills_section_header,
-            }));
-          }
-          if (jsonSet.data?.skills_category_meta) {
-            metaData = { ...metaData, ...jsonSet.data.skills_category_meta };
+            setHeaderInfo((prev) => ({ ...prev, ...jsonSet.data.skills_section_header }));
           }
         }
 
@@ -296,28 +220,26 @@ export default function TechnicalExpertise() {
           if (jsonSkills.data && jsonSkills.data.length > 0) {
             const groupedMap = new Map<string, any[]>();
             jsonSkills.data.forEach((s: any) => {
-              const cat = s.category || "Frontend";
-              if (!groupedMap.has(cat)) groupedMap.set(cat, []);
-              groupedMap.get(cat)!.push({ name: s.name, level: s.percentage });
+              const catName = s.category?.name || s.category || "General Engineering";
+              if (!groupedMap.has(catName)) {
+                groupedMap.set(catName, []);
+              }
+              groupedMap.get(catName)?.push({
+                name: s.name,
+                level: s.proficiency || 85,
+                featured: s.isFeatured || false,
+              });
             });
 
             const categoriesArr: any[] = [];
             groupedMap.forEach((items, catName) => {
-              const meta = metaData[catName] || {
+              categoriesArr.push({
+                category: catName,
                 icon: "◈",
-                color: "#174d4d",
+                color: "var(--primary-color, #174d4d)",
                 glow: "rgba(23,77,77,0.08)",
                 border: "rgba(23,77,77,0.18)",
                 tag: catName,
-              };
-
-              categoriesArr.push({
-                category: catName,
-                icon: meta.icon,
-                color: meta.color,
-                glow: meta.glow,
-                border: meta.border,
-                tag: meta.tag,
                 items,
               });
             });
@@ -344,64 +266,43 @@ export default function TechnicalExpertise() {
       : 0;
 
   const stats = [
-    { num: `${skillCategories.length}`, label: "Domains", color: "#174d4d" },
-    { num: `${totalSkills}+`, label: "Technologies", color: "#a67a3b" },
-    { num: `${avgLevel}%`, label: "Avg. Proficiency", color: "#174d4d" },
-    { num: headerInfo.yearsExp || "5+", label: "Years Exp.", color: "#a67a3b" },
+    { num: `${skillCategories.length}`, label: "Domains" },
+    { num: `${totalSkills}+`, label: "Technologies" },
+    { num: `${avgLevel}%`, label: "Avg. Proficiency" },
+    { num: headerInfo.yearsExp || "5+", label: "Years Exp." },
   ];
 
   return (
-    <section className="relative py-24 md:py-28 overflow-hidden bg-gradient-to-b from-[#f0f2ed] via-[#eceee9] to-[#f2ede8]">
-      {/* Corner glows */}
-      <div className="absolute -top-24 -right-24 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(23,77,77,0.07)_0%,transparent_65%)] pointer-events-none" />
-      <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(166,122,59,0.08)_0%,transparent_65%)] pointer-events-none" />
-
-      {/* Dot texture */}
-      <div
-        className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle,rgba(23,77,77,0.07)_1px,transparent_1px)] bg-[size:28px_28px]"
-        style={{
-          maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 20%, transparent 100%)",
-        }}
-      />
-
+    <section className="relative py-24 md:py-28 overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
-        {/* ── Header ── */}
+        {/* Header */}
         <div
           className={`flex flex-col items-center text-center mb-16 transition-all duration-900 ${
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-5 px-4.5 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-5 px-4.5 py-1.5 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-600 inline-block" />
             {language !== 'en' ? t('expertise.badge') : headerInfo.badge || "Technical Stack"}
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-extrabold text-[#0a1a1a] leading-tight tracking-tight mb-4 max-w-3xl">
+          <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-slate-100 leading-tight tracking-tight mb-4 max-w-3xl">
             {language !== 'en' ? t('expertise.title') : headerInfo.title || "Built to Scale. Wired to Deliver."}
           </h2>
 
-          <p className="text-base md:text-lg text-slate-600 max-w-xl leading-relaxed font-medium">
+          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-medium">
             {language !== 'en' ? t('expertise.subheading') : headerInfo.subheading ||
               "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered."}
           </p>
 
           {/* Stats */}
-          <div className="flex flex-wrap justify-center mt-10 rounded-2xl overflow-hidden border border-[#174d4d]/15 bg-white/80 backdrop-blur-md shadow-lg">
+          <div className="flex flex-wrap justify-center mt-10 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg divide-x divide-slate-100 dark:divide-slate-800">
             {stats.map((s, i) => (
-              <div
-                key={i}
-                className={`px-8 py-5 text-center ${
-                  i < stats.length - 1 ? "border-r border-[#174d4d]/10" : ""
-                }`}
-              >
-                <div
-                  className="text-2xl md:text-3xl font-extrabold leading-none"
-                  style={{ color: s.color }}
-                >
+              <div key={i} className="px-8 py-5 text-center">
+                <div className="text-2xl md:text-3xl font-extrabold leading-none text-primary-600 dark:text-primary-400">
                   {s.num}
                 </div>
-                <div className="text-[10.5px] font-bold text-slate-400 mt-1.5 tracking-wider uppercase">
+                <div className="text-[10.5px] font-bold text-slate-500 dark:text-slate-400 mt-1.5 tracking-wider uppercase">
                   {s.label}
                 </div>
               </div>
@@ -409,7 +310,7 @@ export default function TechnicalExpertise() {
           </div>
         </div>
 
-        {/* ── Cards ── */}
+        {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillCategories.map((skill, i) => (
             <SkillCard
