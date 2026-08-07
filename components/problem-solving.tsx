@@ -88,16 +88,16 @@ export function ProblemSolving() {
   const subtitleText = language !== 'en' ? t('problems.subheading') : data.sectionSubtitle;
 
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="py-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <div className="container mx-auto px-6">
         <div className="mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-wider mb-4">
             <Zap className="w-3.5 h-3.5" /> {badgeText}
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             {titleText}
           </h2>
-          <p className="text-slate-600 max-w-2xl">{subtitleText}</p>
+          <p className="text-slate-600 dark:text-slate-300 max-w-2xl">{subtitleText}</p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {data.items?.map((item: any, i: number) => {

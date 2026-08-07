@@ -166,31 +166,11 @@ export const AnimatedGrid: React.FC<{ className?: string }> = ({
   const beams: BeamConfig[] = Array.from({ length: 18 }, (_, i) => {
     const tier = i % 3;
     const configs = [
-      // Tier 0: primary teal, slow, prominent
-      {
-        color: COLORS.teal,
-        duration: 9,
-        opacity: 0.85,
-        strokeWidth: 1.5,
-      },
-      // Tier 1: gold accent, medium speed
-      {
-        color: COLORS.gold,
-        duration: 7,
-        opacity: 0.65,
-        strokeWidth: 1,
-      },
-      // Tier 2: light teal, fast, subtle
-      {
-        color: COLORS.tealLight,
-        duration: 5.5,
-        opacity: 0.4,
-        strokeWidth: 0.75,
-      },
+      { color: COLORS.teal, duration: 9, opacity: 0.85, strokeWidth: 1.5 },
+      { color: COLORS.gold, duration: 7, opacity: 0.65, strokeWidth: 1 },
+      { color: COLORS.tealLight, duration: 5.5, opacity: 0.4, strokeWidth: 0.75 },
     ];
-
     const cfg = configs[tier];
-
     return {
       row: (i + 0.5) / 18,
       delay: i * 0.55,
@@ -205,16 +185,15 @@ export const AnimatedGrid: React.FC<{ className?: string }> = ({
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-0 w-full h-full overflow-hidden ${className}`}
-      style={{ background: "white" }}
+      className={`absolute inset-0 w-full h-full overflow-hidden bg-white dark:bg-slate-950 transition-colors duration-300 ${className}`}
     >
       {/* ── Grid lines ── */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 opacity-100 dark:opacity-30"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(${COLORS.teal}, 0.055) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(${COLORS.teal}, 0.055) 1px, transparent 1px)
+            linear-gradient(to right, rgba(${COLORS.teal}, 0.08) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(${COLORS.teal}, 0.08) 1px, transparent 1px)
           `,
           backgroundSize: `${GRID_SIZE}px ${GRID_SIZE}px`,
         }}
@@ -235,57 +214,19 @@ export const AnimatedGrid: React.FC<{ className?: string }> = ({
       )}
 
       {/* ── Radial fade mask ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `
-            radial-gradient(
-              ellipse 90% 70% at 50% 50%,
-              transparent 50%,
-              rgba(255, 255, 255, 0.3) 85%,
-              white 100%
-            )
-          `,
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_90%_70%_at_50%_50%,transparent_50%,rgba(255,255,255,0.4)_85%,white_100%)] dark:bg-[radial-gradient(ellipse_90%_70%_at_50%_50%,transparent_50%,rgba(2,6,23,0.5)_85%,#020617_100%)]" />
 
       {/* ── Top/bottom edge fade ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `
-            linear-gradient(
-              to bottom,
-              white 0%,
-              transparent 15%,
-              transparent 85%,
-              white 100%
-            )
-          `,
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-white via-transparent to-white dark:from-slate-950 dark:via-transparent dark:to-slate-950 opacity-90" />
 
       {/* ── Left/right edge fade ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `
-            linear-gradient(
-              to right,
-              white 0%,
-              transparent 10%,
-              transparent 90%,
-              white 100%
-            )
-          `,
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-white via-transparent to-white dark:from-slate-950 dark:via-transparent dark:to-slate-950 opacity-90" />
 
       {/* ── Subtle center glow ── */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-50 dark:opacity-20"
         style={{
-          background: `radial-gradient(ellipse 60% 40% at 50% 50%, rgba(${COLORS.teal}, 0.025) 0%, transparent 100%)`,
+          background: `radial-gradient(ellipse 60% 40% at 50% 50%, rgba(${COLORS.teal}, 0.05) 0%, transparent 100%)`,
         }}
       />
     </div>

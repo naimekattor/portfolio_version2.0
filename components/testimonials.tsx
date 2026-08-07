@@ -3,6 +3,7 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { useCallback, useEffect, useState } from 'react';
+import { useLanguage } from '../context/language-context';
 
 const DEFAULT_TESTIMONIALS = [
   {
@@ -44,26 +45,24 @@ function QuoteIcon({ color }: { color: string }) {
     <svg width="36" height="28" viewBox="0 0 36 28" fill="none">
       <path
         d="M0 28V17.6C0 12.693 1.387 8.853 4.16 6.08 6.933 3.307 10.88 1.493 16 0.64L17.28 3.52C14.507 4.267 12.373 5.493 10.88 7.2 9.387 8.907 8.64 10.88 8.64 13.12H15.36V28H0ZM20.64 28V17.6C20.64 12.693 22.027 8.853 24.8 6.08 27.573 3.307 31.52 1.493 36.64.64L37.92 3.52C35.147 4.267 33.013 5.493 31.52 7.2 30.027 8.907 29.28 10.88 29.28 13.12H36V28H20.64Z"
-        fill={color}
-        fillOpacity="0.15"
+        fill="currentColor"
+        className="text-primary-600 dark:text-primary-400 opacity-20"
       />
     </svg>
   );
 }
 
-function StarRow({ color }: { color: string }) {
+function StarRow() {
   return (
     <div className="flex gap-1 mb-5">
       {[...Array(5)].map((_, i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill={color} className="opacity-90">
+        <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-secondary-500 opacity-90">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
       ))}
     </div>
   );
 }
-
-import { useLanguage } from '../context/language-context';
 
 export function Testimonials() {
   const { t, language } = useLanguage();
@@ -125,10 +124,10 @@ export function Testimonials() {
   const subtitleText = language !== 'en' ? t('testimonialsSection.subheading') : headerInfo.subheading || 'Real words from the people behind the products.';
 
   return (
-    <section className="py-24 bg-gradient-to-b from-slate-50 via-slate-100/60 to-slate-50 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-slate-50 via-slate-100/60 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-100 relative overflow-hidden transition-colors duration-300">
       {/* Ambient background glows */}
-      <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-emerald-600/5 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-amber-600/5 blur-3xl pointer-events-none" />
+      <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary-600/10 dark:bg-primary-500/10 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-secondary-600/10 dark:bg-secondary-500/10 blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
@@ -137,16 +136,16 @@ export function Testimonials() {
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-5 px-4.5 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 dark:text-primary-400 mb-5 px-4.5 py-1.5 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-600 dark:bg-primary-400 inline-block" />
             {badgeText}
           </div>
 
-          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mb-4">
             {titleText}
           </h2>
 
-          <p className="text-base md:text-lg text-slate-600 max-w-md leading-relaxed font-medium">
+          <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-md leading-relaxed font-medium">
             {subtitleText}
           </p>
         </div>
@@ -154,41 +153,41 @@ export function Testimonials() {
         {/* Carousel viewport */}
         <div ref={emblaRef} className="overflow-hidden w-full cursor-grab active:cursor-grabbing">
           <div className="flex -ml-5">
-            {testimonials.map((t, i) => {
+            {testimonials.map((tItem, i) => {
               const isActive = i === selectedIndex;
               return (
                 <div key={i} className="flex-[0_0_88%] md:flex-[0_0_660px] min-w-0 pl-5">
                   <div
                     className={`relative rounded-3xl p-8 md:p-11 transition-all duration-500 backdrop-blur-xl border ${
                       isActive
-                        ? 'bg-white border-slate-300 shadow-2xl scale-100 opacity-100'
-                        : 'bg-white/60 border-slate-200 shadow-sm scale-95 opacity-50'
+                        ? 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-800 shadow-2xl scale-100 opacity-100'
+                        : 'bg-white/60 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800/60 shadow-sm scale-95 opacity-50'
                     }`}
                   >
                     {/* Top indicator bar */}
                     <div
-                      className={`absolute top-0 left-11 right-11 h-1 rounded-b bg-gradient-to-r from-transparent via-[#174d4d] to-transparent transition-opacity duration-300 ${
+                      className={`absolute top-0 left-11 right-11 h-1 rounded-b bg-gradient-to-r from-transparent via-primary-600 to-transparent transition-opacity duration-300 ${
                         isActive ? 'opacity-100' : 'opacity-0'
                       }`}
                     />
 
                     <div className="relative z-10">
                       {/* Rating stars */}
-                      <StarRow color={t.color || '#174d4d'} />
+                      <StarRow />
 
                       {/* Quote mark icon */}
                       <div className="mb-4">
-                        <QuoteIcon color={t.color || '#174d4d'} />
+                        <QuoteIcon color={tItem.color || '#174d4d'} />
                       </div>
 
                       {/* Quote text */}
-                      <p className="text-base md:text-xl font-normal text-slate-800 leading-relaxed mb-8 tracking-tight">
-                        "{t.quote}"
+                      <p className="text-base md:text-xl font-normal text-slate-800 dark:text-slate-200 leading-relaxed mb-8 tracking-tight">
+                        "{tItem.quote}"
                       </p>
 
                       {/* Divider line */}
                       <div
-                        className={`h-px bg-gradient-to-r from-[#174d4d]/30 to-transparent mb-6 transition-all duration-700 ${
+                        className={`h-px bg-gradient-to-r from-primary-600/30 to-transparent mb-6 transition-all duration-700 ${
                           isActive ? 'w-full' : 'w-2/5'
                         }`}
                       />
@@ -196,14 +195,13 @@ export function Testimonials() {
                       {/* Author credentials */}
                       <div className="flex items-center gap-3.5">
                         <div
-                          className="w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-sm text-white shadow-md shrink-0"
-                          style={{ backgroundColor: t.color || '#174d4d' }}
+                          className="w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-sm text-white shadow-md shrink-0 bg-primary-600"
                         >
-                          {t.initials || 'CT'}
+                          {tItem.initials || 'CT'}
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-slate-900 mb-0.5">{t.name}</p>
-                          <p className="text-xs text-slate-500 font-medium">{t.role}</p>
+                          <p className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-0.5">{tItem.name}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{tItem.role}</p>
                         </div>
                       </div>
                     </div>
@@ -216,12 +214,12 @@ export function Testimonials() {
 
         {/* Carousel indicators */}
         <div className="flex justify-center gap-2 mt-9">
-          {testimonials.map((t, i) => (
+          {testimonials.map((_, i) => (
             <button
               key={i}
               onClick={() => scrollTo(i)}
               className={`h-2 rounded-full transition-all duration-300 ${
-                i === selectedIndex ? 'w-7 bg-[#174d4d] shadow' : 'w-2 bg-slate-300'
+                i === selectedIndex ? 'w-7 bg-primary-600 shadow' : 'w-2 bg-slate-300 dark:bg-slate-700'
               }`}
             />
           ))}
@@ -233,13 +231,13 @@ export function Testimonials() {
             visible ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-300" />
-          <span className="text-[10px] font-bold tracking-[3px] uppercase text-slate-400 whitespace-nowrap">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-300 dark:to-slate-800" />
+          <span className="text-[10px] font-bold tracking-[3px] uppercase text-slate-400 dark:text-slate-500 whitespace-nowrap">
             {headerInfo.bottomStripText
               ? headerInfo.bottomStripText.replace('{count}', String(testimonials.length))
               : `${testimonials.length} OF MANY`}
           </span>
-          <div className="h-px flex-1 bg-gradient-to-r from-slate-300 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-slate-300 dark:from-slate-800 to-transparent" />
         </div>
       </div>
     </section>
