@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect } from "react";
+import { useLanguage } from "../context/language-context";
 
 const INITIAL_BLOG_POSTS = [
   {
@@ -140,6 +141,7 @@ function PostCard({ post, index }: { post: any; index: number }) {
 }
 
 export default function Communication() {
+  const { t, language } = useLanguage();
   const [visible, setVisible] = useState(false);
   const [btnHover, setBtnHover] = useState(false);
   const [posts, setPosts] = useState<any[]>(INITIAL_BLOG_POSTS);
@@ -232,15 +234,15 @@ export default function Communication() {
             {/* Eyebrow */}
             <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-4.5 px-4 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
               <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
-              {headerInfo.badge || "Writing & Insights"}
+              {language !== 'en' ? t('blogsSection.badge') : headerInfo.badge || "Writing & Insights"}
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0a1a1a] leading-tight tracking-tight mb-3.5">
-              {headerInfo.title || "Technical Communication"}
+              {language !== 'en' ? t('blogsSection.title') : headerInfo.title || "Technical Communication"}
             </h2>
 
             <p className="text-base text-[#5e7878] leading-relaxed font-normal">
-              {headerInfo.subheading ||
+              {language !== 'en' ? t('blogsSection.subheading') : headerInfo.subheading ||
                 "I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations."}
             </p>
           </div>
@@ -260,7 +262,7 @@ export default function Communication() {
                 : "bg-white/80 border-[#174d4d]/20 text-[#174d4d] translate-y-0 shadow-sm"
             }`}
           >
-            {headerInfo.buttonText || "Read all posts"}
+            {language !== 'en' ? t('blogsSection.readAll') : headerInfo.buttonText || "Read all posts"}
             <span
               className={`flex transition-transform duration-300 ${
                 btnHover ? "translate-x-1" : "translate-x-0"
@@ -286,7 +288,7 @@ export default function Communication() {
         >
           <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#174d4d]/20" />
           <span className="text-[10px] font-bold tracking-[3px] uppercase text-[#174d4d]/35 whitespace-nowrap">
-            {headerInfo.bottomStripText || "More articles coming soon"}
+            {language !== 'en' ? t('blogsSection.comingSoon') : headerInfo.bottomStripText || "More articles coming soon"}
           </span>
           <div className="h-px flex-1 bg-gradient-to-r from-[#174d4d]/20 to-transparent" />
         </div>

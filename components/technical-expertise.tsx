@@ -249,7 +249,10 @@ function SkillCard({
   );
 }
 
+import { useLanguage } from "../context/language-context";
+
 export default function TechnicalExpertise() {
+  const { t, language } = useLanguage();
   const [globalActive, setGlobalActive] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
   const [skillCategories, setSkillCategories] = useState<any[]>(INITIAL_SKILLS);
@@ -371,15 +374,15 @@ export default function TechnicalExpertise() {
         >
           <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-5 px-4.5 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
             <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
-            {headerInfo.badge || "Technical Stack"}
+            {language !== 'en' ? t('expertise.badge') : headerInfo.badge || "Technical Stack"}
           </div>
 
           <h2 className="text-4xl md:text-6xl font-extrabold text-[#0a1a1a] leading-tight tracking-tight mb-4 max-w-3xl">
-            {headerInfo.title || "Built to Scale. Wired to Deliver."}
+            {language !== 'en' ? t('expertise.title') : headerInfo.title || "Built to Scale. Wired to Deliver."}
           </h2>
 
           <p className="text-base md:text-lg text-slate-600 max-w-xl leading-relaxed font-medium">
-            {headerInfo.subheading ||
+            {language !== 'en' ? t('expertise.subheading') : headerInfo.subheading ||
               "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered."}
           </p>
 

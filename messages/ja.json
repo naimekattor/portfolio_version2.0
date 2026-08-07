@@ -15,11 +15,52 @@
     "contactMe": "お問い合わせ"
   },
   "services": {
-    "title": "サービスと自動化ソリューション",
+    "badge": "サービスと自動化ソリューション",
+    "title": "カスタムプラットフォームとAIシステムの構築",
     "subheading": "カスタムWebプラットフォーム、インテリジェントAIエージェント、自動化。"
   },
+  "problems": {
+    "badge": "ケーススタディと問題解決",
+    "title": "現実世界の技術的課題の解決",
+    "subheading": "アーキテクチャのボトルネックを解消し、弾力性のあるシステムを構築。"
+  },
+  "expertise": {
+    "badge": "技術的専門知識",
+    "title": "スキルとテクノロジー",
+    "subheading": "フロントエンド、バックエンドマイクロサービス、AI自動化のプロダクション経験。"
+  },
+  "businessValue": {
+    "badge": "インパクトと結果",
+    "title": "測定可能なビジネス価値の提供",
+    "subheading": "現実的なビジネスインパクトに基づく成果。",
+    "latencyLabel": "レイテンシ削減",
+    "automationLabel": "プロセス自動化",
+    "savingsLabel": "年間コスト削減",
+    "growthLabel": "ユーザー成長率"
+  },
+  "blogsSection": {
+    "badge": "記事とインサイト",
+    "title": "テクニカルコミュニケーション",
+    "subheading": "アーキテクチャの決定からAI統合まで、複雑な概念を明確に共有します。",
+    "readAll": "すべての記事を読む",
+    "comingSoon": "新着記事も近日公開予定"
+  },
+  "testimonialsSection": {
+    "badge": "クライアントのフィードバック",
+    "title": "パートナーとクライアントの声",
+    "subheading": "チームやクライアントと協力し、優れた成果を達成します。"
+  },
   "cta": {
+    "badge": "お問い合わせ",
     "title": "一緒に構築しましょう",
-    "subtitle": "プロジェクトのご相談や通話のご予約はお気軽にご連絡ください。"
+    "subheading": "プロジェクトのご相談や通話のご予約はお気軽にご連絡ください。",
+    "sendMessage": "メッセージを送信",
+    "scheduleCall": "通話を予約",
+    "submitBtn": "送信する",
+    "scheduleBtn": "予約を確定する"
+  },
+  "footer": {
+    "rights": "無断転載を禁じます。",
+    "builtWith": "Next.js、TypeScript、Tailwind CSSで構築"
   }
 }

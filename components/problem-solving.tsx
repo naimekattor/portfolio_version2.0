@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/language-context';
 
 const ICON_MAP: Record<string, any> = {
   Zap,
@@ -60,6 +61,7 @@ const DEFAULT_PROBLEM_SOLVING = {
 
 export function ProblemSolving() {
   const [data, setData] = useState(DEFAULT_PROBLEM_SOLVING);
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     async function fetchSettings() {
@@ -81,14 +83,21 @@ export function ProblemSolving() {
     fetchSettings();
   }, []);
 
+  const badgeText = language !== 'en' ? t('problems.badge') : 'Case Studies';
+  const titleText = language !== 'en' ? t('problems.title') : data.sectionTitle;
+  const subtitleText = language !== 'en' ? t('problems.subheading') : data.sectionSubtitle;
+
   return (
     <section className="py-24 bg-slate-50">
       <div className="container mx-auto px-6">
         <div className="mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-xs font-bold uppercase tracking-wider mb-4">
+            <Zap className="w-3.5 h-3.5" /> {badgeText}
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            {data.sectionTitle}
+            {titleText}
           </h2>
-          <p className="text-slate-600 max-w-2xl">{data.sectionSubtitle}</p>
+          <p className="text-slate-600 max-w-2xl">{subtitleText}</p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {data.items?.map((item: any, i: number) => {

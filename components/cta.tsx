@@ -156,7 +156,10 @@ function FormField({
   );
 }
 
+import { useLanguage } from "../context/language-context";
+
 export function CTA() {
+  const { t, language } = useLanguage();
   const [mode, setMode] = useState("email");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -276,9 +279,13 @@ export function CTA() {
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div className="space-y-5">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#171310] leading-tight">
-                Let&rsquo;s scale your
-                <br />
-                brand<span>, together.</span>
+                {language !== 'en' ? t('cta.title') : (
+                  <>
+                    Let&rsquo;s scale your
+                    <br />
+                    brand<span>, together.</span>
+                  </>
+                )}
               </h2>
 
               <p className="text-[15px] text-[#171310]/70">
@@ -297,7 +304,7 @@ export function CTA() {
                   onClick={() => setMode("email")}
                   className={`transition-colors ${mode === "email" ? "text-[#171310] underline underline-offset-4 decoration-[#b5502f]" : "hover:text-[#171310]"}`}
                 >
-                  Send a message
+                  {t('cta.sendMessage')}
                 </button>
                 <span className="text-[#171310]/25">/</span>
                 <button
@@ -305,7 +312,7 @@ export function CTA() {
                   onClick={() => setMode("call")}
                   className={`transition-colors ${mode === "call" ? "text-[#171310] underline underline-offset-4 decoration-[#b5502f]" : "hover:text-[#171310]"}`}
                 >
-                  Schedule a call
+                  {t('cta.scheduleCall')}
                 </button>
               </div>
             </div>

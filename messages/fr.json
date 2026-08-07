@@ -15,11 +15,52 @@
     "contactMe": "Me Contacter"
   },
   "services": {
-    "title": "Services & Solutions Automatisées",
+    "badge": "Services & Solutions Automatisées",
+    "title": "Ingénierie de Plateformes Sur Mesure & Systèmes IA",
     "subheading": "Plateformes web sur mesure, agents IA intelligents et automatisation."
   },
+  "problems": {
+    "badge": "Études de Cas & Résolution de Problèmes",
+    "title": "Résoudre des Défis Techniques Réels",
+    "subheading": "Optimisation des goulots d'étranglement architecturaux et mise en œuvre de solutions résilientes."
+  },
+  "expertise": {
+    "badge": "Expertise Technique",
+    "title": "Compétences, Technologies & Maîtrise",
+    "subheading": "Expérience en production sur le développement frontend, microservices backend et automatisation IA."
+  },
+  "businessValue": {
+    "badge": "Impact & Résultats",
+    "title": "Créer une Valeur Métier Mesurable",
+    "subheading": "Un travail mesuré par son impact réel sur les utilisateurs et les résultats.",
+    "latencyLabel": "Réduction de Latence",
+    "automationLabel": "Automatisation des Processus",
+    "savingsLabel": "Économies Annuelles",
+    "growthLabel": "Croissance Utilisateurs"
+  },
+  "blogsSection": {
+    "badge": "Écrits & Perspectives",
+    "title": "Communication Technique",
+    "subheading": "Partager les connaissances et expliquer clairement les concepts complexes.",
+    "readAll": "Lire tous les articles",
+    "comingSoon": "Plus d'articles à venir"
+  },
+  "testimonialsSection": {
+    "badge": "Témoignages Clients",
+    "title": "Ce que Disent les Partenaires & Clients",
+    "subheading": "Collaboration avec des équipes d'ingénierie et fondateurs pour livrer des résultats exceptionnels."
+  },
   "cta": {
+    "badge": "Prendre Contact",
     "title": "Connectons-nous et Construisons Ensemble",
-    "subtitle": "Vous avez un projet en tête ou souhaitez planifier un appel ? Contactez-moi ci-dessous."
+    "subheading": "Vous avez un projet en tête ou souhaitez planifier un appel ? Contactez-moi ci-dessous.",
+    "sendMessage": "Envoyer un Message",
+    "scheduleCall": "Planifier un Appel",
+    "submitBtn": "Envoyer le Message",
+    "scheduleBtn": "Confirmer le Rendez-vous"
+  },
+  "footer": {
+    "rights": "Tous droits réservés.",
+    "builtWith": "Construit avec Next.js, TypeScript & Tailwind CSS"
   }
 }

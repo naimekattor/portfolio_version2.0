@@ -3,8 +3,11 @@
 import Link from 'next/link';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import Image from 'next/image';
+import { useLanguage } from '../context/language-context';
 
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="py-12 border-t border-slate-200 bg-slate-50/50">
       <div className="container mx-auto px-6">
@@ -16,11 +19,11 @@ export function Footer() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-slate-600">
-            <Link href="/" className="hover:text-slate-900 transition-colors">Home</Link>
-            <Link href="/about" className="hover:text-slate-900 transition-colors">About Me</Link>
-            <Link href="/projects" className="hover:text-slate-900 transition-colors">Projects</Link>
-            <Link href="/blogs" className="hover:text-slate-900 transition-colors">Writing & Insights</Link>
-            <Link href="/contact" className="hover:text-slate-900 transition-colors">Contact</Link>
+            <Link href="/" className="hover:text-slate-900 transition-colors">{t('nav.home')}</Link>
+            <Link href="/about" className="hover:text-slate-900 transition-colors">{t('nav.about')}</Link>
+            <Link href="/projects" className="hover:text-slate-900 transition-colors">{t('nav.projects')}</Link>
+            <Link href="/blogs" className="hover:text-slate-900 transition-colors">{t('nav.blogs')}</Link>
+            <Link href="/contact" className="hover:text-slate-900 transition-colors">{t('nav.contact')}</Link>
           </div>
 
           <div className="flex items-center gap-4">
@@ -37,8 +40,8 @@ export function Footer() {
         </div>
 
         <div className="pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-2">
-          <div>© {new Date().getFullYear()} Naim. All rights reserved.</div>
-          <div>Built with Next.js, TypeScript & Tailwind CSS</div>
+          <div>© {new Date().getFullYear()} Naim. {t('footer.rights')}</div>
+          <div>{t('footer.builtWith')}</div>
         </div>
       </div>
     </footer>

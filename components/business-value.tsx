@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "../context/language-context";
 
 const metrics = [
   { value: 60, suffix: "%", label: "Latency Reduction", sub: "Across core API endpoints", color: "#174d4d", prefix: "" },
@@ -147,6 +148,7 @@ function MetricCard({
 }
 
 export function BusinessValue() {
+  const { t, language } = useLanguage();
   const [started, setStarted] = useState(false);
   const [visible, setVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -169,6 +171,10 @@ export function BusinessValue() {
       observer.disconnect();
     };
   }, []);
+
+  const badgeText = language !== 'en' ? t('businessValue.badge') : 'Impact & Results';
+  const titleText = language !== 'en' ? t('businessValue.title') : 'Delivering Business Value';
+  const subtitleText = language !== 'en' ? t('businessValue.subheading') : 'Work measured by real impact — on the bottom line and the people who use it.';
 
   return (
     <section
@@ -198,21 +204,15 @@ export function BusinessValue() {
         >
           <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-[#174d4d] mb-5 px-4.5 py-1.5 rounded-full bg-[#174d4d]/10 border border-[#174d4d]/20">
             <span className="w-1.5 h-1.5 rounded-full bg-[#174d4d] inline-block" />
-            Impact & Results
+            {badgeText}
           </div>
 
           <h2 className="text-4xl md:text-6xl font-extrabold text-[#0a1a1a] leading-tight tracking-tight mb-4">
-            Delivering{" "}
-            <span className="bg-gradient-to-r from-[#174d4d] to-[#2a8a7a] bg-clip-text text-transparent">
-              Business
-            </span>{" "}
-            <span className="bg-gradient-to-r from-[#a67a3b] to-[#d4a055] bg-clip-text text-transparent">
-              Value
-            </span>
+            {titleText}
           </h2>
 
           <p className="text-base md:text-lg text-[#5e7878] max-w-md leading-relaxed font-normal">
-            Work measured by real impact — on the bottom line and the people who use it.
+            {subtitleText}
           </p>
         </div>
 

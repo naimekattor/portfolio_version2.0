@@ -15,11 +15,52 @@
     "contactMe": "Contáctame"
   },
   "services": {
-    "title": "Servicios y Soluciones Automatizadas",
+    "badge": "Servicios y Soluciones Automatizadas",
+    "title": "Ingeniería de Plataformas Personalizadas y Sistemas IA",
     "subheading": "Plataformas web personalizadas, agentes inteligentes de IA y automatización de redes sociales."
   },
+  "problems": {
+    "badge": "Casos de Estudio y Resolución de Problemas",
+    "title": "Resolviendo Desafíos Técnicos del Mundo Real",
+    "subheading": "Descomprimiendo cuellos de botella arquitectónicos e implementando soluciones de ingeniería resilientes."
+  },
+  "expertise": {
+    "badge": "Experiencia Técnica",
+    "title": "Habilidades, Tecnologías y Dominio",
+    "subheading": "Experiencia en producción en desarrollo frontend, microservicios backend, bases de datos y automatización IA."
+  },
+  "businessValue": {
+    "badge": "Impacto y Resultados",
+    "title": "Entregando Valor Empresarial Medible",
+    "subheading": "Trabajo medido por el impacto real en el negocio y los usuarios.",
+    "latencyLabel": "Reducción de Latencia",
+    "automationLabel": "Automatización de Procesos",
+    "savingsLabel": "Ahorro Anual de Costos",
+    "growthLabel": "Crecimiento de Usuarios"
+  },
+  "blogsSection": {
+    "badge": "Escritos e Ideas",
+    "title": "Comunicación Técnica",
+    "subheading": "Creo en compartir conocimientos y explicar conceptos complejos con claridad.",
+    "readAll": "Leer todos los artículos",
+    "comingSoon": "Más artículos próximamente"
+  },
+  "testimonialsSection": {
+    "badge": "Opiniones de Clientes",
+    "title": "Lo que Dicen Socios y Clientes",
+    "subheading": "Colaborando con equipos de ingeniería, fundadores y empresas para lograr resultados excepcionales."
+  },
   "cta": {
+    "badge": "Ponte en Contacto",
     "title": "Conectemos y Construyamos Juntos",
-    "subtitle": "¿Tienes un proyecto en mente o deseas agendar una llamada? Contáctame a continuación."
+    "subheading": "¿Tienes un proyecto en mente o deseas agendar una llamada? Contáctame a continuación.",
+    "sendMessage": "Enviar Mensaje",
+    "scheduleCall": "Agendar Llamada",
+    "submitBtn": "Enviar Mensaje",
+    "scheduleBtn": "Confirmar Cita"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "builtWith": "Construido con Next.js, TypeScript y Tailwind CSS"
   }
 }

@@ -15,11 +15,52 @@
     "contactMe": "Contact Me"
   },
   "services": {
-    "title": "Services & Automated Solutions",
+    "badge": "Services & Automated Solutions",
+    "title": "Engineering Custom Platforms & AI Systems",
     "subheading": "Custom web platforms, intelligent AI agents, EdTech school systems, and end-to-end social media automation."
   },
+  "problems": {
+    "badge": "Case Studies & Problem Solving",
+    "title": "Solving Real-World Technical Challenges",
+    "subheading": "Deconstructing architectural bottlenecks and implementing resilient engineering solutions."
+  },
+  "expertise": {
+    "badge": "Technical Expertise",
+    "title": "Skills, Technologies & Mastery",
+    "subheading": "Production experience across frontend engineering, backend microservices, database design, and AI automation."
+  },
+  "businessValue": {
+    "badge": "Impact & Results",
+    "title": "Delivering Measurable Business Value",
+    "subheading": "Work measured by real impact — on the bottom line and the people who use it.",
+    "latencyLabel": "Latency Reduction",
+    "automationLabel": "Process Automation",
+    "savingsLabel": "Annual Cost Savings",
+    "growthLabel": "User Growth"
+  },
+  "blogsSection": {
+    "badge": "Writing & Insights",
+    "title": "Technical Communication",
+    "subheading": "I believe in sharing knowledge and explaining complex concepts clearly — from architecture decisions to AI integrations.",
+    "readAll": "Read all posts",
+    "comingSoon": "More articles coming soon"
+  },
+  "testimonialsSection": {
+    "badge": "Client Feedback",
+    "title": "What Partners & Clients Say",
+    "subheading": "Collaborating with engineering teams, founders, and enterprises to deliver exceptional results."
+  },
   "cta": {
+    "badge": "Get In Touch",
     "title": "Let's Connect & Build Together",
-    "subtitle": "Have a project in mind, need technical consultation, or want to schedule a call? Reach out directly below."
+    "subheading": "Have a project in mind, need technical consultation, or want to schedule a call? Reach out directly below.",
+    "sendMessage": "Send a Message",
+    "scheduleCall": "Schedule a Call",
+    "submitBtn": "Send Message",
+    "scheduleBtn": "Confirm Appointment"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "builtWith": "Built with Next.js, TypeScript & Tailwind CSS"
   }
 }

@@ -15,11 +15,52 @@
     "contactMe": "Kontaktieren"
   },
   "services": {
-    "title": "Dienstleistungen & Automatisierung",
+    "badge": "Dienstleistungen & Automatisierung",
+    "title": "Entwicklung Individueller Plattformen & KI-Systeme",
     "subheading": "Individuelle Webplattformen, intelligente KI-Agenten und Automatisierung."
   },
+  "problems": {
+    "badge": "Fallstudien & Problemlösung",
+    "title": "Lösung Realer Technischer Herausforderungen",
+    "subheading": "Beseitigung architektonischer Engpässe und Implementierung robuster Ingenieurlösungen."
+  },
+  "expertise": {
+    "badge": "Technische Expertise",
+    "title": "Fähigkeiten, Technologien & Erfahrung",
+    "subheading": "Produktionserfahrung in Frontend-Entwicklung, Backend-Mikrodiensten und KI-Automatisierung."
+  },
+  "businessValue": {
+    "badge": "Wirkung & Ergebnisse",
+    "title": "Messbarer Geschäftswert",
+    "subheading": "Arbeit, die an realen Auswirkungen auf das Unternehmen gemessen wird.",
+    "latencyLabel": "Latenzreduzierung",
+    "automationLabel": "Prozessautomatisierung",
+    "savingsLabel": "Jährliche Ersparnis",
+    "growthLabel": "Nutzerwachstum"
+  },
+  "blogsSection": {
+    "badge": "Artikel & Einblicke",
+    "title": "Technische Kommunikation",
+    "subheading": "Wissen teilen und komplexe Konzepte klar erklären.",
+    "readAll": "Alle Artikel lesen",
+    "comingSoon": "Weitere Artikel folgen in Kürze"
+  },
+  "testimonialsSection": {
+    "badge": "Kundenfeedback",
+    "title": "Was Partner & Kunden Sagen",
+    "subheading": "Zusammenarbeit mit Entwicklerteams und Gründern für herausragende Ergebnisse."
+  },
   "cta": {
+    "badge": "Kontakt Aufnehmen",
     "title": "Lassen Sie uns Gemeinsam Bauen",
-    "subtitle": "Haben Sie ein Projekt im Sinn oder möchten Sie ein Gespräch vereinbaren? Kontaktieren Sie mich unten."
+    "subheading": "Haben Sie ein Projekt im Sinn oder möchten Sie ein Gespräch vereinbaren? Kontaktieren Sie mich unten.",
+    "sendMessage": "Nachricht Senden",
+    "scheduleCall": "Gespräch Buchen",
+    "submitBtn": "Nachricht Absenden",
+    "scheduleBtn": "Termin Bestätigen"
+  },
+  "footer": {
+    "rights": "Alle Rechte vorbehalten.",
+    "builtWith": "Erstellt mit Next.js, TypeScript & Tailwind CSS"
   }
 }

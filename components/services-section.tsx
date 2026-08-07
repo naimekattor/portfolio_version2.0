@@ -16,6 +16,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/language-context';
 
 const ICON_MAP: Record<string, any> = {
   Code,
@@ -81,6 +82,7 @@ const DEFAULT_SERVICES = {
 
 export function ServicesSection() {
   const [data, setData] = useState(DEFAULT_SERVICES);
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     async function fetchSettings() {
@@ -102,17 +104,21 @@ export function ServicesSection() {
     fetchSettings();
   }, []);
 
+  const badgeText = language !== 'en' ? t('services.badge') : 'What I Offer';
+  const titleText = language !== 'en' ? t('services.title') : data.sectionTitle;
+  const subtitleText = language !== 'en' ? t('services.subheading') : data.sectionSubtitle;
+
   return (
     <section className="py-24 bg-white relative overflow-hidden" id="services">
       <div className="container mx-auto px-6 relative z-10">
         <div className="mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-xs font-bold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5" /> What I Offer
+            <Sparkles className="w-3.5 h-3.5" /> {badgeText}
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            {data.sectionTitle}
+            {titleText}
           </h2>
-          <p className="text-slate-600 max-w-2xl text-base">{data.sectionSubtitle}</p>
+          <p className="text-slate-600 max-w-2xl text-base">{subtitleText}</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
