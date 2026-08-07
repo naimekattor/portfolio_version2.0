@@ -81,6 +81,7 @@ export default function RootLayout({
             <FloatingSideToolbar />
           </ThemeProvider>
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
