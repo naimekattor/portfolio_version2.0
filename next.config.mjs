@@ -1,7 +1,13 @@
-/** @type {import('next').NextConfig} */
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-	turbopack: {},
+	turbopack: {
+		root: __dirname,
+	},
 	images: {
 		remotePatterns: [
 			{
@@ -12,9 +18,6 @@ const nextConfig = {
 	},
 	typescript: {
 		ignoreBuildErrors: true,
-	},
-	eslint: {
-		ignoreDuringBuilds: true,
 	},
 	allowedDevOrigins: ["*.theopenbuilder.com"],
 };

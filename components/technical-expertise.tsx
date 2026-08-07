@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const skills = [
+const INITIAL_SKILLS = [
   {
     category: "Frontend",
     icon: "⬡",
@@ -42,8 +42,6 @@ const skills = [
     tag: "Intelligence",
     items: [
       { name: "OpenAI API", level: 96 },
-      // { name: "LangChain", level: 90 },
-      // { name: "Vector DBs", level: 88 },
       { name: "Prompt Engineering", level: 94 },
     ],
   },
@@ -59,10 +57,16 @@ const skills = [
       { name: "Docker", level: 93 },
       { name: "CI/CD", level: 90 },
       { name: "Vercel", level: 96 },
-      // { name: "Terraform", level: 82 },
     ],
   },
 ];
+
+const CATEGORY_META: Record<string, { icon: string; color: string; glow: string; border: string; tag: string }> = {
+  "Frontend": { icon: "⬡", color: "#174d4d", glow: "rgba(23,77,77,0.08)", border: "rgba(23,77,77,0.18)", tag: "UI Layer" },
+  "Backend": { icon: "◈", color: "#a67a3b", glow: "rgba(166,122,59,0.08)", border: "rgba(166,122,59,0.2)", tag: "Server Layer" },
+  "AI / LLM": { icon: "◎", color: "#174d4d", glow: "rgba(23,77,77,0.08)", border: "rgba(23,77,77,0.18)", tag: "Intelligence" },
+  "Cloud / DevOps": { icon: "⬟", color: "#a67a3b", glow: "rgba(166,122,59,0.08)", border: "rgba(166,122,59,0.2)", tag: "Infrastructure" },
+};
 
 function SkillBar({ level, color, animate }) {
   return (
@@ -201,20 +205,90 @@ function SkillCard({ skill, index, globalActive, setGlobalActive }) {
 }
 
 export default function TechnicalExpertise() {
-  const [globalActive, setGlobalActive] = useState(null);
+  const [globalActive, setGlobalActive] = useState<number | null>(null);
   const [visible, setVisible] = useState(false);
-  useEffect(() => { setTimeout(() => setVisible(true), 60); }, []);
+  const [skillCategories, setSkillCategories] = useState<any[]>(INITIAL_SKILLS);
+  const [headerInfo, setHeaderInfo] = useState({
+    badge: "Technical Stack",
+    title: "Built to Scale. Wired to Deliver.",
+    subheading: "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered.",
+    yearsExp: "5+",
+  });
 
-  const totalSkills = skills.reduce((a, s) => a + s.items.length, 0);
-  const avgLevel = Math.round(
-    skills.flatMap(s => s.items).reduce((a, i) => a + i.level, 0) / totalSkills
-  );
+  useEffect(() => {
+    setTimeout(() => setVisible(true), 60);
+
+    async function fetchData() {
+      try {
+        const [resSkills, resSet] = await Promise.all([
+          fetch("http://localhost:4000/api/v1/skills"),
+          fetch("http://localhost:4000/api/v1/site-settings"),
+        ]);
+
+        let metaData = CATEGORY_META;
+        if (resSet.ok) {
+          const jsonSet = await resSet.json();
+          if (jsonSet.data?.skills_section_header) {
+            setHeaderInfo((prev) => ({ ...prev, ...jsonSet.data.skills_section_header }));
+          }
+          if (jsonSet.data?.skills_category_meta) {
+            metaData = { ...metaData, ...jsonSet.data.skills_category_meta };
+          }
+        }
+
+        if (resSkills.ok) {
+          const jsonSkills = await resSkills.json();
+          if (jsonSkills.data && jsonSkills.data.length > 0) {
+            // Group skills by category
+            const groupedMap = new Map<string, any[]>();
+            jsonSkills.data.forEach((s: any) => {
+              const cat = s.category || "Frontend";
+              if (!groupedMap.has(cat)) groupedMap.set(cat, []);
+              groupedMap.get(cat)!.push({ name: s.name, level: s.percentage });
+            });
+
+            const categoriesArr: any[] = [];
+            groupedMap.forEach((items, catName) => {
+              const meta = metaData[catName] || {
+                icon: "◈",
+                color: "#174d4d",
+                glow: "rgba(23,77,77,0.08)",
+                border: "rgba(23,77,77,0.18)",
+                tag: catName,
+              };
+
+              categoriesArr.push({
+                category: catName,
+                icon: meta.icon,
+                color: meta.color,
+                glow: meta.glow,
+                border: meta.border,
+                tag: meta.tag,
+                items,
+              });
+            });
+
+            setSkillCategories(categoriesArr);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load technical expertise data from backend:", err);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const totalSkills = skillCategories.reduce((a, s) => a + s.items.length, 0);
+  const avgLevel = totalSkills > 0 ? Math.round(
+    skillCategories.flatMap(s => s.items).reduce((a, i) => a + i.level, 0) / totalSkills
+  ) : 0;
 
   const stats = [
-    { num: `${skills.length}`, label: "Domains", color: "#174d4d" },
+    { num: `${skillCategories.length}`, label: "Domains", color: "#174d4d" },
     { num: `${totalSkills}+`, label: "Technologies", color: "#a67a3b" },
     { num: `${avgLevel}%`, label: "Avg. Proficiency", color: "#174d4d" },
-    { num: "5+", label: "Years Exp.", color: "#a67a3b" },
+    { num: headerInfo.yearsExp || "5+", label: "Years Exp.", color: "#a67a3b" },
   ];
 
   return (
@@ -262,7 +336,7 @@ export default function TechnicalExpertise() {
               background: "rgba(23,77,77,0.08)", border: "1.5px solid rgba(23,77,77,0.15)",
             }}>
               <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#174d4d", display: "inline-block" }} />
-              Technical Stack
+              {headerInfo.badge || "Technical Stack"}
             </div>
 
             <h2 style={{
@@ -270,21 +344,14 @@ export default function TechnicalExpertise() {
               fontSize: "clamp(36px,5vw,60px)", fontWeight: 800,
               lineHeight: 1.06, letterSpacing: "-2px", color: "#0a1a1a", marginBottom: "16px",
             }}>
-              Built to{" "}
-              <span style={{ background: "linear-gradient(130deg,#174d4d,#2a8a7a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Scale.
-              </span>{" "}
-              Wired to{" "}
-              <span style={{ background: "linear-gradient(130deg,#a67a3b,#d4a055)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Deliver.
-              </span>
+              {headerInfo.title || "Built to Scale. Wired to Deliver."}
             </h2>
 
             <p style={{
               fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif", fontSize: "17px", color: "#5e7878",
               maxWidth: "480px", lineHeight: 1.75, fontWeight: 400,
             }}>
-              A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered.
+              {headerInfo.subheading || "A full-spectrum toolkit spanning UI to infrastructure — every layer of the modern stack, mastered."}
             </p>
 
             {/* Stats */}
@@ -310,7 +377,7 @@ export default function TechnicalExpertise() {
 
           {/* ── Cards ── */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(258px,1fr))", gap: "20px" }}>
-            {skills.map((skill, i) => (
+            {skillCategories.map((skill, i) => (
               <SkillCard key={i} skill={skill} index={i} globalActive={globalActive} setGlobalActive={setGlobalActive} />
             ))}
           </div>
