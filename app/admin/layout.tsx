@@ -21,6 +21,7 @@ import {
   Sparkles,
   Zap,
   Sliders,
+  Bot,
 } from 'lucide-react';
 
 function AdminShell({ children }: { children: React.ReactNode }) {
@@ -104,6 +105,7 @@ function AdminShell({ children }: { children: React.ReactNode }) {
     { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquare },
     { href: '/admin/contacts', label: 'Messages', icon: Mail },
     { href: '/admin/subscribers', label: 'Newsletter', icon: Send },
+    { href: '/admin/ai-rag', label: 'AI System', icon: Bot },
     { href: '/admin/analytics', label: 'Retention & Stats', icon: TrendingUp },
     { href: '/admin/settings', label: 'Site Settings', icon: Sliders },
   ];
