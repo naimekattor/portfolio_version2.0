@@ -81,11 +81,12 @@ export function CTA() {
           email: form.email,
           phone: form.phone,
           company: form.company,
-          message: form.message,
+          message: `${form.company ? `Company: ${form.company}. ` : ""}${selectedServices.length > 0 ? `Services: ${selectedServices.join(", ")}. ` : ""}${form.message}`,
           services: selectedServices,
+          subject: `New Inquiry from ${form.name || form.email}`,
         };
 
-        const res = await fetch("http://localhost:4000/api/v1/contacts", {
+        const res = await fetch("http://localhost:4000/api/v1/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -102,9 +103,10 @@ export function CTA() {
           company: form.company,
           message: `[SCHEDULED CALL] Date: ${form.callDate}, Time: ${form.timeSlot}. Services: ${selectedServices.join(", ")}. ${form.message}`,
           services: selectedServices,
+          subject: `Scheduled Call with ${form.name || form.email}`,
         };
 
-        const res = await fetch("http://localhost:4000/api/v1/contacts", {
+        const res = await fetch("http://localhost:4000/api/v1/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
