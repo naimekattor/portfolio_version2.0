@@ -40,8 +40,8 @@ export function useAiChat() {
             if (parsed && (parsed.technologies || parsed.tech || parsed.liveUrl || parsed.githubUrl)) {
               if (!extractedProjects.find(p => p.title === parsed.title)) {
                 let confidenceLabel = 'Good match';
-                if (source.relevance > 0.35) confidenceLabel = 'Highly relevant';
-                else if (source.relevance > 0.20) confidenceLabel = 'Strong match';
+                if (source.relevance >= 0.50) confidenceLabel = 'Highly relevant';
+                else if (source.relevance >= 0.40) confidenceLabel = 'Strong match';
 
                 extractedProjects.push({
                   id: source.documentId,
