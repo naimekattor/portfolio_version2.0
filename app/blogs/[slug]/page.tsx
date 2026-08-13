@@ -17,7 +17,7 @@ export default function SingleBlogPage() {
     async function fetchBlog() {
       if (!slug) return;
       try {
-        const res = await fetch(`http://localhost:4000/api/v1/blogs/${slug}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/blogs/${slug}`);
         if (res.ok) {
           const json = await res.json();
           setBlog(json.data);

@@ -41,7 +41,7 @@ export default function AboutPage() {
   useEffect(() => {
     async function fetchExperiences() {
       try {
-        const res = await fetch('http://localhost:4000/api/v1/experiences');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/experiences`);
         if (res.ok) {
           const json = await res.json();
           if (json.data && json.data.length > 0) {

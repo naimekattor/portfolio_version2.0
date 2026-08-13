@@ -45,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   try {
-    const res = await fetch("http://localhost:4000/api/v1/blogs", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/blogs`, {
       next: { revalidate: 3600 },
     });
     if (res.ok) {

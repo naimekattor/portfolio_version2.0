@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-export const API_BASE = 'http://localhost:4000/api/v1';
+export const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
 
 interface AdminContextType {
   isAuthenticated: boolean;
@@ -119,7 +119,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         setAuthError(data.message || 'Invalid credentials');
       }
     } catch (err) {
-      setAuthError('Failed to connect to backend API server at http://localhost:4000');
+      setAuthError(`Failed to connect to backend API server at ${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}`);
     }
   };
 

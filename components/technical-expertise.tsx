@@ -204,8 +204,8 @@ export default function TechnicalExpertise() {
     async function fetchData() {
       try {
         const [resSkills, resSet] = await Promise.all([
-          fetch("http://localhost:4000/api/v1/skills"),
-          fetch("http://localhost:4000/api/v1/site-settings"),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/skills`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/site-settings`),
         ]);
 
         if (resSet.ok) {

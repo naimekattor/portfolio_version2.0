@@ -87,7 +87,7 @@ export function ServicesSection() {
   useEffect(() => {
     async function fetchSettings() {
       try {
-        const res = await fetch('http://localhost:4000/api/v1/site-settings');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/site-settings`);
         if (res.ok) {
           const json = await res.json();
           if (json.data?.services_section) {

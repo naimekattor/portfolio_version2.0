@@ -49,8 +49,8 @@ export default function Communication() {
     async function fetchData() {
       try {
         const [resBlogs, resSet] = await Promise.all([
-          fetch("http://localhost:4000/api/v1/blogs"),
-          fetch("http://localhost:4000/api/v1/site-settings"),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/blogs`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/site-settings`),
         ]);
 
         if (resSet.ok) {
