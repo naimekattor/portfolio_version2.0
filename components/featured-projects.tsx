@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import { useLanguage } from "../context/language-context";
 
 const INITIAL_PROJECTS = [
@@ -52,8 +56,50 @@ export function FeaturedProjects() {
     loadProjects();
   }, []);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Only run if projects are loaded
+    if (projects.length === 0) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // Get all project cards inside the container
+      const cards = gsap.utils.toArray<HTMLElement>(".gsap-project-card");
+      
+      let startX = 60;
+      if (window.innerWidth >= 1024) startX = 160;
+      else if (window.innerWidth >= 768) startX = 100;
+
+      cards.forEach((card) => {
+        gsap.fromTo(
+          card,
+          {
+            x: startX,
+            opacity: 0,
+          },
+          {
+            x: 0,
+            opacity: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              end: "top 50%",
+              scrub: 1,
+            },
+          }
+        );
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [projects]); // Re-run when projects load
+
   return (
-    <section id="projects" className="py-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <section id="projects" ref={containerRef} className="py-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-x-hidden">
       <div className="container mx-auto px-6">
         <motion.div className="flex justify-between items-end mb-16">
           <div>
@@ -86,7 +132,7 @@ export function FeaturedProjects() {
             const githubLink = project.githubUrl || "#";
 
             return (
-              <motion.div key={project.id || i} className="group">
+              <motion.div key={project.id || i} className="group gsap-project-card">
                 <div className="relative aspect-video rounded-2xl overflow-hidden mb-6 border border-slate-200 dark:border-slate-800 shadow-sm">
                   <img
                     src={imgSrc}
