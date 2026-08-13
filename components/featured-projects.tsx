@@ -56,7 +56,8 @@ export function FeaturedProjects() {
     loadProjects();
   }, []);
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
+  const scrollTrackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Only run if projects are loaded
@@ -66,33 +67,34 @@ export function FeaturedProjects() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Get all project cards inside the container
-      const cards = gsap.utils.toArray<HTMLElement>(".gsap-project-card");
+      const track = scrollTrackRef.current;
+      const container = containerRef.current;
+      if (!track || !container) return;
       
-      let startX = 60;
-      if (window.innerWidth >= 1024) startX = 160;
-      else if (window.innerWidth >= 768) startX = 100;
+      // Calculate how far to move horizontally
+      // It's the total width of the track minus the visible width of the container
+      const getScrollAmount = () => {
+        const amount = track.scrollWidth - container.offsetWidth + 48; // 48px padding
+        return amount > 0 ? amount : 0;
+      };
 
-      cards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          {
-            x: startX,
-            opacity: 0,
-          },
-          {
-            x: 0,
-            opacity: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-              end: "top 50%",
-              scrub: 1,
-            },
+      const scrollAmount = getScrollAmount();
+
+      // Only pin and animate if there is enough content to scroll horizontally
+      if (scrollAmount > 0) {
+        gsap.to(track, {
+          x: -scrollAmount,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            pin: true,
+            start: "top 10%",
+            end: () => `+=${scrollAmount}`, // 1:1 scroll ratio
+            scrub: 1,
+            invalidateOnRefresh: true,
           }
-        );
-      });
+        });
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -120,20 +122,23 @@ export function FeaturedProjects() {
             </button>
           </Link>
         </motion.div>
-        <div className="grid md:grid-cols-2 gap-12">
-          {projects.map((project, i) => {
-            const techList =
-              project.technologies || project.tech || [];
-            const imgSrc =
-              (project.images && project.images[0]) ||
-              project.image ||
-              "/hokpath.png";
-            const liveLink = project.liveUrl || "#";
-            const githubLink = project.githubUrl || "#";
+        <div className="overflow-hidden mt-8">
+          <div ref={scrollTrackRef} className="flex gap-8 w-max">
+            {projects.map((project, i) => {
+              const techList = project.technologies || project.tech || [];
+              const imgSrc =
+                (project.images && project.images[0]) ||
+                project.image ||
+                "/hokpath.png";
+              const liveLink = project.liveUrl || "#";
+              const githubLink = project.githubUrl || "#";
 
-            return (
-              <motion.div key={project.id || i} className="group gsap-project-card">
-                <div className="relative aspect-video rounded-2xl overflow-hidden mb-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+              return (
+                <motion.div 
+                  key={project.id || i} 
+                  className="group shrink-0 w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[450px] flex flex-col"
+                >
+                <div className="relative aspect-video rounded-2xl overflow-hidden mb-6 border border-slate-200 dark:border-slate-800 shadow-sm shrink-0">
                   <img
                     src={imgSrc}
                     alt={project.title}
@@ -158,16 +163,16 @@ export function FeaturedProjects() {
                   {project.description || project.solution}
                 </p>
                 {project.impact && (
-                  <div className="p-4 bg-secondary-50 dark:bg-slate-900 border border-secondary-100 dark:border-slate-800 rounded-xl mb-6">
+                  <div className="p-4 bg-secondary-50 dark:bg-slate-900 border border-secondary-100 dark:border-slate-800 rounded-xl mb-6 mt-auto">
                     <p className="text-xs font-bold text-secondary-600 dark:text-secondary-400 uppercase tracking-wider mb-1">
                       Impact
                     </p>
-                    <p className="text-slate-900 dark:text-slate-100 font-medium">
+                    <p className="text-slate-900 dark:text-slate-100 font-medium text-sm">
                       {project.impact}
                     </p>
                   </div>
                 )}
-                <div className="flex gap-4">
+                <div className="flex gap-4 mt-auto pt-4">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
