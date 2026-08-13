@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 export const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
 
@@ -53,7 +54,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
   const [activeVisitorsCount] = useState<number>(1);
 
   useEffect(() => {
-    const savedToken = localStorage.getItem('admin_token');
+    const savedToken = Cookies.get('admin_token');
     if (savedToken) {
       setToken(savedToken);
       setIsAuthenticated(true);
@@ -113,7 +114,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       });
       const data = await res.json();
       if (data.success && data.data?.accessToken) {
-        localStorage.setItem('admin_token', data.data.accessToken);
+        Cookies.set('admin_token', data.data.accessToken, { expires: 7, secure: process.env.NODE_ENV === 'production' });
         setToken(data.data.accessToken);
         setIsAuthenticated(true);
       } else {
@@ -125,7 +126,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('admin_token');
+    Cookies.remove('admin_token');
     setToken(null);
     setIsAuthenticated(false);
   };
@@ -138,7 +139,12 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (res.ok) fetchDashboardData();
+      if (res.ok) {
+        await fetchDashboardData();
+        toast.success('Deleted successfully!');
+      } else {
+        toast.error('Failed to delete item');
+      }
     } catch (err) {
       console.error('Delete failed:', err);
     }
@@ -184,6 +190,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
 
       if (res.ok) {
         await fetchDashboardData();
+        toast.success('Saved successfully!');
         return true;
       } else {
         const errorData = await res.json();
