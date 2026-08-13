@@ -9,7 +9,7 @@ import { ProblemSolving } from '../components/problem-solving';
 import { ServicesSection } from '../components/services-section';
 import { ProductionSystems } from '../components/production-systems';
 import { Testimonials } from '../components/testimonials';
-import  ChatBot  from '../components/ChatBot';
+import ChatContainer from '../components/ai-chat/chat-container';
 import TechnicalExpertise from '../components/technical-expertise';
 import Communication from '@/components/communication';
 
@@ -28,7 +28,7 @@ export default function Home() {
       <Testimonials />
       <CTA />
       <Footer />
-      <ChatBot />
+      <ChatContainer />
     </main>
   );
 }
