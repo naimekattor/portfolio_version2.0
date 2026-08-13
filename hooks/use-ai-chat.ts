@@ -38,8 +38,11 @@ export function useAiChat() {
             // Attempt to parse the source string. If it's a project, it should have a title and description.
             const parsed = typeof source.source === 'string' ? JSON.parse(source.source) : source.source;
             if (parsed && (parsed.technologies || parsed.tech || parsed.liveUrl || parsed.githubUrl)) {
-              // Ensure uniqueness
               if (!extractedProjects.find(p => p.title === parsed.title)) {
+                let confidenceLabel = 'Good match';
+                if (source.relevance > 0.35) confidenceLabel = 'Highly relevant';
+                else if (source.relevance > 0.20) confidenceLabel = 'Strong match';
+
                 extractedProjects.push({
                   id: source.documentId,
                   title: parsed.title || source.title,
@@ -48,6 +51,7 @@ export function useAiChat() {
                   image: (parsed.images && parsed.images[0]) || parsed.image || undefined,
                   liveUrl: parsed.liveUrl,
                   githubUrl: parsed.githubUrl,
+                  confidenceLabel,
                 });
               }
             }

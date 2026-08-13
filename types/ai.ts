@@ -6,6 +6,7 @@ export interface ProjectResult {
   image?: string;
   liveUrl?: string;
   githubUrl?: string;
+  confidenceLabel?: string;
 }
 
 export interface RagSource {

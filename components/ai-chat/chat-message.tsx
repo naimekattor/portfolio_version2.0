@@ -64,24 +64,6 @@ export function ChatMessage({ message }: ChatMessageProps) {
             </div>
           )}
 
-          {/* Source References */}
-          {!isUser && message.sources && message.sources.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-1">
-              <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mr-1 uppercase tracking-wider self-center">
-                Sources:
-              </span>
-              {message.sources.map((source, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-1 px-2 py-0.5 text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 truncate max-w-[150px]"
-                  title={source.title}
-                >
-                  <FileText className="w-3 h-3 shrink-0" />
-                  <span className="truncate">{source.title}</span>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       </div>
     </motion.div>
