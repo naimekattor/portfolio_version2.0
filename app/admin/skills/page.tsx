@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAdmin } from '../admin-context';
 import { Plus, Trash2, Edit, Code2, Save, LayoutGrid } from 'lucide-react';
 
@@ -32,7 +33,7 @@ export default function AdminSkillsPage() {
     });
     setSavingHeader(false);
     if (success) {
-      alert('Section Header & Subheading updated successfully!');
+      toast.success('Section Header & Subheading updated successfully!');
     }
   };
 

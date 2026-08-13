@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAdmin } from '../admin-context';
 import { Database, Search, Activity, RefreshCw, FileText, Bot } from 'lucide-react';
 
@@ -46,13 +47,13 @@ export default function AiRagManagementPage() {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
-        alert('Portfolio indexing started successfully.');
+        toast.success('Portfolio indexing started successfully.');
         fetchRagData();
       } else {
-        alert('Failed to start indexing.');
+        toast.error('Failed to start indexing.');
       }
     } catch (error) {
-      alert('Error connecting to server.');
+      toast.error('Error connecting to server.');
     } finally {
       setIndexing(false);
     }

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 export const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
 
@@ -186,7 +187,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         return true;
       } else {
         const errorData = await res.json();
-        alert(`Failed to save: ${errorData.message || 'Validation error'}`);
+        toast.error(`Failed to save: ${errorData.message || 'Validation error'}`);
         return false;
       }
     } catch (err) {
@@ -210,11 +211,11 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         await fetchDashboardData();
         return true;
       } else if (res.status === 401) {
-        alert('Your admin session has expired. Please sign in again.');
+        toast.error('Your admin session has expired. Please sign in again.');
         handleLogout();
         return false;
       } else {
-        alert('Failed to save site settings');
+        toast.error('Failed to save site settings');
         return false;
       }
     } catch (err) {

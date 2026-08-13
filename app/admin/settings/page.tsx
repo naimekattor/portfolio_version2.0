@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAdmin } from '../admin-context';
 import { Sliders, Languages, Type, Palette, Globe, Save } from 'lucide-react';
 
@@ -62,7 +63,7 @@ export default function AdminSettingsPage() {
     });
     setSaving(false);
     if (success) {
-      alert('Global site settings, language, font, and theme updated successfully!');
+      toast.success('Global site settings, language, font, and theme updated successfully!');
     }
   };
 

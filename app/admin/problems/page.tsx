@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAdmin } from '../admin-context';
 import { Zap, Plus, Trash2, Edit, Save } from 'lucide-react';
 
@@ -85,7 +86,7 @@ export default function AdminProblemsPage() {
       problem_solving_section: payload,
     });
     setSaving(false);
-    if (success) alert('Solving Real Problems section updated successfully!');
+    if (success) toast.success('Solving Real Problems section updated successfully!');
   };
 
   const handleSaveModal = (e: React.FormEvent) => {

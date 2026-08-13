@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
 import { LanguageProvider } from "../context/language-context";
 import { FloatingSideToolbar } from "../components/floating-side-toolbar";
+import { AnalyticsTracker } from "../components/analytics-tracker";
 import { Analytics } from "@vercel/analytics/next";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -81,6 +83,9 @@ export default function RootLayout({
             <FloatingSideToolbar />
           </ThemeProvider>
         </LanguageProvider>
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
         <Analytics />
       </body>
     </html>

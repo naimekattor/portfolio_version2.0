@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAdmin } from '../admin-context';
 import { Plus, Trash2, Edit, Save, MessageSquare, LayoutGrid } from 'lucide-react';
 
@@ -76,7 +77,7 @@ export default function AdminTestimonialsPage() {
     });
     setSavingHeader(false);
     if (success) {
-      alert('Testimonials Section Header updated successfully!');
+      toast.success('Testimonials Section Header updated successfully!');
     }
   };
 

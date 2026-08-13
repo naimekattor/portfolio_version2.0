@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAdmin } from '../admin-context';
 import { Sparkles, Save, Layout } from 'lucide-react';
 
@@ -37,7 +38,7 @@ export default function AdminHeroPage() {
       hero_section: heroForm,
     });
     setSavingHero(false);
-    if (success) alert('Hero Section updated successfully!');
+    if (success) toast.success('Hero Section updated successfully!');
   };
 
   return (

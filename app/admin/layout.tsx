@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Toaster } from 'react-hot-toast';
 import { AdminProvider, useAdmin } from './admin-context';
 import {
   Activity,
@@ -195,6 +196,13 @@ function AdminShell({ children }: { children: React.ReactNode }) {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <AdminProvider>
+      <Toaster position="bottom-right" toastOptions={{
+        style: {
+          background: '#1e293b',
+          color: '#f8fafc',
+          border: '1px solid #334155'
+        }
+      }} />
       <AdminShell>{children}</AdminShell>
     </AdminProvider>
   );

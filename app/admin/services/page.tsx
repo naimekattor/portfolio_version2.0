@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAdmin } from '../admin-context';
 import { Briefcase, Plus, Trash2, Edit, Save } from 'lucide-react';
 
@@ -102,7 +103,7 @@ export default function AdminServicesPage() {
       services_section: payload,
     });
     setSaving(false);
-    if (success) alert('Services section updated successfully!');
+    if (success) toast.success('Services section updated successfully!');
   };
 
   const handleSaveModal = (e: React.FormEvent) => {
