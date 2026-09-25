@@ -98,7 +98,7 @@ export function ServicesSection() {
           }
         }
       } catch (err) {
-        console.error('Failed to load services section settings:', err);
+        console.warn('Backend offline or unreachable, using default services section settings');
       }
     }
     fetchSettings();

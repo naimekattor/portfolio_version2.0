@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAdmin } from '../admin-context';
 import { Plus, Trash2, Edit, Save, FileText, LayoutGrid } from 'lucide-react';
+import { ImageUpload } from '@/components/admin/image-upload';
 
 export default function AdminBlogsPage() {
   const { blogs, siteSettings, handleDelete, handleSave, saveSiteSettings } = useAdmin();
@@ -268,6 +269,14 @@ export default function AdminBlogsPage() {
                   </select>
                 </div>
               </div>
+
+              <ImageUpload
+                value={formData.featuredImage || ''}
+                onChange={(url) => setFormData({ ...formData, featuredImage: url })}
+                label="Article Cover / Featured Image"
+                placeholder="e.g. /blog-cover.jpg or https://res.cloudinary.com/..."
+                folder="portfolio/blogs"
+              />
 
               <div>
                 <label className="text-xs font-semibold uppercase text-slate-400">Excerpt / Summary</label>

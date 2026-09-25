@@ -252,9 +252,8 @@ export default function TechnicalExpertise() {
           }
         }
       } catch (err) {
-        console.error(
-          "Failed to load technical expertise data from backend:",
-          err,
+        console.warn(
+          "Backend offline or unreachable, using default technical expertise data"
         );
       }
     }

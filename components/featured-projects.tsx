@@ -50,7 +50,7 @@ export function FeaturedProjects() {
           }
         }
       } catch (err) {
-        console.error("Failed to fetch projects from backend:", err);
+        console.warn("Backend offline or unreachable, using default featured projects");
       }
     }
     loadProjects();
@@ -193,6 +193,7 @@ export function FeaturedProjects() {
               </motion.div>
             );
           })}
+          </div>
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Palette, Languages, Sun, Moon, ArrowUp, Check, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/language-context';
+import { useTheme } from 'next-themes';
 
 const COLOR_THEMES = [
   { id: 'system', name: 'System Default', color: '#174d4d', primary: '#174d4d', secondary: '#a67a3b' },
@@ -26,9 +27,10 @@ const LANGUAGES = [
 
 export function FloatingSideToolbar() {
   const { language, setLanguage } = useLanguage();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const [activePanel, setActivePanel] = useState<'theme' | 'language' | null>(null);
   const [selectedTheme, setSelectedTheme] = useState('system');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const applyThemeColors = (themeId: string) => {
     const themeObj = COLOR_THEMES.find((t) => t.id === themeId) || COLOR_THEMES[0];
@@ -42,17 +44,13 @@ export function FloatingSideToolbar() {
   };
 
   useEffect(() => {
+    setMounted(true);
     const storedTheme = localStorage.getItem('user_color_theme') || 'system';
-    const storedDark = localStorage.getItem('user_dark_mode') === 'true';
-
     setSelectedTheme(storedTheme);
     applyThemeColors(storedTheme);
-
-    setIsDarkMode(storedDark);
-    if (storedDark) {
-      document.documentElement.classList.add('dark');
-    }
   }, []);
+
+  const isDarkMode = mounted ? (resolvedTheme === 'dark' || theme === 'dark') : false;
 
   const handleThemeSelect = (themeId: string) => {
     setSelectedTheme(themeId);
@@ -68,13 +66,8 @@ export function FloatingSideToolbar() {
 
   const toggleDarkMode = () => {
     const nextDark = !isDarkMode;
-    setIsDarkMode(nextDark);
+    setTheme(nextDark ? 'dark' : 'light');
     localStorage.setItem('user_dark_mode', String(nextDark));
-    if (nextDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
   };
 
   const scrollToTop = () => {

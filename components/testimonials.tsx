@@ -117,7 +117,7 @@ export function Testimonials() {
           }
         }
       } catch (err) {
-        console.error("Failed to load testimonials settings:", err);
+        console.warn("Backend offline or unreachable, using default testimonials settings");
       }
     }
 

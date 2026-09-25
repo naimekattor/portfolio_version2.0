@@ -16,18 +16,12 @@ export default function SingleBlogPage() {
   useEffect(() => {
     async function fetchBlog() {
       if (!slug) return;
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/blogs/${slug}`);
-        if (res.ok) {
-          const json = await res.json();
-          setBlog(json.data);
-        } else {
-          setBlog({
-            title: slug.replace(/-/g, ' ').toUpperCase(),
-            slug,
-            excerpt:
-              'High-performance web architecture strategies, serverless APIs, and AI integrations.',
-            content: `
+      const fallbackBlog = {
+        title: slug.replace(/-/g, ' ').toUpperCase(),
+        slug,
+        excerpt:
+          'High-performance web architecture strategies, serverless APIs, and AI integrations.',
+        content: `
 ### Overview
 
 Building modern, production-grade applications requires balancing velocity with long-term maintainability. 
@@ -40,14 +34,23 @@ Building modern, production-grade applications requires balancing velocity with 
 
 #### Conclusion
 By prioritizing scalable foundational architecture early, systems maintain extreme stability even under traffic surges.
-            `,
-            publishedAt: new Date().toISOString(),
-            readingTime: 6,
-            category: { name: 'Engineering' },
-          });
+        `,
+        publishedAt: new Date().toISOString(),
+        readingTime: 6,
+        category: { name: 'Engineering' },
+      };
+
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/blogs/${slug}`);
+        if (res.ok) {
+          const json = await res.json();
+          setBlog(json.data || fallbackBlog);
+        } else {
+          setBlog(fallbackBlog);
         }
       } catch (err) {
-        console.error('Failed to fetch blog post:', err);
+        console.warn('Backend offline or unreachable, using default blog post');
+        setBlog(fallbackBlog);
       } finally {
         setLoading(false);
       }

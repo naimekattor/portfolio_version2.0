@@ -45,8 +45,8 @@ export function AnalyticsTracker() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-    }).catch(err => {
-      console.error('Failed to track analytics:', err);
+    }).catch(() => {
+      // Backend analytics offline or unreachable
     });
 
   }, [pathname, searchParams]);

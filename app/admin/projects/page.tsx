@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useAdmin } from '../admin-context';
 import { Plus, Trash2, Edit, Globe, FolderGit2 } from 'lucide-react';
+import { ImageUpload } from '@/components/admin/image-upload';
 
 export default function AdminProjectsPage() {
   const { projects, handleDelete, handleSave } = useAdmin();
@@ -221,16 +222,13 @@ export default function AdminProjectsPage() {
                 />
               </div>
 
-              <div>
-                <label className="text-xs font-semibold uppercase text-slate-400">Image URL / Path</label>
-                <input
-                  type="text"
-                  value={formData.images || ''}
-                  onChange={(e) => setFormData({ ...formData, images: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm mt-1 focus:outline-none focus:border-indigo-500"
-                  placeholder="e.g. /hokpath.png or https://..."
-                />
-              </div>
+              <ImageUpload
+                value={formData.images || ''}
+                onChange={(url) => setFormData({ ...formData, images: url })}
+                label="Project Thumbnail / Image"
+                placeholder="e.g. /hokpath.png or https://res.cloudinary.com/..."
+                folder="portfolio/projects"
+              />
 
               <div className="grid grid-cols-2 gap-3">
                 <div>

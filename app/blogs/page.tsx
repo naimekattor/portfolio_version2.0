@@ -65,7 +65,7 @@ export default function BlogsPage() {
           }
         }
       } catch (err) {
-        console.error('Failed to load blog posts from backend:', err);
+        console.warn('Backend offline or unreachable, using default blogs');
       } finally {
         setLoading(false);
       }

@@ -77,7 +77,7 @@ export function ProblemSolving() {
           }
         }
       } catch (err) {
-        console.error('Failed to load problem solving section settings:', err);
+        console.warn('Backend offline or unreachable, using default problem solving section settings');
       }
     }
     fetchSettings();

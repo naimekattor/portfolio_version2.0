@@ -92,7 +92,7 @@ export default function Communication() {
           }
         }
       } catch (err) {
-        console.error("Failed to load blog section data:", err);
+        console.warn("Backend offline or unreachable, using default blog section data");
       }
     }
 

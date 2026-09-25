@@ -67,7 +67,7 @@ export default function ProjectsPage() {
           }
         }
       } catch (err) {
-        console.error('Failed to load projects from backend:', err);
+        console.warn('Backend offline or unreachable, using default projects');
       } finally {
         setLoading(false);
       }

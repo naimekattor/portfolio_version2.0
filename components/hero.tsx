@@ -37,7 +37,7 @@ export function Hero() {
           }
         }
       } catch (err) {
-        console.error("Failed to load hero settings:", err);
+        console.warn("Backend offline or unreachable, using default hero settings");
       }
     }
     fetchHeroSettings();

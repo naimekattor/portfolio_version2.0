@@ -68,6 +68,11 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       const headers = { Authorization: `Bearer ${token}` };
 
       const resSum = await fetch(`${API_BASE}/dashboard/summary`, { headers });
+      if (resSum.status === 401) {
+        handleLogout();
+        toast.error('Admin session expired. Please sign in again.');
+        return;
+      }
       if (resSum.ok) setSummaryData((await resSum.json()).data);
 
       const resProj = await fetch(`${API_BASE}/projects`);
@@ -142,6 +147,9 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       if (res.ok) {
         await fetchDashboardData();
         toast.success('Deleted successfully!');
+      } else if (res.status === 401) {
+        handleLogout();
+        toast.error('Admin session expired. Please sign in again.');
       } else {
         toast.error('Failed to delete item');
       }
@@ -192,8 +200,12 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         await fetchDashboardData();
         toast.success('Saved successfully!');
         return true;
+      } else if (res.status === 401) {
+        handleLogout();
+        toast.error('Admin session expired. Please sign in again.');
+        return false;
       } else {
-        const errorData = await res.json();
+        const errorData = await res.json().catch(() => ({}));
         toast.error(`Failed to save: ${errorData.message || 'Validation error'}`);
         return false;
       }

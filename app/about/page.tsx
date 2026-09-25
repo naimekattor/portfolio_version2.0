@@ -49,7 +49,7 @@ export default function AboutPage() {
           }
         }
       } catch (err) {
-        console.error('Failed to load experiences:', err);
+        console.warn('Backend offline or unreachable, using default experiences');
       }
     }
     fetchExperiences();
