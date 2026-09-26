@@ -44,29 +44,29 @@ export function ProductionSystems() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 16 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' as const } },
   };
 
   return (
     <section className="py-24 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 relative overflow-hidden">
-      <div className="container mx-auto px-6 max-w-7xl">
+      <div className="container mx-auto px-6 ">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           {/* Left Column: Heading & Feature Specs */}
           <div className="lg:col-span-6 flex flex-col justify-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800/60 w-fit">
-              <Activity className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-pulse" />
-              <span className="text-xs font-medium tracking-wide uppercase text-blue-700 dark:text-blue-300">
+            <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200 dark:border-primary-800/60 w-fit">
+              <Activity className="w-4 h-4 text-primary-600 dark:text-primary-400 animate-pulse" />
+              <span className="text-xs font-medium tracking-wide uppercase text-primary-700 dark:text-primary-300">
                 System Architecture
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50 mb-5 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-50 mb-6 leading-tight">
               {language !== 'en' ? (
                 t('productionSystems.title')
               ) : (
                 <>
-                  Production-Ready <span className="text-blue-600 dark:text-blue-400">Systems</span>
+                  Production-Ready <span className="text-primary-600 dark:text-primary-400">Systems</span>
                 </>
               )}
             </h2>
@@ -87,17 +87,17 @@ export function ProductionSystems() {
                 <motion.div
                   key={i}
                   variants={itemVariants}
-                  className="group relative p-4 rounded-xl border border-slate-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 backdrop-blur-sm hover:border-blue-500/40 dark:hover:border-blue-500/40 hover:shadow-md transition-all duration-300"
+                  className="group relative p-4 rounded-xl border border-slate-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 backdrop-blur-sm hover:border-primary-500/40 dark:hover:border-primary-500/40 hover:shadow-md transition-all duration-300"
                 >
-                  <div className="flex items-start gap-3.5">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover:bg-blue-500/10 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover:bg-primary-500/10 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                       <item.icon className="w-5 h-5" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100">
                         {item.label}
                       </h3>
-                      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">
+                      <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">
                         {item.desc}
                       </p>
                     </div>
@@ -125,7 +125,7 @@ export function ProductionSystems() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
                     system.live
                   </span>
                 </div>
@@ -134,11 +134,11 @@ export function ProductionSystems() {
               {/* Topology Nodes */}
               <div className="space-y-4">
                 {/* 1. Client Layer */}
-                <div className="p-3.5 rounded-lg border border-sky-500/30 bg-sky-500/5 dark:bg-sky-950/20 flex items-center justify-between">
+                <div className="p-4 rounded-lg border border-sky-500/30 bg-sky-500/5 dark:bg-sky-950/20 flex items-center justify-between">
                   <span className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400">
                     Client Edge
                   </span>
-                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
                     Next.js / SSR
                   </span>
                 </div>
@@ -149,11 +149,11 @@ export function ProductionSystems() {
                 </div>
 
                 {/* 2. API Gateway */}
-                <div className="p-3.5 rounded-lg border border-indigo-500/30 bg-indigo-500/5 dark:bg-indigo-950/20 flex items-center justify-between">
+                <div className="p-4 rounded-lg border border-indigo-500/30 bg-indigo-500/5 dark:bg-indigo-950/20 flex items-center justify-between">
                   <span className="font-mono text-xs font-semibold text-indigo-600 dark:text-indigo-400">
                     API Gateway & Auth
                   </span>
-                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
                     Reverse Proxy / JWT
                   </span>
                 </div>
@@ -165,20 +165,20 @@ export function ProductionSystems() {
                 </div>
 
                 {/* 3. Microservices Grid */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-950/20 text-center">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-lg border border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-950/20 text-center">
                     <p className="font-mono text-xs font-semibold text-emerald-600 dark:text-emerald-400">
                       Core API
                     </p>
-                    <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
+                    <p className="font-mono text-xs text-slate-500 dark:text-slate-400 mt-1">
                       Go / Node.js
                     </p>
                   </div>
-                  <div className="p-3 rounded-lg border border-amber-500/30 bg-amber-500/5 dark:bg-amber-950/20 text-center">
+                  <div className="p-4 rounded-lg border border-amber-500/30 bg-amber-500/5 dark:bg-amber-950/20 text-center">
                     <p className="font-mono text-xs font-semibold text-amber-600 dark:text-amber-400">
                       AI Pipeline
                     </p>
-                    <p className="font-mono text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
+                    <p className="font-mono text-xs text-slate-500 dark:text-slate-400 mt-1">
                       LangChain / Embeddings
                     </p>
                   </div>
@@ -190,11 +190,11 @@ export function ProductionSystems() {
                 </div>
 
                 {/* 4. Persistence Layer */}
-                <div className="p-3.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100/60 dark:bg-slate-800/40 flex items-center justify-between">
+                <div className="p-4 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100/60 dark:bg-slate-800/40 flex items-center justify-between">
                   <span className="font-mono text-xs font-semibold text-slate-700 dark:text-slate-300">
                     Persistence Layer
                   </span>
-                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
                     PostgreSQL + Redis
                   </span>
                 </div>
