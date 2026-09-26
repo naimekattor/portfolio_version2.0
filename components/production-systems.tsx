@@ -54,9 +54,9 @@ export function ProductionSystems() {
 
           {/* Left Column: Heading & Feature Specs */}
           <div className="lg:col-span-6 flex flex-col justify-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-primary-50 dark:bg-primary-950/60 border border-primary-200 dark:border-primary-800/60 w-fit">
-              <Activity className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400 animate-pulse" />
-              <span className="text-xs font-medium tracking-wide uppercase text-primary-700 dark:text-primary-300">
+            <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800/60 w-fit">
+              <Activity className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-pulse" />
+              <span className="text-xs font-medium tracking-wide uppercase text-blue-700 dark:text-blue-300">
                 System Architecture
               </span>
             </div>
@@ -66,7 +66,7 @@ export function ProductionSystems() {
                 t('productionSystems.title')
               ) : (
                 <>
-                  Production-Ready <span className="text-primary-600 dark:text-primary-400">Systems</span>
+                  Production-Ready <span className="text-blue-600 dark:text-blue-400">Systems</span>
                 </>
               )}
             </h2>
@@ -87,10 +87,10 @@ export function ProductionSystems() {
                 <motion.div
                   key={i}
                   variants={itemVariants}
-                  className="group relative p-4 rounded-xl border border-slate-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 backdrop-blur-sm hover:border-primary-500/40 dark:hover:border-primary-500/40 hover:shadow-md transition-all duration-300"
+                  className="group relative p-4 rounded-xl border border-slate-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/60 backdrop-blur-sm hover:border-blue-500/40 dark:hover:border-blue-500/40 hover:shadow-md transition-all duration-300"
                 >
                   <div className="flex items-start gap-3.5">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover:bg-primary-500/10 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 group-hover:bg-blue-500/10 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       <item.icon className="w-5 h-5" />
                     </div>
                     <div>
