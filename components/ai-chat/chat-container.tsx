@@ -41,7 +41,7 @@ export default function ChatContainer() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-2xl transition-colors ${
+        className={`fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-[6px] shadow-2xl transition-colors ${
           isOpen
             ? 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             : 'bg-primary-600 hover:bg-primary-700 text-white shadow-primary-600/30'
@@ -62,7 +62,7 @@ export default function ChatContainer() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2 } }}
-            className="fixed bottom-24 right-6 z-50 flex flex-col w-[calc(100vw-3rem)] sm:w-[440px] h-[600px] max-h-[calc(100vh-8rem)] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl ring-1 ring-slate-900/5 overflow-hidden"
+            className="fixed bottom-24 right-6 z-50 flex flex-col w-[calc(100vw-3rem)] sm:w-[440px] h-[600px] max-h-[calc(100vh-8rem)] bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-[6px] shadow-2xl ring-1 ring-slate-900/5 overflow-hidden"
           >
             <ChatHeader onClose={() => setIsOpen(false)} />
 
@@ -80,7 +80,7 @@ export default function ChatContainer() {
                     <motion.div 
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="p-4 text-sm text-red-600 bg-red-50 border border-red-100 rounded-2xl dark:bg-red-950/20 dark:text-red-400 dark:border-red-900/30 text-center"
+                      className="p-4 text-sm text-red-600 bg-red-50 border border-red-100 rounded-[6px] dark:bg-red-950/20 dark:text-red-400 dark:border-red-900/30 text-center"
                     >
                       {error}
                       <button 

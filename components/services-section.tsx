@@ -112,17 +112,17 @@ export function ServicesSection() {
     <section className="py-24 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 relative overflow-hidden transition-colors duration-300" id="services">
       <div className="container mx-auto px-6 relative z-10">
         <div className="mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-[12px] font-semibold tracking-[0.04em] uppercase mb-4">
             <Sparkles className="w-3.5 h-3.5" /> {badgeText}
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12] mb-4">
             {language !== 'en' ? t('services.title') : (
               <>
                 Engineering Custom Platforms <span className="text-primary-600">& AI Systems</span>
               </>
             )}
           </h2>
-          <p className="text-slate-600 dark:text-slate-300 max-w-2xl text-base">{subtitleText}</p>
+          <p className="text-lg sm:text-[19px] text-slate-600 dark:text-slate-400 max-w-2xl leading-[1.42] tracking-[-0.016em]">{subtitleText}</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -143,16 +143,16 @@ export function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-slate-50 dark:bg-slate-800/60 hover:bg-white dark:hover:bg-slate-800 p-8 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
+                className="bg-slate-50 dark:bg-slate-800/60 hover:bg-white dark:hover:bg-slate-800 p-8 rounded-[6px] border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-14 h-14 bg-primary-600 group-hover:bg-secondary-500 rounded-2xl flex items-center justify-center mb-6 text-white transition-colors duration-300 shadow-md">
+                  <div className="w-14 h-14 bg-primary-600 group-hover:bg-secondary-500 rounded-[6px] flex items-center justify-center mb-6 text-white transition-colors duration-300 shadow-md">
                     <IconComponent className="w-7 h-7" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-primary-600 transition-colors">
+                  <h3 className="text-[21px] font-semibold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-primary-600 transition-colors leading-[1.2] tracking-[-0.015em]">
                     {itemTitle}
                   </h3>
-                  <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                  <p className="text-slate-600 dark:text-slate-300 text-[15px] sm:text-[16px] leading-[1.47] tracking-[-0.015em] mb-6">
                     {itemDesc}
                   </p>
                 </div>
@@ -162,7 +162,7 @@ export function ServicesSection() {
                     {item.tags.map((tag: string, tIdx: number) => (
                       <span
                         key={tIdx}
-                        className="px-2.5 py-1 bg-white border border-slate-200 text-slate-600 text-[11px] font-medium rounded-md shadow-2xs"
+                        className="px-2.5 py-1 bg-white border border-slate-200 text-slate-600 text-[11px] font-medium rounded-[6px] shadow-2xs"
                       >
                         {tag}
                       </span>

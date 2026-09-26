@@ -13,6 +13,9 @@
   --radius-4xl: 6px;
   --radius: 6px;
 
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", Menlo, Monaco, Consolas, monospace;
+
   --color-primary-50: var(--primary-50, #f0f4f8);
   --color-primary-100: var(--primary-100, #e0e7ff);
   --color-primary-200: #c7d2e8;
@@ -38,16 +41,71 @@
 
 @layer base {
   html {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", var(--font-geist-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300;
   }
 
   body {
-    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", var(--font-geist-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
     @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-primary-100 selection:text-primary-900 transition-colors duration-300;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
+  /* Apple Headline Hierarchy */
+  h1 {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-geist-sans), "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.08333;
+  }
+
+  h2 {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-geist-sans), "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.125;
+  }
+
+  h3 {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-geist-sans), "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+
+  h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-geist-sans), "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    line-height: 1.25;
+  }
+
+  p {
+    letter-spacing: -0.016em;
+    line-height: 1.47059;
+  }
+
+  /* Universal 6px border-radius for buttons, inputs, cards, and UI components */
+  button,
+  input,
+  textarea,
+  select,
+  .btn,
+  [role="button"],
+  .rounded-sm,
+  .rounded-md,
+  .rounded-lg,
+  .rounded-xl,
+  .rounded-2xl,
+  .rounded-3xl,
+  .rounded-4xl {
+    border-radius: 6px !important;
   }
 }
 
@@ -59,6 +117,56 @@
   /* RTL Action Arrow Flip */
   html[dir="rtl"] .rtl-flip {
     transform: scaleX(-1);
+  }
+
+  /* Apple Typography Scale */
+  .apple-headline {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-geist-sans), "Helvetica Neue", sans-serif;
+    font-size: clamp(38px, 5.5vw, 64px);
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  .apple-section-headline {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-geist-sans), "Helvetica Neue", sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.12;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .apple-card-headline {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", var(--font-geist-sans), "Helvetica Neue", sans-serif;
+    font-size: clamp(20px, 2.5vw, 24px);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .apple-subheadline {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-geist-sans), "Helvetica Neue", sans-serif;
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.42857;
+    font-weight: 400;
+    letter-spacing: -0.016em;
+  }
+
+  .apple-body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-geist-sans), "Helvetica Neue", sans-serif;
+    font-size: 17px;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+  }
+
+  .apple-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.33;
+    border-radius: 6px;
   }
 }
 

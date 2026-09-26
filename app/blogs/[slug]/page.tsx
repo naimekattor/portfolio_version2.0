@@ -88,9 +88,9 @@ By prioritizing scalable foundational architecture early, systems maintain extre
           </Link>
 
           {/* Article Header */}
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-sm mb-10">
+          <div className="bg-white dark:bg-slate-900 rounded-[6px] p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-sm mb-10">
             <div className="flex items-center gap-3 mb-6">
-              <span className="px-3.5 py-1 bg-secondary-50 dark:bg-slate-800 text-secondary-600 dark:text-secondary-400 border border-secondary-100 dark:border-slate-700 text-xs font-bold uppercase tracking-wider rounded-full">
+              <span className="px-3.5 py-1 bg-secondary-50 dark:bg-slate-800 text-secondary-600 dark:text-secondary-400 border border-secondary-100 dark:border-slate-700 text-xs font-semibold uppercase tracking-wider rounded-[6px]">
                 {typeof blog?.category === 'object' ? blog?.category?.name : blog?.category || 'Engineering'}
               </span>
               <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
@@ -101,19 +101,19 @@ By prioritizing scalable foundational architecture early, systems maintain extre
               </span>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight mb-6">
+            <h1 className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] text-slate-900 dark:text-slate-100 leading-[1.08] mb-6">
               {blog?.title}
             </h1>
 
             {blog?.excerpt && (
-              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed border-l-4 border-secondary-500 pl-4 py-1 font-medium">
+              <p className="text-lg font-normal text-slate-600 dark:text-slate-300 leading-[1.47] tracking-[-0.015em] border-l-4 border-secondary-500 pl-4 py-1">
                 {blog.excerpt}
               </p>
             )}
           </div>
 
           {/* Article Body */}
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 text-slate-800 dark:text-slate-200 leading-relaxed text-base">
+          <div className="bg-white dark:bg-slate-900 rounded-[6px] p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 text-slate-800 dark:text-slate-200 leading-[1.47] text-base">
             <div className="whitespace-pre-line">{blog?.content}</div>
           </div>
         </div>

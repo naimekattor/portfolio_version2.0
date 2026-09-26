@@ -46,8 +46,8 @@ export function ChatInput({ onSend, isLoading, disabled = false }: ChatInputProp
   const canSend = input.trim().length > 0 && !isLoading && !disabled;
 
   return (
-    <div className="p-4 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 rounded-b-3xl">
-      <div className="relative flex items-end gap-2 p-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl focus-within:ring-2 focus-within:ring-primary-500/20 focus-within:border-primary-500 transition-all shadow-sm">
+    <div className="p-4 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 rounded-b-[6px]">
+      <div className="relative flex items-end gap-2 p-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[6px] focus-within:ring-2 focus-within:ring-primary-500/20 focus-within:border-primary-500 transition-all shadow-sm">
         <textarea
           ref={textareaRef}
           value={input}
@@ -61,7 +61,7 @@ export function ChatInput({ onSend, isLoading, disabled = false }: ChatInputProp
         <button
           onClick={handleSend}
           disabled={!canSend}
-          className={`shrink-0 flex items-center justify-center w-11 h-11 rounded-xl transition-all ${
+          className={`shrink-0 flex items-center justify-center w-11 h-11 rounded-[6px] transition-all ${
             canSend
               ? 'bg-primary-600 hover:bg-primary-700 text-white shadow-md shadow-primary-500/25'
               : 'bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'

@@ -150,11 +150,11 @@ export function CTA() {
           {/* Left Column */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
             <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 text-xs font-bold uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 text-[12px] font-semibold tracking-[0.04em] uppercase">
                 <Sparkles className="w-3.5 h-3.5" /> {t("cta.badge")}
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12]">
                 {language !== "en" ? (
                   t("cta.title")
                 ) : (
@@ -166,7 +166,7 @@ export function CTA() {
                 )}
               </h2>
 
-              <p className="text-base text-slate-600 dark:text-slate-400">
+              <p className="text-lg sm:text-[19px] text-slate-600 dark:text-slate-400 leading-[1.42] tracking-[-0.016em]">
                 Get in touch directly at{" "}
                 <a
                   href="mailto:naim.dev.tech@gmail.com"
@@ -205,7 +205,7 @@ export function CTA() {
           </div>
 
           {/* Right Column Form */}
-          <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
+          <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-[6px] border border-slate-200 dark:border-slate-800 shadow-xl">
             {submitted ? (
               <div className="py-12 space-y-6 text-center">
                 <CheckCircle2 className="w-12 h-12 text-primary-600 mx-auto" />
@@ -219,7 +219,7 @@ export function CTA() {
                 </p>
                 <button
                   onClick={handleReset}
-                  className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md"
+                  className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-xs uppercase tracking-wider rounded-[6px] transition-all shadow-md"
                 >
                   Send another message
                 </button>
@@ -227,7 +227,7 @@ export function CTA() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 {errorMsg && (
-                  <div className="p-4 rounded-xl bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-xs font-semibold">
+                  <div className="p-4 rounded-[6px] bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-xs font-semibold">
                     {errorMsg}
                   </div>
                 )}
@@ -235,7 +235,7 @@ export function CTA() {
                 {/* Form Fields */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
                       Your Name <span className="text-primary-600">*</span>
                     </label>
                     <input
@@ -246,12 +246,12 @@ export function CTA() {
                       placeholder="Jane Doe"
                       value={form.name}
                       onChange={handleChange}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[6px] px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
                       Email Address <span className="text-primary-600">*</span>
                     </label>
                     <input
@@ -262,14 +262,14 @@ export function CTA() {
                       placeholder="jane@company.com"
                       value={form.email}
                       onChange={handleChange}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[6px] px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
                       Company / Organization
                     </label>
                     <input
@@ -279,12 +279,12 @@ export function CTA() {
                       placeholder="Acme Corp"
                       value={form.company}
                       onChange={handleChange}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[6px] px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
                       Phone / WhatsApp
                     </label>
                     <input
@@ -294,14 +294,14 @@ export function CTA() {
                       placeholder="+1 (555) 000-0000"
                       value={form.phone}
                       onChange={handleChange}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[6px] px-4 py-2.5 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
                     />
                   </div>
                 </div>
 
                 {/* Services Checkboxes */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-3">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-3">
                     Services Needed
                   </label>
                   <div className="grid grid-cols-2 gap-2.5">
@@ -316,7 +316,7 @@ export function CTA() {
                             type="checkbox"
                             checked={isChecked}
                             onChange={() => toggleService(service)}
-                            className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-700 text-primary-600 focus:ring-0 cursor-pointer"
+                            className="w-3.5 h-3.5 rounded-[4px] border-slate-300 dark:border-slate-700 text-primary-600 focus:ring-0 cursor-pointer"
                           />
                           <span>{service}</span>
                         </label>
@@ -327,9 +327,9 @@ export function CTA() {
 
                 {/* Call schedule extra inputs if mode is call */}
                 {mode === "call" && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-primary-50/50 dark:bg-slate-800/50 border border-primary-100 dark:border-slate-800">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-[6px] bg-primary-50/50 dark:bg-slate-800/50 border border-primary-100 dark:border-slate-800">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
                         Preferred Date
                       </label>
                       <input
@@ -337,18 +337,18 @@ export function CTA() {
                         name="callDate"
                         value={form.callDate}
                         onChange={handleChange}
-                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-[6px] px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
                         Time Slot
                       </label>
                       <select
                         name="timeSlot"
                         value={form.timeSlot}
                         onChange={handleChange}
-                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-[6px] px-3 py-2 text-xs text-slate-900 dark:text-slate-100"
                       >
                         {timeSlots.map((slot) => (
                           <option key={slot} value={slot}>
@@ -362,7 +362,7 @@ export function CTA() {
 
                 {/* Message Box */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">
                     Project Details & Goals{" "}
                     <span className="text-primary-600">*</span>
                   </label>
@@ -374,7 +374,7 @@ export function CTA() {
                     placeholder="Tell me about your project goals, scope, timeline, or requirements..."
                     value={form.message}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
+                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[6px] p-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-primary-600"
                   />
                 </div>
 
@@ -382,7 +382,7 @@ export function CTA() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full py-4 bg-primary-600 hover:bg-primary-700 text-white font-medium text-[15px] sm:text-[16px] rounded-[6px] transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {loading ? (
                     "Processing..."

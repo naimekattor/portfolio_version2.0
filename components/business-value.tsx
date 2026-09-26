@@ -97,7 +97,7 @@ function MetricCard({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative rounded-2xl px-7 py-8 text-center cursor-default overflow-hidden transition-all duration-500 backdrop-blur-md border ${
+      className={`relative rounded-[6px] px-7 py-8 text-center cursor-default overflow-hidden transition-all duration-500 backdrop-blur-md border ${
         hovered
           ? "bg-white dark:bg-slate-900 -translate-y-2 scale-[1.02] shadow-2xl border-primary-600"
           : "bg-white/80 dark:bg-slate-900/80 translate-y-0 scale-100 shadow-sm border-slate-200 dark:border-slate-800"
@@ -176,12 +176,12 @@ export function BusinessValue() {
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-5 px-4.5 py-1.5 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-5 px-4.5 py-1.5 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
             <span className="w-1.5 h-1.5 rounded-full bg-primary-600 inline-block" />
             {badgeText}
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12] mb-4">
             {language !== "en" ? (
               t("businessValue.title")
             ) : (
@@ -194,7 +194,7 @@ export function BusinessValue() {
             )}
           </h2>
 
-          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-md leading-relaxed font-normal">
+          <p className="text-lg sm:text-[19px] text-slate-600 dark:text-slate-400 max-w-md leading-[1.42] tracking-[-0.016em] font-normal">
             {subtitleText}
           </p>
         </div>

@@ -24,7 +24,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
       >
         {/* Avatar */}
         <div
-          className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full shadow-sm border ${
+          className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-[6px] shadow-sm border ${
             isUser
               ? 'bg-primary-600 border-primary-700 text-white'
               : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-primary-600 dark:text-primary-400'
@@ -36,10 +36,10 @@ export function ChatMessage({ message }: ChatMessageProps) {
         {/* Bubble */}
         <div className="flex flex-col gap-2 min-w-0">
           <div
-            className={`px-4 py-3 text-sm leading-relaxed rounded-2xl shadow-sm ${
+            className={`px-4 py-3 text-sm leading-relaxed rounded-[6px] shadow-sm ${
               isUser
-                ? 'bg-primary-600 text-white rounded-tr-sm'
-                : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 rounded-tl-sm'
+                ? 'bg-primary-600 text-white'
+                : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800'
             }`}
           >
             {message.isStreaming && !message.content ? (

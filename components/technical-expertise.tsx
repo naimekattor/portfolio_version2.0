@@ -119,7 +119,7 @@ function SkillCard({
     <div
       onMouseEnter={() => setGlobalActive(index)}
       onMouseLeave={() => setGlobalActive(null)}
-      className={`relative rounded-2xl p-7 md:p-8 cursor-default transition-all duration-500 backdrop-blur-md ${
+      className={`relative rounded-[6px] p-7 md:p-8 cursor-default transition-all duration-500 backdrop-blur-md ${
         isActive
           ? "bg-white dark:bg-slate-900 -translate-y-2 scale-[1.015] shadow-2xl border-primary-600"
           : "bg-white/80 dark:bg-slate-900/80 translate-y-0 scale-100 shadow-sm border-slate-200 dark:border-slate-800"
@@ -133,7 +133,7 @@ function SkillCard({
       />
 
       {/* Tag */}
-      <div className="inline-flex items-center gap-1.5 text-[9.5px] font-bold tracking-[2.5px] uppercase mb-4 px-3 py-1 rounded-full text-primary-600 bg-primary-50 dark:bg-slate-800 dark:text-primary-400 border border-primary-100 dark:border-slate-700">
+      <div className="inline-flex items-center gap-1.5 text-[9.5px] font-bold tracking-[2.5px] uppercase mb-4 px-3 py-1 rounded-[6px] text-primary-600 bg-primary-50 dark:bg-slate-800 dark:text-primary-400 border border-primary-100 dark:border-slate-700">
         <span className="w-1 h-1 rounded-full bg-primary-600 inline-block" />
         {skill.tag}
       </div>
@@ -144,12 +144,12 @@ function SkillCard({
           <div className="text-[9.5px] font-bold tracking-[3px] uppercase text-slate-400 mb-1.5">
             {String(index + 1).padStart(2, "0")}
           </div>
-          <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
+          <h3 className="text-[21px] font-semibold text-slate-900 dark:text-slate-100 tracking-[-0.015em] leading-[1.2]">
             {skill.category}
           </h3>
         </div>
         <div
-          className={`w-11 h-11 rounded-xl flex items-center justify-center text-lg transition-all duration-300 ${isActive ? "rotate-12 scale-110 bg-primary-50 text-primary-600" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"}`}
+          className={`w-11 h-11 rounded-[6px] flex items-center justify-center text-lg transition-all duration-300 ${isActive ? "rotate-12 scale-110 bg-primary-50 text-primary-600" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"}`}
         >
           {skill.icon}
         </div>
@@ -287,14 +287,14 @@ export default function TechnicalExpertise() {
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-5 px-4.5 py-1.5 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-5 px-4.5 py-1.5 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
             <span className="w-1.5 h-1.5 rounded-full bg-primary-600 inline-block" />
             {language !== "en"
               ? t("expertise.badge")
               : headerInfo.badge || "Technical Stack"}
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4 max-w-3xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12] mb-4 max-w-3xl">
             {language !== "en" ? (
               t("expertise.title")
             ) : (
@@ -305,7 +305,7 @@ export default function TechnicalExpertise() {
             )}
           </h2>
 
-          <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-medium">
+          <p className="text-lg sm:text-[19px] text-slate-600 dark:text-slate-400 max-w-xl leading-[1.42] tracking-[-0.016em] font-normal">
             {language !== "en"
               ? t("expertise.subheading")
               : headerInfo.subheading ||
@@ -313,7 +313,7 @@ export default function TechnicalExpertise() {
           </p>
 
           {/* Stats */}
-          <div className="flex flex-wrap justify-center mt-10 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg divide-x divide-slate-100 dark:divide-slate-800">
+          <div className="flex flex-wrap justify-center mt-10 rounded-[6px] overflow-hidden border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg divide-x divide-slate-100 dark:divide-slate-800">
             {stats.map((s, i) => (
               <div key={i} className="px-8 py-5 text-center">
                 <div className="text-2xl md:text-3xl font-extrabold leading-none text-primary-600 dark:text-primary-400">

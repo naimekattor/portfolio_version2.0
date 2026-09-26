@@ -105,19 +105,19 @@ export function FeaturedProjects() {
       <div className="container mx-auto px-6">
         <motion.div className="flex justify-between items-end mb-16">
           <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12] mb-4">
               {language !== 'en' ? t('featuredProjects.title') : (
                 <>
                   Featured <span className="text-primary-600">Projects</span>
                 </>
               )}
             </h2>
-            <p className="text-slate-600 dark:text-slate-300 max-w-2xl">
+            <p className="text-lg sm:text-[19px] text-slate-600 dark:text-slate-400 max-w-2xl leading-[1.42] tracking-[-0.016em]">
               {t('featuredProjects.subheading')}
             </p>
           </div>
           <Link href="/projects">
-            <button className="hidden md:block text-primary-600 font-semibold hover:underline">
+            <button className="hidden md:block text-primary-600 font-semibold hover:underline text-[15px] sm:text-[16px]">
               {t('featuredProjects.viewAll')}
             </button>
           </Link>
@@ -138,7 +138,7 @@ export function FeaturedProjects() {
                   key={project.id || i} 
                   className="group shrink-0 w-[85vw] sm:w-[60vw] md:w-[45vw] lg:w-[450px] flex flex-col"
                 >
-                <div className="relative aspect-video rounded-2xl overflow-hidden mb-6 border border-slate-200 dark:border-slate-800 shadow-sm shrink-0">
+                <div className="relative aspect-video rounded-[6px] overflow-hidden mb-6 border border-slate-200 dark:border-slate-800 shadow-sm shrink-0">
                   <img
                     src={imgSrc}
                     alt={project.title}
@@ -150,20 +150,20 @@ export function FeaturedProjects() {
                   {techList.map((t: string, j: number) => (
                     <span
                       key={j}
-                      className="px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                      className="px-2 py-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[6px] text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+                <h3 className="text-[21px] font-semibold text-slate-900 dark:text-slate-100 mb-3 leading-[1.2] tracking-[-0.015em]">
                   {project.title}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-300 mb-6 line-clamp-2">
+                <p className="text-slate-600 dark:text-slate-400 mb-6 line-clamp-2 text-[15px] sm:text-[16px] leading-[1.47] tracking-[-0.015em]">
                   {project.description || project.solution}
                 </p>
                 {project.impact && (
-                  <div className="p-4 bg-secondary-50 dark:bg-slate-900 border border-secondary-100 dark:border-slate-800 rounded-xl mb-6 mt-auto">
+                  <div className="p-4 bg-secondary-50 dark:bg-slate-900 border border-secondary-100 dark:border-slate-800 rounded-[6px] mb-6 mt-auto">
                     <p className="text-xs font-bold text-secondary-600 dark:text-secondary-400 uppercase tracking-wider mb-1">
                       Impact
                     </p>

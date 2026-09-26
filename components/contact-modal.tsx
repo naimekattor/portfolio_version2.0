@@ -102,22 +102,22 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-xl overflow-hidden shadow-2xl relative my-6 max-h-[92vh] flex flex-col">
+      <div className="bg-slate-900 border border-slate-800 rounded-[6px] w-full max-w-xl overflow-hidden shadow-2xl relative my-6 max-h-[92vh] flex flex-col">
         {/* Modal Header */}
         <div className="p-6 pb-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/60">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+            <div className="w-8 h-8 rounded-[6px] bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base">Let's Connect & Collaborate</h3>
+              <h3 className="font-semibold text-white text-base tracking-[-0.015em]">Let's Connect & Collaborate</h3>
               <p className="text-xs text-slate-400">Direct booking & technical query portal</p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-[6px] bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -125,10 +125,10 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
 
         {submitted ? (
           <div className="p-10 text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/10">
+            <div className="w-16 h-16 rounded-[6px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/10">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h4 className="text-xl font-bold text-white">
+            <h4 className="text-xl font-semibold text-white tracking-[-0.015em]">
               {mode === 'call' ? 'Call Slot Booked Successfully!' : 'Query Sent Successfully!'}
             </h4>
             <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
@@ -139,7 +139,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
             <div className="pt-4">
               <button
                 onClick={handleReset}
-                className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/20"
+                className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-[6px] text-sm transition-all shadow-lg shadow-indigo-600/20"
               >
                 Done
               </button>
@@ -148,11 +148,11 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
         ) : (
           <div className="p-6 overflow-y-auto flex-1 space-y-6">
             {/* Mode Switcher Tabs */}
-            <div className="grid grid-cols-2 p-1 bg-slate-950 border border-slate-800 rounded-2xl">
+            <div className="grid grid-cols-2 p-1 bg-slate-950 border border-slate-800 rounded-[6px]">
               <button
                 type="button"
                 onClick={() => setMode('call')}
-                className={`flex items-center justify-center gap-2 py-2.5 text-xs font-bold rounded-xl transition-all ${
+                className={`flex items-center justify-center gap-2 py-2.5 text-xs font-semibold rounded-[6px] transition-all ${
                   mode === 'call'
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
                     : 'text-slate-400 hover:text-slate-200'
@@ -164,7 +164,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
               <button
                 type="button"
                 onClick={() => setMode('email')}
-                className={`flex items-center justify-center gap-2 py-2.5 text-xs font-bold rounded-xl transition-all ${
+                className={`flex items-center justify-center gap-2 py-2.5 text-xs font-semibold rounded-[6px] transition-all ${
                   mode === 'email'
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
                     : 'text-slate-400 hover:text-slate-200'
@@ -176,7 +176,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
             </div>
 
             {errorMsg && (
-              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-xs text-red-300 font-medium">
+              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-[6px] text-xs text-red-300 font-medium">
                 {errorMsg}
               </div>
             )}
@@ -191,7 +191,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="e.g. Alex Rivera"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-white"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-[6px] px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-white"
                   />
                 </div>
                 <div>
@@ -202,7 +202,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="alex@company.com"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-white"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-[6px] px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-white"
                   />
                 </div>
               </div>
@@ -218,7 +218,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     placeholder="+1 (555) 000-0000"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-[6px] pl-10 pr-3.5 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-white"
                   />
                 </div>
               </div>
@@ -228,7 +228,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
                 <select
                   value={form.subject}
                   onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-white"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-[6px] px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-white"
                 >
                   {topics.map((t) => (
                     <option key={t} value={t}>
@@ -252,7 +252,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
                       min={new Date().toISOString().split('T')[0]}
                       value={form.callDate}
                       onChange={(e) => setForm({ ...form, callDate: e.target.value })}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-white"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-[6px] px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-white"
                     />
                   </div>
 
@@ -267,7 +267,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
                           key={slot}
                           type="button"
                           onClick={() => setForm({ ...form, timeSlot: slot })}
-                          className={`py-2 px-2.5 rounded-xl text-xs font-medium border transition-all text-center ${
+                          className={`py-2 px-2.5 rounded-[6px] text-xs font-medium border transition-all text-center ${
                             form.timeSlot === slot
                               ? 'bg-indigo-600/20 border-indigo-500 text-indigo-300 font-bold'
                               : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
@@ -295,7 +295,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
                       ? 'Briefly describe what you would like to discuss during our call...'
                       : 'Share your project scope, goals, timeframe, or questions...'
                   }
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-[6px] px-3.5 py-2.5 text-sm mt-1 focus:outline-none focus:border-indigo-500 text-slate-200"
                 />
               </div>
 
@@ -303,7 +303,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/30 disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-[6px] text-sm transition-all shadow-lg shadow-indigo-600/30 disabled:opacity-50"
                 >
                   {loading ? (
                     'Submitting...'

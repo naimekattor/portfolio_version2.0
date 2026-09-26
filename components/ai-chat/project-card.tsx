@@ -15,7 +15,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <motion.div 
       initial={{ opacity: 0, scale: 0.95, y: 10 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      className="my-4 overflow-hidden border rounded-2xl group border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
+      className="my-4 overflow-hidden border rounded-[6px] group border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
     >
       <div className="flex flex-col">
         {/* Project Image */}
@@ -30,11 +30,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
         {/* Content */}
         <div className="flex flex-col flex-1 p-4">
           <div className="flex justify-between items-start mb-2">
-            <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            <h4 className="text-base font-semibold text-slate-900 dark:text-slate-100 tracking-[-0.015em]">
               {project.title}
             </h4>
             {project.confidenceLabel && (
-              <span className="shrink-0 ml-3 px-2.5 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 text-[10px] font-bold uppercase tracking-wider rounded-full border border-primary-100 dark:border-primary-800/50 flex items-center gap-1.5">
+              <span className="shrink-0 ml-3 px-2.5 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 text-[10px] font-semibold uppercase tracking-wider rounded-[6px] border border-primary-100 dark:border-primary-800/50 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-500"></span>
                 {project.confidenceLabel}
               </span>
@@ -49,13 +49,13 @@ export function ProjectCard({ project }: ProjectCardProps) {
             {project.technologies.slice(0, 4).map((tech, i) => (
               <span
                 key={i}
-                className="px-2 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider"
+                className="px-2 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[6px] text-[9px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
               >
                 {tech}
               </span>
             ))}
             {project.technologies.length > 4 && (
-              <span className="px-2 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-[9px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <span className="px-2 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[6px] text-[9px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 +{project.technologies.length - 4}
               </span>
             )}

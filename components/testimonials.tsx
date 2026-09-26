@@ -170,12 +170,12 @@ export function Testimonials() {
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 dark:text-primary-400 mb-5 px-4.5 py-1.5 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
+          <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 dark:text-primary-400 mb-5 px-4.5 py-1.5 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
             <span className="w-1.5 h-1.5 rounded-full bg-primary-600 dark:bg-primary-400 inline-block" />
             {badgeText}
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12] mb-4">
             {language !== "en" ? (
               t("testimonialsSection.title")
             ) : (
@@ -186,7 +186,7 @@ export function Testimonials() {
             )}
           </h2>
 
-          <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-md leading-relaxed font-medium">
+          <p className="text-lg sm:text-[19px] text-slate-600 dark:text-slate-400 max-w-md leading-[1.42] tracking-[-0.016em] font-normal">
             {subtitleText}
           </p>
         </div>
@@ -205,7 +205,7 @@ export function Testimonials() {
                   className="flex-[0_0_88%] md:flex-[0_0_660px] min-w-0 pl-5"
                 >
                   <div
-                    className={`relative rounded-3xl p-8 md:p-11 transition-all duration-500 backdrop-blur-xl border ${
+                    className={`relative rounded-[6px] p-8 md:p-11 transition-all duration-500 backdrop-blur-xl border ${
                       isActive
                         ? "bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-800 shadow-2xl scale-100 opacity-100"
                         : "bg-white/60 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800/60 shadow-sm scale-95 opacity-50"
@@ -241,11 +241,11 @@ export function Testimonials() {
 
                       {/* Author credentials */}
                       <div className="flex items-center gap-3.5">
-                        <div className="w-12 h-12 rounded-full flex items-center justify-center font-extrabold text-sm text-white shadow-md shrink-0 bg-primary-600">
+                        <div className="w-12 h-12 rounded-[6px] flex items-center justify-center font-extrabold text-sm text-white shadow-md shrink-0 bg-primary-600">
                           {tItem.initials || "CT"}
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-slate-900 dark:text-slate-100 mb-0.5">
+                          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-0.5">
                             {tItem.name}
                           </p>
                           <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
@@ -267,7 +267,7 @@ export function Testimonials() {
             <button
               key={i}
               onClick={() => scrollTo(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`h-2 rounded-[6px] transition-all duration-300 ${
                 i === selectedIndex
                   ? "w-7 bg-primary-600 shadow"
                   : "w-2 bg-slate-300 dark:bg-slate-700"

@@ -91,17 +91,17 @@ export function ProblemSolving() {
     <section className="py-24 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
       <div className="container mx-auto px-6">
         <div className="mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-[12px] font-semibold tracking-[0.04em] uppercase mb-4">
             <Zap className="w-3.5 h-3.5" /> {badgeText}
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12] mb-4">
             {language !== 'en' ? t('problems.title') : (
               <>
                 Solving Real <span className="text-primary-600">Technical Challenges</span>
               </>
             )}
           </h2>
-          <p className="text-slate-600 dark:text-slate-300 max-w-2xl">{subtitleText}</p>
+          <p className="text-lg sm:text-[19px] text-slate-600 dark:text-slate-400 max-w-2xl leading-[1.42] tracking-[-0.016em]">{subtitleText}</p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {data.items?.map((item: any, i: number) => {
@@ -124,24 +124,24 @@ export function ProblemSolving() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white dark:bg-slate-900 p-8 rounded-[6px] border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="w-12 h-12 bg-primary-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-6">
+                <div className="w-12 h-12 bg-primary-50 dark:bg-slate-800 rounded-[6px] flex items-center justify-center mb-6">
                   <IconComponent className="w-6 h-6 text-primary-600" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">{itemTitle}</h3>
+                <h3 className="text-[21px] font-semibold text-slate-900 dark:text-slate-100 leading-[1.2] tracking-[-0.015em] mb-4">{itemTitle}</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">
                       {language === 'ar' ? 'المشكلة' : 'The Problem'}
                     </p>
-                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{itemProblem}</p>
+                    <p className="text-slate-600 dark:text-slate-300 text-[15px] sm:text-[16px] leading-[1.47] tracking-[-0.015em]">{itemProblem}</p>
                   </div>
                   <div>
                     <p className="text-xs font-bold text-secondary-500 uppercase tracking-wider mb-1">
                       {language === 'ar' ? 'الحل الهندسي' : 'The Solution'}
                     </p>
-                    <p className="text-slate-900 dark:text-slate-100 text-sm font-medium leading-relaxed">
+                    <p className="text-slate-900 dark:text-slate-100 text-[15px] sm:text-[16px] font-medium leading-[1.47] tracking-[-0.015em]">
                       {itemSolution}
                     </p>
                   </div>

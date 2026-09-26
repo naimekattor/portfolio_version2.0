@@ -33,10 +33,10 @@ export function ChatEmptyState({ onSuggestionClick }: ChatEmptyStateProps) {
         transition={{ duration: 0.4 }}
         className="mb-8"
       >
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-400 mb-6 shadow-sm">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-[6px] bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-400 mb-6 shadow-sm">
           <Sparkles className="w-8 h-8" />
         </div>
-        <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+        <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">
           Explore my work with AI
         </h3>
         <p className="text-sm text-slate-500 dark:text-slate-400 max-w-[280px] mx-auto leading-relaxed">
@@ -52,7 +52,7 @@ export function ChatEmptyState({ onSuggestionClick }: ChatEmptyStateProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.1 + idx * 0.05 }}
             onClick={() => onSuggestionClick(suggestion.text)}
-            className="flex items-center gap-3 w-full p-3.5 text-left text-sm rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/50 hover:text-primary-700 dark:hover:text-primary-300 transition-all shadow-sm"
+            className="flex items-center gap-3 w-full p-3.5 text-left text-sm rounded-[6px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/50 hover:text-primary-700 dark:hover:text-primary-300 transition-all shadow-sm"
           >
             <span className="text-primary-500 dark:text-primary-400">
               {suggestion.icon}

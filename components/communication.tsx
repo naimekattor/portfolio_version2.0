@@ -109,14 +109,14 @@ export default function Communication() {
           }`}
         >
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-4 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
+            <div className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[3.5px] uppercase text-primary-600 mb-4 px-4 py-1.5 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-600 inline-block" />
               {language !== "en"
                 ? t("blogsSection.badge")
                 : headerInfo.badge || "Writing & Insights"}
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12] mb-4">
               {language !== "en" ? (
                 t("blogsSection.title")
               ) : (
@@ -129,7 +129,7 @@ export default function Communication() {
               )}
             </h2>
 
-            <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
+            <p className="text-lg sm:text-[19px] text-slate-600 dark:text-slate-400 leading-[1.42] tracking-[-0.016em] font-normal">
               {language !== "en"
                 ? t("blogsSection.subheading")
                 : headerInfo.subheading ||
@@ -138,7 +138,7 @@ export default function Communication() {
           </div>
 
           <Link href="/blogs">
-            <button className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-6 py-3.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white transition-all shadow-md">
+            <button className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider px-6 py-3.5 rounded-[6px] bg-primary-600 hover:bg-primary-700 text-white transition-all shadow-md">
               {language !== "en"
                 ? t("blogsSection.readAll")
                 : headerInfo.buttonText || "Read all posts"}
@@ -152,11 +152,11 @@ export default function Communication() {
           {posts.map((post, i) => (
             <div
               key={i}
-              className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              className="bg-white dark:bg-slate-900 p-8 rounded-[6px] border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="px-3 py-1 bg-secondary-50 dark:bg-slate-800 text-secondary-600 dark:text-secondary-400 border border-secondary-100 dark:border-slate-700 text-[10px] font-bold uppercase tracking-wider rounded-full">
+                  <span className="px-3 py-1 bg-secondary-50 dark:bg-slate-800 text-secondary-600 dark:text-secondary-400 border border-secondary-100 dark:border-slate-700 text-[10px] font-bold uppercase tracking-wider rounded-[6px]">
                     {post.tag}
                   </span>
                   <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
@@ -164,11 +164,11 @@ export default function Communication() {
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-primary-600 transition-colors leading-snug">
+                <h3 className="text-[21px] font-semibold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-primary-600 transition-colors leading-[1.2] tracking-[-0.015em]">
                   {post.title}
                 </h3>
 
-                <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-6 line-clamp-3">
+                <p className="text-slate-600 dark:text-slate-400 text-[15px] sm:text-[16px] leading-[1.47] mb-6 line-clamp-3">
                   {post.excerpt}
                 </p>
               </div>

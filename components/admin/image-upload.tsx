@@ -142,7 +142,7 @@ export function ImageUpload({
           {label}
         </label>
         {isCloudinary && (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-[6px] text-[10px] font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
             <Cloud className="w-2.5 h-2.5" />
             Cloudinary
           </span>
@@ -156,7 +156,7 @@ export function ImageUpload({
             type="text"
             value={value || ''}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 pr-9 transition-colors"
+            className="w-full bg-slate-950 border border-slate-800 rounded-[6px] px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 pr-9 transition-colors"
             placeholder={placeholder}
           />
           {value && (
@@ -184,7 +184,7 @@ export function ImageUpload({
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-md shadow-indigo-600/20 shrink-0"
+          className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white rounded-[6px] text-xs font-semibold flex items-center gap-1.5 transition-all shadow-md shadow-indigo-600/20 shrink-0"
           title="Upload image directly to Cloudinary"
         >
           {uploading ? (
@@ -209,7 +209,7 @@ export function ImageUpload({
           onDragOver={handleDrag}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`border-2 border-dashed rounded-xl p-3 text-center cursor-pointer transition-all ${
+          className={`border-2 border-dashed rounded-[6px] p-3 text-center cursor-pointer transition-all ${
             dragActive
               ? 'border-indigo-500 bg-indigo-500/10'
               : 'border-slate-800 hover:border-slate-700 bg-slate-950/40'
@@ -224,8 +224,8 @@ export function ImageUpload({
 
       {/* Image Preview Box */}
       {value && (
-        <div className="relative rounded-xl border border-slate-800 bg-slate-950 p-2 flex items-center gap-3">
-          <div className="w-14 h-14 rounded-lg overflow-hidden bg-slate-900 border border-slate-800 shrink-0 relative flex items-center justify-center">
+        <div className="relative rounded-[6px] border border-slate-800 bg-slate-950 p-2 flex items-center gap-3">
+          <div className="w-14 h-14 rounded-[6px] overflow-hidden bg-slate-900 border border-slate-800 shrink-0 relative flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={value}
