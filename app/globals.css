@@ -113,12 +113,15 @@
   button.btn-standard,
   .btn,
   .btn-apple,
-  .btn-40 {
-    min-height: 40px;
-    height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  .btn-40,
+  .btn-hire,
+  a.btn-hire {
+    min-height: 40px !important;
+    height: 40px !important;
+    max-height: 40px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 }
 

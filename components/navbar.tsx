@@ -38,6 +38,16 @@ export function Navbar() {
           <Image src="/logo-naim.png" width={95} height={55} alt="naim" className="h-auto w-auto" />
         </Link>
 
+        {/* Mobile Hire Me Button */}
+        <div className="flex md:hidden items-center">
+          <Link
+            href="/contact"
+            className="btn-hire h-[40px] min-h-[40px] max-h-[40px] px-4 bg-primary-600 text-white text-xs font-semibold rounded-[6px] hover:bg-primary-700 transition-all shadow-sm inline-flex items-center justify-center"
+          >
+            {t('nav.hireMe')}
+          </Link>
+        </div>
+
         <div className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => {
             const active = pathname === link.href;
@@ -57,7 +67,7 @@ export function Navbar() {
           })}
           <Link
             href="/contact"
-            className="h-[40px] px-5 bg-primary-600 text-white text-sm font-medium rounded-[6px] hover:bg-primary-700 transition-all shadow-sm inline-flex items-center justify-center"
+            className="btn-hire h-[40px] min-h-[40px] max-h-[40px] px-5 bg-primary-600 text-white text-sm font-medium rounded-[6px] hover:bg-primary-700 transition-all shadow-sm inline-flex items-center justify-center"
           >
             {t('nav.hireMe')}
           </Link>
