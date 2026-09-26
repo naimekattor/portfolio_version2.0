@@ -3,6 +3,16 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --radius-xs: 6px;
+  --radius-sm: 6px;
+  --radius-md: 6px;
+  --radius-lg: 6px;
+  --radius-xl: 6px;
+  --radius-2xl: 6px;
+  --radius-3xl: 6px;
+  --radius-4xl: 6px;
+  --radius: 6px;
+
   --color-primary-50: var(--primary-50, #f0f4f8);
   --color-primary-100: var(--primary-100, #e0e7ff);
   --color-primary-200: #c7d2e8;
