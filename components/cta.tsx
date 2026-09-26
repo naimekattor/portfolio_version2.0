@@ -219,7 +219,7 @@ export function CTA() {
                 </p>
                 <button
                   onClick={handleReset}
-                  className="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-xs uppercase tracking-wider rounded-[6px] transition-all shadow-md"
+                  className="h-[40px] px-6 bg-primary-600 hover:bg-primary-700 text-white font-semibold text-xs uppercase tracking-wider rounded-[6px] transition-all shadow-md inline-flex items-center justify-center"
                 >
                   Send another message
                 </button>
@@ -382,7 +382,7 @@ export function CTA() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 bg-primary-600 hover:bg-primary-700 text-white font-medium text-[15px] sm:text-[16px] rounded-[6px] transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full h-[40px] bg-primary-600 hover:bg-primary-700 text-white font-medium text-[15px] rounded-[6px] transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {loading ? (
                     "Processing..."

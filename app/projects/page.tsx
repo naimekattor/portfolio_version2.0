@@ -120,7 +120,7 @@ export default function ProjectsPage() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-[6px] text-xs font-semibold transition-all whitespace-nowrap ${
+                className={`h-[40px] px-4 rounded-[6px] text-xs font-semibold transition-all whitespace-nowrap inline-flex items-center justify-center ${
                   selectedCategory === cat
                     ? 'bg-primary-600 text-white shadow-sm'
                     : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800'
@@ -139,7 +139,7 @@ export default function ProjectsPage() {
               placeholder={t('projectsPage.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[6px] pl-10 pr-4 py-2 text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-primary-600 transition-colors shadow-2xs"
+              className="w-full h-[40px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[6px] pl-10 pr-4 text-xs text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-primary-600 transition-colors shadow-2xs"
             />
           </div>
         </div>

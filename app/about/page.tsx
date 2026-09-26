@@ -80,13 +80,13 @@ export default function AboutPage() {
                 href="https://drive.google.com/file/d/1wlKh0G_yN_v7uOFnVjonwCqk9_ROxuPB/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3.5 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-[6px] transition-all inline-flex items-center gap-2 shadow-sm"
+                className="h-[40px] px-6 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-[6px] transition-all inline-flex items-center justify-center gap-2 shadow-sm"
               >
                 <Download className="w-4 h-4" /> Download Resume
               </a>
               <Link
                 href="/contact"
-                className="px-6 py-3.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold rounded-[6px] border border-slate-200 dark:border-slate-700 transition-all inline-flex items-center gap-2"
+                className="h-[40px] px-6 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold rounded-[6px] border border-slate-200 dark:border-slate-700 transition-all inline-flex items-center justify-center gap-2"
               >
                 Let&rsquo;s Work Together <ArrowRight className="w-4 h-4" />
               </Link>

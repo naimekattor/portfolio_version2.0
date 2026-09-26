@@ -57,7 +57,7 @@ export function Navbar() {
           })}
           <Link
             href="/contact"
-            className="px-5 py-2.5 bg-primary-600 text-white text-sm font-medium rounded-[6px] hover:bg-primary-700 transition-all shadow-sm"
+            className="h-[40px] px-5 bg-primary-600 text-white text-sm font-medium rounded-[6px] hover:bg-primary-700 transition-all shadow-sm inline-flex items-center justify-center"
           >
             {t('nav.hireMe')}
           </Link>

@@ -107,6 +107,19 @@
   .rounded-4xl {
     border-radius: 6px !important;
   }
+
+  /* Universal 40px height for buttons across the site */
+  button:not([class*="h-"]):not([class*="size-"]):not([aria-label]),
+  button.btn-standard,
+  .btn,
+  .btn-apple,
+  .btn-40 {
+    min-height: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @layer utilities {

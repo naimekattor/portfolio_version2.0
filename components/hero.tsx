@@ -106,7 +106,7 @@ export function Hero() {
           >
             {primaryCta && (
               <Link href={hero.primaryCtaLink || "/projects"}>
-                <button className="px-7 py-3.5 bg-primary-600 text-white font-medium text-[15px] sm:text-[16px] rounded-[6px] hover:bg-primary-700 transition-all flex items-center justify-center gap-2 group shadow-md shadow-primary-600/20 w-full sm:w-auto">
+                <button className="h-[40px] px-6 bg-primary-600 text-white font-medium text-[15px] rounded-[6px] hover:bg-primary-700 transition-all flex items-center justify-center gap-2 group shadow-md shadow-primary-600/20 w-full sm:w-auto">
                   {primaryCta}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl-flip" />
                 </button>
@@ -120,9 +120,9 @@ export function Hero() {
                 }
                 rel="noopener noreferrer"
                 href={hero.secondaryCtaLink || "#"}
-                className="inline-block"
+                className="inline-block w-full sm:w-auto"
               >
-                <button className="px-7 py-3.5 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-medium text-[15px] sm:text-[16px] rounded-[6px] border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all w-full sm:w-auto">
+                <button className="h-[40px] px-6 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-medium text-[15px] rounded-[6px] border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex items-center justify-center w-full sm:w-auto">
                   {hero.secondaryCtaText}
                 </button>
               </a>

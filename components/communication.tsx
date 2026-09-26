@@ -138,7 +138,7 @@ export default function Communication() {
           </div>
 
           <Link href="/blogs">
-            <button className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider px-6 py-3.5 rounded-[6px] bg-primary-600 hover:bg-primary-700 text-white transition-all shadow-md">
+            <button className="h-[40px] inline-flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-wider px-6 rounded-[6px] bg-primary-600 hover:bg-primary-700 text-white transition-all shadow-md">
               {language !== "en"
                 ? t("blogsSection.readAll")
                 : headerInfo.buttonText || "Read all posts"}

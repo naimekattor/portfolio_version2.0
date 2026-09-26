@@ -118,7 +118,7 @@ export default function BlogsPage() {
               <button
                 key={cat}
                 onClick={() => setSelectedTag(cat)}
-                className={`px-4 py-2 rounded-[6px] text-xs font-semibold transition-all whitespace-nowrap ${
+                className={`h-[40px] px-4 rounded-[6px] text-xs font-semibold transition-all whitespace-nowrap inline-flex items-center justify-center ${
                   selectedTag === cat
                     ? 'bg-secondary-600 text-white shadow-sm'
                     : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200'
@@ -136,7 +136,7 @@ export default function BlogsPage() {
               placeholder={t('blogsPage.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-[6px] pl-10 pr-4 py-2 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-secondary-600 transition-colors shadow-2xs"
+              className="w-full h-[40px] bg-white border border-slate-200 rounded-[6px] pl-10 pr-4 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-secondary-600 transition-colors shadow-2xs"
             />
           </div>
         </div>

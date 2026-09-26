@@ -139,7 +139,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
             <div className="pt-4">
               <button
                 onClick={handleReset}
-                className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-[6px] text-sm transition-all shadow-lg shadow-indigo-600/20"
+                className="h-[40px] px-6 inline-flex items-center justify-center bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-[6px] text-sm transition-all shadow-lg shadow-indigo-600/20"
               >
                 Done
               </button>
@@ -303,7 +303,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-[6px] text-sm transition-all shadow-lg shadow-indigo-600/30 disabled:opacity-50"
+                  className="w-full h-[40px] flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-[6px] text-sm transition-all shadow-lg shadow-indigo-600/30 disabled:opacity-50"
                 >
                   {loading ? (
                     'Submitting...'
