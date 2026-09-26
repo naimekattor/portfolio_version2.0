@@ -21,3 +21,6 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: ['/admin/:path*'],
 };
+
+export { proxy as middleware };
+export default proxy;
