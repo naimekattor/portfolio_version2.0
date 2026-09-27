@@ -1,253 +1,368 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useLanguage } from '../context/language-context';
+import React, { useEffect, useRef } from 'react';
+import {
+  Layout,
+  Server,
+  BrainCircuit,
+  Terminal,
+  Code2,
+  CheckCircle2,
+  Globe,
+  ShieldCheck,
+  Cpu,
+  Database,
+  Compass,
+  Layers,
+  Bot,
+  GitBranch,
+  Link2,
+} from 'lucide-react';
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiJavascript,
+  SiTailwindcss,
+  SiRedux,
+  SiGreensock,
+  SiNodedotjs,
+  SiExpress,
+  SiPostgresql,
+  SiPrisma,
+  SiSupabase,
+  SiGooglegemini,
+  SiGit,
+  SiDocker,
+  SiVercel,
+  SiLinux,
+} from 'react-icons/si';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface SkillItem {
   name: string;
-  level?: number;
+  icon: React.ElementType;
 }
 
-interface ExpertiseDomain {
+interface SkillCategory {
+  id: string;
   number: string;
-  titleLine1: string;
-  titleLine2: string;
-  description: string;
-  image: string;
-  glowColor: string;
-  accentBadge?: string;
-  chips?: string[];
-  skills: string[];
+  title: string;
+  tagline: string;
+  highlight: string;
+  icon: React.ElementType;
+  accent: {
+    text: string;
+    border: string;
+    bg: string;
+    glow: string;
+    badgeHover: string;
+    iconColor: string;
+  };
+  skills: SkillItem[];
 }
 
-const EXPERTISE_DOMAINS: ExpertiseDomain[] = [
+const SKILL_CATEGORIES: SkillCategory[] = [
   {
+    id: 'frontend',
     number: '01',
-    titleLine1: 'Sites web',
-    titleLine2: 'sur mesure',
-    description:
-      "Des sites d'exception, conçus pour refléter votre identité et convertir avec élégance.",
-    image: '/images/expertise/prisms.jpg',
-    glowColor: 'bg-cyan-500/20 dark:bg-cyan-400/15',
-    accentBadge: 'Next.js & React',
-    skills: ['React', 'Next.js 15', 'TypeScript', 'Tailwind CSS', 'State & SSR'],
+    title: 'FRONTEND ENGINEERING',
+    tagline: 'Client-side architecture & fluid, responsive interfaces',
+    highlight: 'SSR • Fluid Motion • Strict Typing',
+    icon: Layout,
+    accent: {
+      text: 'text-sky-600 dark:text-sky-400',
+      border: 'border-sky-500/20 group-hover:border-sky-500/40',
+      bg: 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
+      glow: 'from-sky-500/10 to-transparent',
+      badgeHover: 'hover:border-sky-500/40 hover:bg-sky-50/50 dark:hover:bg-sky-950/30',
+      iconColor: 'text-sky-500',
+    },
+    skills: [
+      { name: 'React.js', icon: SiReact },
+      { name: 'Next.js', icon: SiNextdotjs },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'JavaScript', icon: SiJavascript },
+      { name: 'Tailwind CSS', icon: SiTailwindcss },
+      { name: 'Redux Toolkit', icon: SiRedux },
+      { name: 'GSAP', icon: SiGreensock },
+    ],
   },
   {
+    id: 'backend',
     number: '02',
-    titleLine1: 'Expériences',
-    titleLine2: 'interactives',
-    description:
-      'Animations, micro-interactions et interfaces immersives qui marquent les esprits.',
-    image: '/images/expertise/orb.jpg',
-    glowColor: 'bg-fuchsia-500/20 dark:bg-purple-400/15',
-    chips: ['+ Trigger', 'Animation', 'Action'],
-    skills: ['Framer Motion', 'Agentic AI', 'LangChain', 'Workflows', 'n8n'],
+    title: 'BACKEND ENGINEERING',
+    tagline: 'Resilient APIs, relational data modeling & auth security',
+    highlight: 'ACID Compliance • REST APIs • ORM',
+    icon: Server,
+    accent: {
+      text: 'text-emerald-600 dark:text-emerald-400',
+      border: 'border-emerald-500/20 group-hover:border-emerald-500/40',
+      bg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
+      glow: 'from-emerald-500/10 to-transparent',
+      badgeHover: 'hover:border-emerald-500/40 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/30',
+      iconColor: 'text-emerald-500',
+    },
+    skills: [
+      { name: 'Node.js', icon: SiNodedotjs },
+      { name: 'Express.js', icon: SiExpress },
+      { name: 'REST APIs', icon: Globe },
+      { name: 'PostgreSQL', icon: SiPostgresql },
+      { name: 'Prisma ORM', icon: SiPrisma },
+      { name: 'Supabase', icon: SiSupabase },
+      { name: 'Authentication & Authorization', icon: ShieldCheck },
+    ],
   },
   {
+    id: 'ai-ml',
     number: '03',
-    titleLine1: 'E-commerce',
-    titleLine2: 'haute performance',
-    description:
-      'Des plateformes rapides, sécurisées et optimisées pour la croissance et le scaling.',
-    image: '/images/expertise/ecommerce.jpg',
-    glowColor: 'bg-rose-500/20 dark:bg-rose-400/15',
-    skills: ['Microservices', 'Node.js', 'Go APIs', 'Stripe / Payments', 'PostgreSQL'],
+    title: 'AI & MACHINE LEARNING',
+    tagline: 'Context retrieval, vector similarity & autonomous agents',
+    highlight: 'Vector Search • RAG Pipelines • LLMs',
+    icon: BrainCircuit,
+    accent: {
+      text: 'text-purple-600 dark:text-purple-400',
+      border: 'border-purple-500/20 group-hover:border-purple-500/40',
+      bg: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+      glow: 'from-purple-500/10 to-transparent',
+      badgeHover: 'hover:border-purple-500/40 hover:bg-purple-50/50 dark:hover:bg-purple-950/30',
+      iconColor: 'text-purple-500',
+    },
+    skills: [
+      { name: 'LLM Integration', icon: Cpu },
+      { name: 'Retrieval-Augmented Generation (RAG)', icon: Database },
+      { name: 'Vector Search', icon: Compass },
+      { name: 'Embeddings', icon: Layers },
+      { name: 'AI Agents', icon: Bot },
+      { name: 'Gemini API', icon: SiGooglegemini },
+    ],
   },
   {
+    id: 'tools-infra',
     number: '04',
-    titleLine1: 'Webflow & Cloud',
-    titleLine2: 'development',
-    description:
-      'Des architectures modulaires, maintenables et ultra performantes au déploiement mondial.',
-    image: '/images/expertise/browser.jpg',
-    glowColor: 'bg-sky-500/20 dark:bg-sky-400/15',
-    skills: ['Docker', 'Vercel Edge', 'Cloudflare', 'AWS S3', 'Serverless'],
-  },
-  {
-    number: '05',
-    titleLine1: 'Design system',
-    titleLine2: '& UI/UX',
-    description:
-      'Des systèmes de design cohérents et des interfaces pensées pour une ergonomie optimale.',
-    image: '/images/expertise/layers.jpg',
-    glowColor: 'bg-amber-500/20 dark:bg-amber-400/15',
-    skills: ['Component Systems', 'Prisma ORM', 'Redis Cache', 'Figma Sync', 'A11y'],
-  },
-  {
-    number: '06',
-    titleLine1: 'Optimisation',
-    titleLine2: '& SEO technique',
-    description:
-      'Des performances optimales et une structure technique prête à supporter des millions de requêtes.',
-    image: '/images/expertise/terrain.jpg',
-    glowColor: 'bg-emerald-500/20 dark:bg-emerald-400/15',
-    skills: ['Sub-100ms APIs', 'Core Web Vitals', 'Schema SEO', 'Auth & JWT', 'High Uptime'],
+    title: 'TOOLS & INFRASTRUCTURE',
+    tagline: 'Containerized environments, automated CI/CD & edge delivery',
+    highlight: 'Dockerized Services • GitOps • Edge Runtime',
+    icon: Terminal,
+    accent: {
+      text: 'text-amber-600 dark:text-amber-400',
+      border: 'border-amber-500/20 group-hover:border-amber-500/40',
+      bg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+      glow: 'from-amber-500/10 to-transparent',
+      badgeHover: 'hover:border-amber-500/40 hover:bg-amber-50/50 dark:hover:bg-amber-950/30',
+      iconColor: 'text-amber-500',
+    },
+    skills: [
+      { name: 'Git & GitHub', icon: SiGit },
+      { name: 'Docker', icon: SiDocker },
+      { name: 'Vercel', icon: SiVercel },
+      { name: 'Linux', icon: SiLinux },
+      { name: 'CI/CD', icon: GitBranch },
+      { name: 'API Integration', icon: Link2 },
+    ],
   },
 ];
 
-// English localized fallbacks if language is set to English
-const ENGLISH_TITLES: Record<string, { t1: string; t2: string; desc: string }> = {
-  '01': {
-    t1: 'Modern Web',
-    t2: 'Architecture',
-    desc: 'Bespoke web platforms built with cutting-edge frameworks, uncompromising speed, and strict type safety.',
-  },
-  '02': {
-    t1: 'Interactive &',
-    t2: 'AI Systems',
-    desc: 'Immersive micro-interactions, autonomous AI agents, and frictionless automated workflows.',
-  },
-  '03': {
-    t1: 'High-Throughput',
-    t2: 'E-Commerce',
-    desc: 'Resilient, secure transaction engines optimized for global scalability and sub-second checkout.',
-  },
-  '04': {
-    t1: 'Cloud & Edge',
-    t2: 'Infrastructure',
-    desc: 'Scalable containerized clusters, global edge caching, and zero-downtime automated pipelines.',
-  },
-  '05': {
-    t1: 'Design Systems',
-    t2: '& Data Layers',
-    desc: 'Reusable component design tokens backed by optimized SQL schemas and distributed in-memory cache.',
-  },
-  '06': {
-    t1: 'Performance &',
-    t2: 'Security Audit',
-    desc: 'Sub-100ms latency targets, 99.9% uptime reliability, and enterprise-grade authentication protocols.',
-  },
-};
-
 export default function TechnicalExpertise() {
-  const { language } = useLanguage();
-  const [mounted, setMounted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setMounted(true);
+    // Respect user's motion preferences
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // 1. Entrance animation for the section header
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: 'top 85%',
+              end: 'bottom 20%',
+              toggleActions: 'play reverse play reverse',
+            },
+          }
+        );
+      }
+
+      // 2. Sequential card entrance animation
+      const cards = gsap.utils.toArray<HTMLElement>('.expertise-card');
+      if (cards && cards.length > 0 && cardsContainerRef.current) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 35 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            stagger: 0.12,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: cardsContainerRef.current,
+              start: 'top 80%',
+              end: 'bottom 15%',
+              toggleActions: 'play reverse play reverse',
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
-  const isFrench = language === 'fr';
-
   return (
-    <section className="relative py-24 md:py-32 bg-slate-50/70 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-hidden">
+    <section
+      id="expertise"
+      ref={sectionRef}
+      aria-labelledby="technical-expertise-heading"
+      className="relative py-24 md:py-32 bg-slate-50/70 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-hidden"
+    >
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-gradient-to-r from-primary-500/5 via-secondary-500/5 to-cyan-500/5 blur-[120px] pointer-events-none -z-10" />
+      <div
+        aria-hidden="true"
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-gradient-to-r from-primary-500/5 via-sky-500/5 to-purple-500/5 blur-[120px] pointer-events-none -z-10"
+      />
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        {/* Section Header Matching Design */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 md:mb-20">
-          <div>
-            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] uppercase text-slate-500 dark:text-slate-400 mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-primary-600 dark:text-primary-400" />
-              <span>{isFrench ? 'SERVICES' : 'TECHNICAL EXPERTISE'}</span>
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Section Header */}
+        <div
+          ref={headerRef}
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 md:mb-20"
+        >
+          <div className="max-w-2xl">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-[12px] font-semibold tracking-[0.04em] uppercase mb-4 shadow-2xs">
+              <Code2 className="w-3.5 h-3.5" aria-hidden="true" />
+              <span>TECHNICAL EXPERTISE</span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-950 dark:text-white leading-[1.08]">
-              {isFrench ? 'Solutions digitales' : 'Engineering Mastery'}
-              <br />
-              <span className="font-serif italic font-normal tracking-tight text-slate-700 dark:text-slate-300">
-                {isFrench ? 'sur mesure.' : 'crafted to scale.'}
+            {/* Main Heading & Subtitle */}
+            <h2
+              id="technical-expertise-heading"
+              className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12]"
+            >
+              Engineering Mastery{' '}
+              <span className="font-serif italic font-normal text-slate-600 dark:text-slate-400 block sm:inline">
+                crafted to scale.
               </span>
             </h2>
           </div>
 
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-md leading-relaxed font-normal">
-            {isFrench
-              ? 'Nous concevons des expériences web performantes, élégantes et évolutives pour des marques ambitieuses.'
-              : 'Architecting high-throughput web applications, resilient distributed backends, and agentic AI systems that drive measurable impact.'}
+          {/* Description */}
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+            Building scalable web applications, reliable backend systems, and
+            AI-powered experiences through modern engineering and thoughtful
+            architecture.
           </p>
         </div>
 
-        {/* 6-Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-          {EXPERTISE_DOMAINS.map((domain, index) => {
-            const localized = !isFrench ? ENGLISH_TITLES[domain.number] : null;
-            const title1 = localized ? localized.t1 : domain.titleLine1;
-            const title2 = localized ? localized.t2 : domain.titleLine2;
-            const desc = localized ? localized.desc : domain.description;
+        {/* 4 Skill Categories Grid */}
+        <div
+          ref={cardsContainerRef}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
+        >
+          {SKILL_CATEGORIES.map((category) => {
+            const CategoryIcon = category.icon;
 
             return (
-              <motion.div
-                key={domain.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="group relative h-[360px] sm:h-[390px] p-7 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl shadow-xs hover:shadow-2xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-500 flex flex-col justify-between overflow-hidden"
+              <div
+                key={category.id}
+                className="expertise-card group relative p-7 sm:p-8 rounded-[6px] border border-slate-200/80 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl shadow-xs hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
-                {/* Subtle colorful glow orb positioned behind the 3D art */}
+                {/* Subtle top-corner radial glow on hover */}
                 <div
-                  className={`absolute -right-8 -bottom-8 w-60 h-60 rounded-full blur-3xl opacity-40 dark:opacity-30 ${domain.glowColor} pointer-events-none transition-opacity duration-500 group-hover:opacity-70`}
+                  aria-hidden="true"
+                  className={`absolute -right-12 -top-12 w-48 h-48 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${category.accent.glow} pointer-events-none`}
                 />
 
-                {/* 3D Glass Artwork positioned right/bottom */}
-                <div className="absolute -right-6 -bottom-6 sm:-right-4 sm:-bottom-4 w-52 sm:w-60 h-52 sm:h-60 pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-108 group-hover:-rotate-1">
-                  <img
-                    src={domain.image}
-                    alt={`${title1} ${title2}`}
-                    className="w-full h-full object-contain relative z-10 [mask-image:radial-gradient(ellipse_at_center,black_75%,transparent_100%)] mix-blend-multiply dark:mix-blend-screen opacity-95 group-hover:opacity-100 transition-opacity"
-                  />
-                </div>
-
-                {/* Floating Chips on Card 2 (Interactions / Workflow) */}
-                {domain.chips && (
-                  <div className="absolute right-5 sm:right-7 top-10 z-20 flex flex-col gap-2 pointer-events-none">
-                    <div className="px-3 py-1 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-700 text-[11px] font-semibold text-slate-700 dark:text-slate-200 shadow-sm flex items-center gap-1.5 transition-transform duration-500 group-hover:-translate-y-0.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
-                      {domain.chips[0]}
+                <div>
+                  {/* Top Bar: Icon + Category Number & Count */}
+                  <div className="flex items-center justify-between gap-4 mb-6">
+                    <div className="flex items-center gap-3.5">
+                      <div
+                        className={`w-11 h-11 rounded-[6px] flex items-center justify-center border ${category.accent.border} ${category.accent.bg} transition-colors duration-300 shadow-2xs`}
+                      >
+                        <CategoryIcon className="w-5 h-5" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <span className="font-mono text-[11px] font-semibold text-slate-400 dark:text-slate-500 tracking-wider">
+                          CATEGORY {category.number}
+                        </span>
+                        <h3 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-snug">
+                          {category.title}
+                        </h3>
+                      </div>
                     </div>
-                    <div className="px-3 py-1 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-700 text-[11px] font-semibold text-slate-700 dark:text-slate-200 shadow-sm flex items-center gap-1.5 ml-3 transition-transform duration-500 group-hover:translate-x-0.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                      {domain.chips[1]}
-                    </div>
-                    <div className="px-3 py-1 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-200/80 dark:border-slate-700 text-[11px] font-semibold text-slate-700 dark:text-slate-200 shadow-sm flex items-center gap-1.5 transition-transform duration-500 group-hover:translate-y-0.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      {domain.chips[2]}
-                    </div>
-                  </div>
-                )}
 
-                {/* Card Top Text Header */}
-                <div className="relative z-10">
-                  <span className="font-mono text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-wider block mb-3">
-                    {domain.number}
-                  </span>
-
-                  <h3 className="text-xl sm:text-[23px] font-bold text-slate-900 dark:text-white tracking-tight leading-snug mb-3 max-w-[210px]">
-                    {title1}
-                    <br />
-                    <span className="text-slate-800 dark:text-slate-200 font-semibold">
-                      {title2}
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-[6px] bg-slate-100 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 text-[11px] font-mono font-medium text-slate-600 dark:text-slate-400">
+                      {category.skills.length} Skills
                     </span>
-                  </h3>
+                  </div>
 
-                  <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-[200px] mb-3 line-clamp-3">
-                    {desc}
+                  {/* Category Tagline */}
+                  <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
+                    {category.tagline}
                   </p>
-                </div>
 
-                {/* Card Bottom: Interactive Round Arrow Button + Skill Tags on Hover */}
-                <div className="relative z-10 flex items-center justify-between pt-4">
-                  <Link
-                    href="/contact"
-                    className="w-10 h-10 rounded-full bg-slate-950 dark:bg-white text-white dark:text-slate-950 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-primary-600 dark:group-hover:bg-primary-500 dark:group-hover:text-white shadow-md"
-                    aria-label={`Explore ${title1} ${title2}`}
+                  {/* Skill Badges */}
+                  <div
+                    className="flex flex-wrap gap-2 sm:gap-2.5 mb-6"
+                    role="list"
+                    aria-label={`${category.title} Skills`}
                   >
-                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </Link>
+                    {category.skills.map((skill) => {
+                      const SkillIcon = skill.icon;
 
-                  {/* Micro skill badges */}
-                  <div className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                    <span>{domain.skills[0]}</span>
-                    <span>•</span>
-                    <span>{domain.skills[1]}</span>
+                      return (
+                        <span
+                          key={skill.name}
+                          role="listitem"
+                          className={`group/badge inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] bg-slate-100/70 dark:bg-slate-800/60 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/70 dark:border-slate-700/70 text-xs sm:text-[13px] font-medium text-slate-700 dark:text-slate-200 transition-all duration-200 hover:-translate-y-0.5 shadow-2xs ${category.accent.badgeHover} cursor-default`}
+                        >
+                          <SkillIcon
+                            className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover/badge:scale-110 ${category.accent.iconColor}`}
+                            aria-hidden="true"
+                          />
+                          <span>{skill.name}</span>
+                        </span>
+                      );
+                    })}
                   </div>
                 </div>
-              </motion.div>
+
+                {/* Card Footer: Architecture / Focus Highlights */}
+                <div className="pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <CheckCircle2
+                      className={`w-3.5 h-3.5 ${category.accent.text}`}
+                      aria-hidden="true"
+                    />
+                    <span>{category.highlight}</span>
+                  </div>
+
+                  <span className="font-mono uppercase tracking-wider text-[10px] text-slate-400 dark:text-slate-500">
+                    Production Ready
+                  </span>
+                </div>
+              </div>
             );
           })}
         </div>

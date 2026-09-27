@@ -16,13 +16,13 @@ const COLOR_THEMES = [
 ];
 
 const LANGUAGES = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'bn', name: 'বাংলা', flag: '🇧🇩' },
-  { code: 'ja', name: '日本語', flag: '🇯🇵' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+  { code: 'en', name: 'English', label: 'EN' },
+  { code: 'es', name: 'Español', label: 'ES' },
+  { code: 'fr', name: 'Français', label: 'FR' },
+  { code: 'de', name: 'Deutsch', label: 'DE' },
+  { code: 'bn', name: 'বাংলা', label: 'BN' },
+  { code: 'ja', name: '日本語', label: 'JA' },
+  { code: 'ar', name: 'العربية', label: 'AR' },
 ];
 
 export function FloatingSideToolbar() {
@@ -143,7 +143,9 @@ export function FloatingSideToolbar() {
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
-                        <span className="text-base leading-none">{lang.flag}</span>
+                        <span className="w-6 h-5 rounded-[4px] bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-mono font-semibold flex items-center justify-center text-slate-600 dark:text-slate-400 shrink-0">
+                          {lang.label}
+                        </span>
                         <span>{lang.name}</span>
                       </div>
                       {isSelected && <Check className="w-4 h-4 text-primary-600 shrink-0" />}

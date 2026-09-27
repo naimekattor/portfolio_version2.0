@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAdmin } from '../admin-context';
-import { Sparkles, Save, Layout } from 'lucide-react';
+import { LayoutTemplate, Save, Layout } from 'lucide-react';
 
 const DEFAULT_HERO = {
   badgeText: 'Available for new projects',
@@ -47,7 +47,7 @@ export default function AdminHeroPage() {
         <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-800">
           <div>
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-amber-400" />
+              <LayoutTemplate className="w-6 h-6 text-indigo-400" />
               Hero Section CMS Control
             </h2>
             <p className="text-xs text-slate-400 mt-1">

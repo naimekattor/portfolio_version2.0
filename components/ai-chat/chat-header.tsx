@@ -1,4 +1,4 @@
-import { X, Sparkles } from 'lucide-react';
+import { X, Bot } from 'lucide-react';
 
 interface ChatHeaderProps {
   onClose: () => void;
@@ -9,7 +9,7 @@ export function ChatHeader({ onClose }: ChatHeaderProps) {
     <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 rounded-t-[6px]">
       <div className="flex items-center gap-3">
         <div className="flex items-center justify-center w-10 h-10 rounded-[6px] bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-400">
-          <Sparkles className="w-5 h-5" />
+          <Bot className="w-5 h-5" />
         </div>
         <div>
           <h3 className="font-semibold text-slate-900 dark:text-slate-100 leading-tight tracking-[-0.015em]">

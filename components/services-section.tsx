@@ -14,6 +14,7 @@ import {
   Layers,
   Sparkles,
   ArrowRight,
+  Monitor,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/language-context';
@@ -30,6 +31,7 @@ const ICON_MAP: Record<string, any> = {
   Wrench,
   Layers,
   Sparkles,
+  Monitor,
 };
 
 const DEFAULT_SERVICES = {
@@ -74,7 +76,7 @@ const DEFAULT_SERVICES = {
       title: 'AI-Powered Websites',
       description:
         'Transforming traditional marketing sites into intelligent, interactive web platforms with real-time AI personalization.',
-      icon: 'Sparkles',
+      icon: 'Monitor',
       tags: ['AI-Powered', 'Personalization', 'React', 'TypeScript'],
     },
   ],
@@ -113,7 +115,7 @@ export function ServicesSection() {
       <div className="container mx-auto px-6 relative z-10">
         <div className="mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-[12px] font-semibold tracking-[0.04em] uppercase mb-4">
-            <Sparkles className="w-3.5 h-3.5" /> {badgeText}
+            <Layers className="w-3.5 h-3.5" /> {badgeText}
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12] mb-4">
             {language !== 'en' ? t('services.title') : (
@@ -146,8 +148,8 @@ export function ServicesSection() {
                 className="bg-slate-50 dark:bg-slate-800/60 hover:bg-white dark:hover:bg-slate-800 p-8 rounded-[6px] border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-14 h-14 bg-primary-600 group-hover:bg-secondary-500 rounded-[6px] flex items-center justify-center mb-6 text-white transition-colors duration-300 shadow-md">
-                    <IconComponent className="w-7 h-7" />
+                  <div className="w-11 h-11 bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-[6px] flex items-center justify-center mb-6 text-slate-700 dark:text-slate-200 group-hover:text-primary-600 group-hover:border-primary-500/30 group-hover:bg-primary-50/50 dark:group-hover:bg-primary-950/30 transition-all duration-300 shadow-2xs">
+                    <IconComponent className="w-5 h-5" />
                   </div>
                   <h3 className="text-[21px] font-semibold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-primary-600 transition-colors leading-[1.2] tracking-[-0.015em]">
                     {itemTitle}

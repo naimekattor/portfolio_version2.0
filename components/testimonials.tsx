@@ -3,6 +3,7 @@
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useState } from "react";
+import { Quote, Star } from "lucide-react";
 import { useLanguage } from "../context/language-context";
 
 const DEFAULT_TESTIMONIALS = [
@@ -40,32 +41,24 @@ const DEFAULT_TESTIMONIALS = [
   },
 ];
 
-function QuoteIcon({ color }: { color: string }) {
+function QuoteIcon({ color }: { color?: string }) {
   return (
-    <svg width="36" height="28" viewBox="0 0 36 28" fill="none">
-      <path
-        d="M0 28V17.6C0 12.693 1.387 8.853 4.16 6.08 6.933 3.307 10.88 1.493 16 0.64L17.28 3.52C14.507 4.267 12.373 5.493 10.88 7.2 9.387 8.907 8.64 10.88 8.64 13.12H15.36V28H0ZM20.64 28V17.6C20.64 12.693 22.027 8.853 24.8 6.08 27.573 3.307 31.52 1.493 36.64.64L37.92 3.52C35.147 4.267 33.013 5.493 31.52 7.2 30.027 8.907 29.28 10.88 29.28 13.12H36V28H20.64Z"
-        fill="currentColor"
-        className="text-primary-600 dark:text-primary-400 opacity-20"
-      />
-    </svg>
+    <Quote
+      className="w-8 h-8 text-primary-600/30 dark:text-primary-400/30 rotate-180"
+      aria-hidden="true"
+    />
   );
 }
 
 function StarRow() {
   return (
-    <div className="flex gap-1 mb-5">
+    <div className="flex gap-1 mb-5" aria-label="5 out of 5 stars rating">
       {[...Array(5)].map((_, i) => (
-        <svg
+        <Star
           key={i}
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="text-secondary-500 opacity-90"
-        >
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
+          className="w-3.5 h-3.5 fill-secondary-500 text-secondary-500 opacity-90"
+          aria-hidden="true"
+        />
       ))}
     </div>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calendar, Mail, Phone, Clock, CheckCircle2, X, Sparkles, Send } from 'lucide-react';
+import { Calendar, Mail, Phone, Clock, CheckCircle2, X, Send } from 'lucide-react';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -107,7 +107,7 @@ export function ContactModal({ isOpen, onClose, initialMode = 'call' }: ContactM
         <div className="p-6 pb-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/60">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-[6px] bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-              <Sparkles className="w-4 h-4" />
+              <Mail className="w-4 h-4" />
             </div>
             <div>
               <h3 className="font-semibold text-white text-base tracking-[-0.015em]">Let's Connect & Collaborate</h3>

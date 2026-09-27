@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, MessageSquare } from 'lucide-react';
+import { MessageCircle, X } from 'lucide-react';
 import { useAiChat } from '../../hooks/use-ai-chat';
 import { ChatHeader } from './chat-header';
 import { ChatEmptyState } from './chat-empty-state';
@@ -46,12 +46,12 @@ export default function ChatContainer() {
             ? 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
             : 'bg-primary-600 hover:bg-primary-700 text-white shadow-primary-600/30'
         }`}
-        aria-label="Toggle AI Chat"
+        aria-label={isOpen ? "Close AI Chat" : "Open AI Chat"}
       >
         {isOpen ? (
-          <Sparkles className="w-6 h-6" />
+          <X className="w-6 h-6" />
         ) : (
-          <MessageSquare className="w-6 h-6" />
+          <MessageCircle className="w-6 h-6" />
         )}
       </motion.button>
 

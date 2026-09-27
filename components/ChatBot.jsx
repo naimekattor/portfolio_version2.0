@@ -91,7 +91,7 @@ export default function ChatBot() {
                 <div className="space-y-6">
                   <div className="bg-slate-100 rounded-2xl rounded-tl-none px-5 py-4 text-sm
                     text-slate-600 leading-relaxed border border-slate-200/50">
-                    👋 Hi! I&apos;m your assistant. Ask me anything about Naime&apos;s projects, skills, or professional background.
+                    Hello! I&apos;m your assistant. Ask me anything about Naim&apos;s projects, skills, or professional background.
                   </div>
                   <div className="grid grid-cols-1 gap-2">
                     {SUGGESTED_QUESTIONS.map((q) => (

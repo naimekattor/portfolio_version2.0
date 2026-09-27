@@ -6,11 +6,14 @@ import { usePathname } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
 import { AdminProvider, useAdmin } from './admin-context';
 import {
-  Activity,
+  LayoutDashboard,
+  LayoutTemplate,
+  Layers,
+  BriefcaseBusiness,
+  ShieldCheck,
   TrendingUp,
   FolderGit2,
   Code2,
-  Briefcase,
   FileText,
   Mail,
   Send,
@@ -19,10 +22,7 @@ import {
   Shield,
   RefreshCw,
   MessageSquare,
-  Sparkles,
-  Zap,
-  Sliders,
-  Bot,
+  BrainCircuit,
 } from 'lucide-react';
 
 function AdminShell({ children }: { children: React.ReactNode }) {
@@ -95,20 +95,20 @@ function AdminShell({ children }: { children: React.ReactNode }) {
   }
 
   const navItems = [
-    { href: '/admin', label: 'Overview', icon: Activity },
-    { href: '/admin/hero', label: 'Hero Section', icon: Sparkles },
-    { href: '/admin/services', label: 'Services', icon: Briefcase },
-    { href: '/admin/problems', label: 'Solving Problems', icon: Zap },
+    { href: '/admin', label: 'Overview', icon: LayoutDashboard },
+    { href: '/admin/hero', label: 'Hero Section', icon: LayoutTemplate },
+    { href: '/admin/services', label: 'Services', icon: Layers },
+    { href: '/admin/problems', label: 'Solving Problems', icon: ShieldCheck },
     { href: '/admin/projects', label: 'Projects CMS', icon: FolderGit2 },
     { href: '/admin/skills', label: 'Skills', icon: Code2 },
-    { href: '/admin/experiences', label: 'Experience', icon: Briefcase },
+    { href: '/admin/experiences', label: 'Experience', icon: BriefcaseBusiness },
     { href: '/admin/blogs', label: 'Blog Posts', icon: FileText },
     { href: '/admin/testimonials', label: 'Testimonials', icon: MessageSquare },
     { href: '/admin/contacts', label: 'Messages', icon: Mail },
     { href: '/admin/subscribers', label: 'Newsletter', icon: Send },
-    { href: '/admin/ai-rag', label: 'AI System', icon: Bot },
+    { href: '/admin/ai-rag', label: 'AI System', icon: BrainCircuit },
     { href: '/admin/analytics', label: 'Retention & Stats', icon: TrendingUp },
-    { href: '/admin/settings', label: 'Site Settings', icon: Sliders },
+    { href: '/admin/settings', label: 'Site Settings', icon: Settings },
   ];
 
   return (

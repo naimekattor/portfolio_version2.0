@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useLanguage } from "../context/language-context";
-import { BookOpen, ArrowRight, Clock, Calendar, FileText } from "lucide-react";
+import { ArrowRight, Clock, Calendar } from "lucide-react";
 import Link from "next/link";
 
 const INITIAL_BLOG_POSTS = [

@@ -3,11 +3,8 @@
 import React, { useState } from "react";
 import {
   Mail,
-  Calendar,
-  Clock,
   CheckCircle2,
   ArrowRight,
-  Sparkles,
 } from "lucide-react";
 import { useLanguage } from "../context/language-context";
 
@@ -151,7 +148,7 @@ export function CTA() {
           <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 text-[12px] font-semibold tracking-[0.04em] uppercase">
-                <Sparkles className="w-3.5 h-3.5" /> {t("cta.badge")}
+                <Mail className="w-3.5 h-3.5" /> {t("cta.badge")}
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12]">

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Sparkles, Code, Briefcase, Layout } from 'lucide-react';
+import { Bot, Code, Briefcase, Cpu } from 'lucide-react';
 
 interface ChatEmptyStateProps {
   onSuggestionClick: (suggestion: string) => void;
@@ -11,7 +11,7 @@ const SUGGESTIONS = [
     text: "Show me your best projects",
   },
   {
-    icon: <Sparkles className="w-4 h-4" />,
+    icon: <Cpu className="w-4 h-4" />,
     text: "What AI projects have you built?",
   },
   {
@@ -19,7 +19,7 @@ const SUGGESTIONS = [
     text: "What technologies do you use?",
   },
   {
-    icon: <Layout className="w-4 h-4" />,
+    icon: <Briefcase className="w-4 h-4" />,
     text: "Tell me about your experience",
   },
 ];
@@ -34,7 +34,7 @@ export function ChatEmptyState({ onSuggestionClick }: ChatEmptyStateProps) {
         className="mb-8"
       >
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-[6px] bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-400 mb-6 shadow-sm">
-          <Sparkles className="w-8 h-8" />
+          <Bot className="w-8 h-8" />
         </div>
         <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2 tracking-[-0.015em]">
           Explore my work with AI

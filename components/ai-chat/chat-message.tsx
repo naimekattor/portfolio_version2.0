@@ -1,6 +1,7 @@
+import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { motion } from 'framer-motion';
-import { Bot, User, FileText } from 'lucide-react';
+import { Bot, User, Copy, Check } from 'lucide-react';
 import { ChatMessage as IChatMessage } from '../../types/ai';
 import { ProjectCard } from './project-card';
 
@@ -10,6 +11,14 @@ interface ChatMessageProps {
 
 export function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.role === 'user';
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    if (!message.content) return;
+    navigator.clipboard.writeText(message.content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <motion.div
@@ -36,7 +45,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
         {/* Bubble */}
         <div className="flex flex-col gap-2 min-w-0">
           <div
-            className={`px-4 py-3 text-sm leading-relaxed rounded-[6px] shadow-sm ${
+            className={`relative group px-4 py-3 text-sm leading-relaxed rounded-[6px] shadow-sm ${
               isUser
                 ? 'bg-primary-600 text-white'
                 : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800'
@@ -52,6 +61,18 @@ export function ChatMessage({ message }: ChatMessageProps) {
               <div className="prose prose-sm dark:prose-invert max-w-none prose-p:my-1 prose-headings:my-2 prose-ul:my-1 prose-li:my-0 break-words">
                 <ReactMarkdown>{message.content}</ReactMarkdown>
               </div>
+            )}
+
+            {/* Subtle Copy Button for Assistant Message */}
+            {!isUser && message.content && (
+              <button
+                onClick={handleCopy}
+                className="absolute top-2 right-2 p-1 rounded-[4px] bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 opacity-0 group-hover:opacity-100 transition-opacity"
+                title="Copy response"
+                aria-label="Copy response"
+              >
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+              </button>
             )}
           </div>
 

@@ -27,13 +27,13 @@ export function Footer() {
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="https://github.com/naimekattor" target="_blank" rel="noopener noreferrer" className="p-2 rounded-[6px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+            <a href="https://github.com/naimekattor" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="p-2 rounded-[6px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition-all">
               <Github className="w-4 h-4" />
             </a>
-            <a href="https://bd.linkedin.com/in/naimekattor" target="_blank" rel="noopener noreferrer" className="p-2 rounded-[6px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+            <a href="https://bd.linkedin.com/in/naimekattor" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-2 rounded-[6px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition-all">
               <Linkedin className="w-4 h-4" />
             </a>
-            <a href="mailto:naimekttor@gmail.com" className="p-2 rounded-[6px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition-all">
+            <a href="mailto:naimekttor@gmail.com" aria-label="Send Email" className="p-2 rounded-[6px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 transition-all">
               <Mail className="w-4 h-4" />
             </a>
           </div>

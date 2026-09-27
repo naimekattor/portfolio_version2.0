@@ -13,6 +13,8 @@ import {
   Wrench,
   Layers,
   Sparkles,
+  TrendingUp,
+  Workflow,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/language-context';
@@ -29,6 +31,8 @@ const ICON_MAP: Record<string, any> = {
   Wrench,
   Layers,
   Sparkles,
+  TrendingUp,
+  Workflow,
 };
 
 const DEFAULT_PROBLEM_SOLVING = {
@@ -40,7 +44,7 @@ const DEFAULT_PROBLEM_SOLVING = {
       title: 'Scalability Bottlenecks',
       problem: 'Legacy systems failing under high traffic loads during peak hours.',
       solution: 'Implemented microservices architecture with Redis caching and horizontal scaling, reducing latency by 60%.',
-      icon: 'Zap',
+      icon: 'TrendingUp',
     },
     {
       id: '2',
@@ -54,7 +58,7 @@ const DEFAULT_PROBLEM_SOLVING = {
       title: 'Inefficient Workflows',
       problem: 'Manual data entry processes costing teams 20+ hours per week.',
       solution: 'Built an AI-powered automation engine that reduced manual effort by 85% using LLM-based extraction.',
-      icon: 'BarChart3',
+      icon: 'Workflow',
     },
   ],
 };
@@ -92,7 +96,7 @@ export function ProblemSolving() {
       <div className="container mx-auto px-6">
         <div className="mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-[12px] font-semibold tracking-[0.04em] uppercase mb-4">
-            <Zap className="w-3.5 h-3.5" /> {badgeText}
+            <CheckCircle2 className="w-3.5 h-3.5" /> {badgeText}
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12] mb-4">
             {language !== 'en' ? t('problems.title') : (
