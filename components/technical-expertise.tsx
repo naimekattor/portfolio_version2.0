@@ -1,22 +1,19 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import {
-  Layout,
+  Monitor,
   Server,
   BrainCircuit,
-  Terminal,
-  Code2,
-  CheckCircle2,
-  Globe,
-  ShieldCheck,
-  Cpu,
-  Database,
-  Compass,
+  Wrench,
+  ArrowRight,
   Layers,
-  Bot,
-  GitBranch,
+  ShieldCheck,
+  Database,
   Link2,
+  Bot,
+  Cloud,
 } from 'lucide-react';
 import {
   SiReact,
@@ -33,10 +30,12 @@ import {
   SiSupabase,
   SiGooglegemini,
   SiGit,
+  SiGithub,
   SiDocker,
   SiVercel,
   SiLinux,
 } from 'react-icons/si';
+import { TbBrandOpenai, TbApi, TbInfinity } from 'react-icons/tb';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -44,137 +43,159 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-interface SkillItem {
-  name: string;
-  icon: React.ElementType;
-}
-
-interface SkillCategory {
+interface SkillCardData {
   id: string;
-  number: string;
   title: string;
-  tagline: string;
-  highlight: string;
   icon: React.ElementType;
-  accent: {
-    text: string;
-    border: string;
-    bg: string;
-    glow: string;
-    badgeHover: string;
-    iconColor: string;
-  };
-  skills: SkillItem[];
+  col1: string[];
+  col2: string[];
+  techLogos: {
+    name: string;
+    icon: React.ElementType;
+    colorClass: string;
+    isCustom?: boolean;
+    customContent?: React.ReactNode;
+  }[];
 }
 
-const SKILL_CATEGORIES: SkillCategory[] = [
+const EXPERTISE_CARDS: SkillCardData[] = [
   {
     id: 'frontend',
-    number: '01',
     title: 'FRONTEND ENGINEERING',
-    tagline: 'Client-side architecture & fluid, responsive interfaces',
-    highlight: 'SSR • Fluid Motion • Strict Typing',
-    icon: Layout,
-    accent: {
-      text: 'text-sky-600 dark:text-sky-400',
-      border: 'border-sky-500/20 group-hover:border-sky-500/40',
-      bg: 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
-      glow: 'from-sky-500/10 to-transparent',
-      badgeHover: 'hover:border-sky-500/40 hover:bg-sky-50/50 dark:hover:bg-sky-950/30',
-      iconColor: 'text-sky-500',
-    },
-    skills: [
-      { name: 'React.js', icon: SiReact },
-      { name: 'Next.js', icon: SiNextdotjs },
-      { name: 'TypeScript', icon: SiTypescript },
-      { name: 'JavaScript', icon: SiJavascript },
-      { name: 'Tailwind CSS', icon: SiTailwindcss },
-      { name: 'Redux Toolkit', icon: SiRedux },
-      { name: 'GSAP', icon: SiGreensock },
+    icon: Monitor,
+    col1: ['React.js', 'Next.js', 'TypeScript', 'JavaScript'],
+    col2: ['Tailwind CSS', 'Redux Toolkit', 'GSAP'],
+    techLogos: [
+      { name: 'React', icon: SiReact, colorClass: 'text-[#00D8FF]' },
+      { name: 'Next.js', icon: SiNextdotjs, colorClass: 'text-white' },
+      { name: 'TypeScript', icon: SiTypescript, colorClass: 'text-[#3178C6]' },
+      { name: 'JavaScript', icon: SiJavascript, colorClass: 'text-[#F7DF1E]' },
+      { name: 'Tailwind CSS', icon: SiTailwindcss, colorClass: 'text-[#38BDF8]' },
+      { name: 'Redux', icon: SiRedux, colorClass: 'text-[#764ABC]' },
+      {
+        name: 'GSAP',
+        icon: SiGreensock,
+        colorClass: 'text-[#88CE02]',
+        isCustom: true,
+        customContent: (
+          <span className="inline-flex items-center gap-1 font-bold text-[11px] text-[#88CE02] font-mono tracking-tight">
+            <SiGreensock className="w-3.5 h-3.5" />
+            <span>GSAP</span>
+          </span>
+        ),
+      },
     ],
   },
   {
     id: 'backend',
-    number: '02',
     title: 'BACKEND ENGINEERING',
-    tagline: 'Resilient APIs, relational data modeling & auth security',
-    highlight: 'ACID Compliance • REST APIs • ORM',
     icon: Server,
-    accent: {
-      text: 'text-emerald-600 dark:text-emerald-400',
-      border: 'border-emerald-500/20 group-hover:border-emerald-500/40',
-      bg: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
-      glow: 'from-emerald-500/10 to-transparent',
-      badgeHover: 'hover:border-emerald-500/40 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/30',
-      iconColor: 'text-emerald-500',
-    },
-    skills: [
-      { name: 'Node.js', icon: SiNodedotjs },
-      { name: 'Express.js', icon: SiExpress },
-      { name: 'REST APIs', icon: Globe },
-      { name: 'PostgreSQL', icon: SiPostgresql },
-      { name: 'Prisma ORM', icon: SiPrisma },
-      { name: 'Supabase', icon: SiSupabase },
-      { name: 'Authentication & Authorization', icon: ShieldCheck },
+    col1: ['Node.js', 'Express.js', 'REST APIs', 'PostgreSQL'],
+    col2: ['Prisma ORM', 'Supabase', 'Authentication & Authorization'],
+    techLogos: [
+      { name: 'Node.js', icon: SiNodedotjs, colorClass: 'text-[#5FA04E]' },
+      {
+        name: 'Express',
+        icon: SiExpress,
+        colorClass: 'text-slate-200',
+        isCustom: true,
+        customContent: (
+          <span className="text-[12px] font-mono font-bold text-slate-200">ex</span>
+        ),
+      },
+      {
+        name: 'REST APIs',
+        icon: TbApi,
+        colorClass: 'text-cyan-400',
+        isCustom: true,
+        customContent: (
+          <span className="w-5 h-5 rounded-full border border-cyan-400/40 flex items-center justify-center text-[9px] font-bold text-cyan-400 font-mono">
+            API
+          </span>
+        ),
+      },
+      { name: 'PostgreSQL', icon: SiPostgresql, colorClass: 'text-[#4169E1]' },
+      { name: 'Prisma', icon: SiPrisma, colorClass: 'text-white' },
+      { name: 'Supabase', icon: SiSupabase, colorClass: 'text-[#3ECF8E]' },
+      { name: 'Auth', icon: ShieldCheck, colorClass: 'text-cyan-400' },
     ],
   },
   {
     id: 'ai-ml',
-    number: '03',
     title: 'AI & MACHINE LEARNING',
-    tagline: 'Context retrieval, vector similarity & autonomous agents',
-    highlight: 'Vector Search • RAG Pipelines • LLMs',
     icon: BrainCircuit,
-    accent: {
-      text: 'text-purple-600 dark:text-purple-400',
-      border: 'border-purple-500/20 group-hover:border-purple-500/40',
-      bg: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
-      glow: 'from-purple-500/10 to-transparent',
-      badgeHover: 'hover:border-purple-500/40 hover:bg-purple-50/50 dark:hover:bg-purple-950/30',
-      iconColor: 'text-purple-500',
-    },
-    skills: [
-      { name: 'LLM Integration', icon: Cpu },
-      { name: 'Retrieval-Augmented Generation (RAG)', icon: Database },
-      { name: 'Vector Search', icon: Compass },
-      { name: 'Embeddings', icon: Layers },
-      { name: 'AI Agents', icon: Bot },
-      { name: 'Gemini API', icon: SiGooglegemini },
+    col1: [
+      'LLM Integration',
+      'Retrieval-Augmented Generation (RAG)',
+      'Vector Search',
+    ],
+    col2: ['Embeddings', 'AI Agents', 'Gemini API'],
+    techLogos: [
+      { name: 'OpenAI', icon: TbBrandOpenai, colorClass: 'text-cyan-400' },
+      {
+        name: 'Vector Search',
+        icon: Database,
+        colorClass: 'text-cyan-300',
+        isCustom: true,
+        customContent: (
+          <div className="flex items-center text-cyan-400">
+            <Database className="w-4 h-4" />
+          </div>
+        ),
+      },
+      { name: 'LangChain', icon: Link2, colorClass: 'text-teal-400' },
+      { name: 'AI Agents', icon: Bot, colorClass: 'text-cyan-300' },
+      {
+        name: 'Gemini',
+        icon: SiGooglegemini,
+        colorClass: 'text-cyan-400',
+        isCustom: true,
+        customContent: (
+          <span className="inline-flex items-center gap-1 font-semibold text-xs text-cyan-400">
+            <SiGooglegemini className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-medium tracking-tight">Gemini</span>
+          </span>
+        ),
+      },
     ],
   },
   {
     id: 'tools-infra',
-    number: '04',
     title: 'TOOLS & INFRASTRUCTURE',
-    tagline: 'Containerized environments, automated CI/CD & edge delivery',
-    highlight: 'Dockerized Services • GitOps • Edge Runtime',
-    icon: Terminal,
-    accent: {
-      text: 'text-amber-600 dark:text-amber-400',
-      border: 'border-amber-500/20 group-hover:border-amber-500/40',
-      bg: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
-      glow: 'from-amber-500/10 to-transparent',
-      badgeHover: 'hover:border-amber-500/40 hover:bg-amber-50/50 dark:hover:bg-amber-950/30',
-      iconColor: 'text-amber-500',
-    },
-    skills: [
-      { name: 'Git & GitHub', icon: SiGit },
-      { name: 'Docker', icon: SiDocker },
-      { name: 'Vercel', icon: SiVercel },
-      { name: 'Linux', icon: SiLinux },
-      { name: 'CI/CD', icon: GitBranch },
-      { name: 'API Integration', icon: Link2 },
+    icon: Wrench,
+    col1: ['Git & GitHub', 'Docker', 'Vercel'],
+    col2: ['Linux', 'CI/CD', 'API Integration'],
+    techLogos: [
+      { name: 'Git', icon: SiGit, colorClass: 'text-[#F05032]' },
+      { name: 'GitHub', icon: SiGithub, colorClass: 'text-white' },
+      { name: 'Docker', icon: SiDocker, colorClass: 'text-[#2496ED]' },
+      { name: 'Vercel', icon: SiVercel, colorClass: 'text-white' },
+      { name: 'Linux', icon: SiLinux, colorClass: 'text-amber-400' },
+      { name: 'CI/CD', icon: TbInfinity, colorClass: 'text-cyan-400' },
+      {
+        name: 'API Cloud',
+        icon: Cloud,
+        colorClass: 'text-cyan-300',
+        isCustom: true,
+        customContent: (
+          <div className="relative flex items-center justify-center">
+            <Cloud className="w-5 h-5 text-cyan-400" />
+            <span className="absolute text-[8px] font-bold text-cyan-200 mt-0.5">
+              API
+            </span>
+          </div>
+        ),
+      },
     ],
   },
 ];
 
 export default function TechnicalExpertise() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Respect user's motion preferences
     const prefersReducedMotion =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -182,43 +203,42 @@ export default function TechnicalExpertise() {
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 1. Entrance animation for the section header
-      if (headerRef.current) {
+      // 1. Entrance animation for the left column content
+      if (leftColRef.current) {
         gsap.fromTo(
-          headerRef.current,
-          { opacity: 0, y: 28 },
+          leftColRef.current,
+          { opacity: 0, x: -30 },
           {
             opacity: 1,
-            y: 0,
-            duration: 0.8,
+            x: 0,
+            duration: 0.85,
             ease: 'power2.out',
             scrollTrigger: {
-              trigger: headerRef.current,
-              start: 'top 85%',
-              end: 'bottom 20%',
-              toggleActions: 'play reverse play reverse',
+              trigger: sectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
             },
           }
         );
       }
 
-      // 2. Sequential card entrance animation
-      const cards = gsap.utils.toArray<HTMLElement>('.expertise-card');
-      if (cards && cards.length > 0 && cardsContainerRef.current) {
+      // 2. Sequential entrance for the 4 skill cards
+      const cards = gsap.utils.toArray<HTMLElement>('.expertise-grid-card');
+      if (cards && cards.length > 0 && cardsRef.current) {
         gsap.fromTo(
           cards,
-          { opacity: 0, y: 35 },
+          { opacity: 0, y: 35, scale: 0.97 },
           {
             opacity: 1,
             y: 0,
+            scale: 1,
             duration: 0.65,
             stagger: 0.12,
             ease: 'power2.out',
             scrollTrigger: {
-              trigger: cardsContainerRef.current,
+              trigger: cardsRef.current,
               start: 'top 80%',
-              end: 'bottom 15%',
-              toggleActions: 'play reverse play reverse',
+              toggleActions: 'play none none none',
             },
           }
         );
@@ -233,138 +253,180 @@ export default function TechnicalExpertise() {
       id="expertise"
       ref={sectionRef}
       aria-labelledby="technical-expertise-heading"
-      className="relative py-24 md:py-32 bg-slate-50/70 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-hidden"
+      className="relative py-24 lg:py-32 bg-[#061217] text-slate-100 overflow-hidden"
     >
-      {/* Background ambient lighting */}
+      {/* Subtle atmospheric ambient glow */}
       <div
         aria-hidden="true"
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-gradient-to-r from-primary-500/5 via-sky-500/5 to-purple-500/5 blur-[120px] pointer-events-none -z-10"
+        className="absolute top-1/4 left-1/4 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-br from-cyan-500/10 via-teal-500/5 to-transparent blur-[140px] pointer-events-none -z-10"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-10 right-10 w-[600px] h-[400px] bg-gradient-to-tl from-cyan-600/10 via-teal-700/5 to-transparent blur-[130px] pointer-events-none -z-10"
       />
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <div
-          ref={headerRef}
-          className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 md:mb-20"
-        >
-          <div className="max-w-2xl">
-            {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-[12px] font-semibold tracking-[0.04em] uppercase mb-4 shadow-2xs">
-              <Code2 className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>TECHNICAL EXPERTISE</span>
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
+          {/* ================= LEFT COLUMN ================= */}
+          <div
+            ref={leftColRef}
+            className="lg:col-span-5 flex flex-col justify-between h-full pt-2"
+          >
+            <div>
+              {/* Eyebrow */}
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-6 h-[2px] bg-cyan-400 rounded-full" />
+                <span className="text-[12px] font-bold tracking-[0.18em] text-cyan-400 uppercase font-mono">
+                  TECHNICAL EXPERTISE
+                </span>
+              </div>
+
+              {/* Main Heading */}
+              <h2
+                id="technical-expertise-heading"
+                className="text-4xl sm:text-5xl lg:text-[62px] font-bold text-white tracking-tight leading-[1.08] mb-6"
+              >
+                Engineering <br />
+                <span className="text-cyan-400 font-extrabold">Mastery</span> <br />
+                <span className="font-serif italic font-normal text-slate-400 text-3xl sm:text-4xl lg:text-[48px] leading-tight block mt-1">
+                  crafted to scale.
+                </span>
+              </h2>
+
+              {/* Description */}
+              <p className="text-slate-300/80 text-base sm:text-[17px] leading-relaxed max-w-md mb-8">
+                Building scalable web applications, reliable backend systems, and
+                AI-powered experiences through modern engineering and thoughtful
+                architecture.
+              </p>
+
+              {/* CTA Button */}
+              <div className="mb-14">
+                <Link href="#projects">
+                  <button className="inline-flex items-center gap-4 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm tracking-wide shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:scale-[1.02] cursor-pointer group">
+                    <span>View My Projects</span>
+                    <span className="w-6 h-6 rounded-lg bg-slate-950/15 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                      <ArrowRight className="w-4 h-4 text-slate-950" />
+                    </span>
+                  </button>
+                </Link>
+              </div>
             </div>
 
-            {/* Main Heading & Subtitle */}
-            <h2
-              id="technical-expertise-heading"
-              className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.12]"
-            >
-              Engineering Mastery{' '}
-              <span className="font-serif italic font-normal text-slate-600 dark:text-slate-400 block sm:inline">
-                crafted to scale.
-              </span>
-            </h2>
+            {/* Bottom Profile Badge & Subtitle */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-4 border-t border-cyan-500/10">
+              <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-xl bg-[#0b1b22]/90 border border-cyan-500/25 backdrop-blur-md shadow-lg shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+                  <Layers className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[12px] font-bold text-white tracking-wide leading-tight">
+                    Full-Stack & AI Engineer
+                  </div>
+                  <div className="text-[9.5px] text-cyan-300/70 font-medium tracking-tight mt-0.5">
+                    Modern Web • Scalable Systems • Intelligent Solutions
+                  </div>
+                </div>
+              </div>
+              <div className="text-xs text-slate-400/80 font-normal leading-snug flex items-center gap-2">
+                <span className="w-4 h-[1px] bg-cyan-500/40 hidden sm:inline-block shrink-0" />
+                <span>Building the future with modern technologies.</span>
+              </div>
+            </div>
           </div>
 
-          {/* Description */}
-          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-            Building scalable web applications, reliable backend systems, and
-            AI-powered experiences through modern engineering and thoughtful
-            architecture.
-          </p>
-        </div>
+          {/* ================= RIGHT COLUMN: 2x2 SKILL CARDS ================= */}
+          <div
+            ref={cardsRef}
+            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5"
+          >
+            {EXPERTISE_CARDS.map((card) => {
+              const CategoryIcon = card.icon;
 
-        {/* 4 Skill Categories Grid */}
-        <div
-          ref={cardsContainerRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
-        >
-          {SKILL_CATEGORIES.map((category) => {
-            const CategoryIcon = category.icon;
-
-            return (
-              <div
-                key={category.id}
-                className="expertise-card group relative p-7 sm:p-8 rounded-[6px] border border-slate-200/80 dark:border-slate-800/90 bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl shadow-xs hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between overflow-hidden"
-              >
-                {/* Subtle top-corner radial glow on hover */}
+              return (
                 <div
-                  aria-hidden="true"
-                  className={`absolute -right-12 -top-12 w-48 h-48 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${category.accent.glow} pointer-events-none`}
-                />
+                  key={card.id}
+                  className="expertise-grid-card group relative rounded-2xl p-6 sm:p-7 bg-[#0b181e]/75 hover:bg-[#0e2129]/90 border border-cyan-500/20 hover:border-cyan-400/45 backdrop-blur-xl shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+                >
+                  {/* Subtle inner corner glow on hover */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-cyan-500/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  />
 
-                <div>
-                  {/* Top Bar: Icon + Category Number & Count */}
-                  <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className="flex items-center gap-3.5">
-                      <div
-                        className={`w-11 h-11 rounded-[6px] flex items-center justify-center border ${category.accent.border} ${category.accent.bg} transition-colors duration-300 shadow-2xs`}
-                      >
-                        <CategoryIcon className="w-5 h-5" aria-hidden="true" />
+                  <div>
+                    {/* Header: Icon + Category Title */}
+                    <div className="flex items-center gap-3.5 mb-6">
+                      <div className="w-10 h-10 rounded-xl bg-cyan-950/80 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-inner shrink-0 group-hover:scale-105 transition-transform duration-300">
+                        <CategoryIcon className="w-5 h-5" />
                       </div>
-                      <div>
-                        <span className="font-mono text-[11px] font-semibold text-slate-400 dark:text-slate-500 tracking-wider">
-                          CATEGORY {category.number}
-                        </span>
-                        <h3 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-snug">
-                          {category.title}
-                        </h3>
-                      </div>
+                      <h3 className="text-xs sm:text-[13px] font-bold tracking-wider text-white uppercase font-sans">
+                        {card.title}
+                      </h3>
                     </div>
 
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-[6px] bg-slate-100 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 text-[11px] font-mono font-medium text-slate-600 dark:text-slate-400">
-                      {category.skills.length} Skills
-                    </span>
+                    {/* 2-Column Skills List with Cyan Bullet Dots */}
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 mb-7">
+                      {/* Left Column */}
+                      <div className="flex flex-col gap-2.5">
+                        {card.col1.map((skill) => (
+                          <div
+                            key={skill}
+                            className="flex items-start gap-2 text-xs sm:text-[13px] text-slate-300/90 font-medium leading-tight"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-1" />
+                            <span>{skill}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Right Column */}
+                      <div className="flex flex-col gap-2.5">
+                        {card.col2.map((skill) => (
+                          <div
+                            key={skill}
+                            className="flex items-start gap-2 text-xs sm:text-[13px] text-slate-300/90 font-medium leading-tight"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-1" />
+                            <span>{skill}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Category Tagline */}
-                  <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
-                    {category.tagline}
-                  </p>
+                  {/* Bottom Row of Recognizable Tech Brand Icons */}
+                  <div className="pt-4 border-t border-cyan-500/15 flex items-center flex-wrap gap-3 sm:gap-3.5">
+                    {card.techLogos.map((tech) => {
+                      const TechIcon = tech.icon;
 
-                  {/* Skill Badges */}
-                  <div
-                    className="flex flex-wrap gap-2 sm:gap-2.5 mb-6"
-                    role="list"
-                    aria-label={`${category.title} Skills`}
-                  >
-                    {category.skills.map((skill) => {
-                      const SkillIcon = skill.icon;
+                      if (tech.isCustom && tech.customContent) {
+                        return (
+                          <div
+                            key={tech.name}
+                            title={tech.name}
+                            className="flex items-center justify-center opacity-85 hover:opacity-100 hover:scale-110 transition-all duration-200"
+                          >
+                            {tech.customContent}
+                          </div>
+                        );
+                      }
 
                       return (
-                        <span
-                          key={skill.name}
-                          role="listitem"
-                          className={`group/badge inline-flex items-center gap-2 px-3 py-1.5 rounded-[6px] bg-slate-100/70 dark:bg-slate-800/60 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/70 dark:border-slate-700/70 text-xs sm:text-[13px] font-medium text-slate-700 dark:text-slate-200 transition-all duration-200 hover:-translate-y-0.5 shadow-2xs ${category.accent.badgeHover} cursor-default`}
+                        <div
+                          key={tech.name}
+                          title={tech.name}
+                          className={`opacity-85 hover:opacity-100 hover:scale-110 transition-all duration-200 ${tech.colorClass}`}
                         >
-                          <SkillIcon
-                            className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover/badge:scale-110 ${category.accent.iconColor}`}
-                            aria-hidden="true"
-                          />
-                          <span>{skill.name}</span>
-                        </span>
+                          <TechIcon className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+                        </div>
                       );
                     })}
                   </div>
                 </div>
-
-                {/* Card Footer: Architecture / Focus Highlights */}
-                <div className="pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
-                  <div className="flex items-center gap-1.5 font-medium">
-                    <CheckCircle2
-                      className={`w-3.5 h-3.5 ${category.accent.text}`}
-                      aria-hidden="true"
-                    />
-                    <span>{category.highlight}</span>
-                  </div>
-
-                  <span className="font-mono uppercase tracking-wider text-[10px] text-slate-400 dark:text-slate-500">
-                    Production Ready
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

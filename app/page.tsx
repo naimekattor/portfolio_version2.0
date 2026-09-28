@@ -15,13 +15,14 @@ import Communication from '@/components/communication';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden">
+    <main className="relative min-h-screen overflow-x-clip">
       <Navbar />
       <Hero />
+      <FeaturedProjects />
       <ProblemSolving />
       <ServicesSection />
       <ProductionSystems />
-      <FeaturedProjects />
+
       <TechnicalExpertise />
       <Communication />
       <BusinessValue />

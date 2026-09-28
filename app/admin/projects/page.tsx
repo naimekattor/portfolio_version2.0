@@ -17,7 +17,8 @@ export default function AdminProjectsPage() {
       impact: '',
       category: 'Web App',
       technologies: '',
-      images: '',
+      primaryImage: '',
+      secondaryImage: '',
       liveUrl: '',
       githubUrl: '',
       featured: true,
@@ -26,19 +27,34 @@ export default function AdminProjectsPage() {
   };
 
   const openEditModal = (proj: any) => {
+    const imgList = Array.isArray(proj.images)
+      ? proj.images
+      : typeof proj.images === 'string'
+      ? proj.images.split(',').map((s: string) => s.trim())
+      : [];
+
     setFormData({
       ...proj,
       technologies: Array.isArray(proj.technologies)
         ? proj.technologies.join(', ')
         : proj.technologies || '',
-      images: Array.isArray(proj.images) ? proj.images.join(', ') : proj.images || '',
+      primaryImage: imgList[0] || '',
+      secondaryImage: imgList[1] || '',
     });
     setShowModal(true);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = await handleSave('projects', formData);
+    const images = [formData.primaryImage, formData.secondaryImage].filter(Boolean);
+    const payload = {
+      ...formData,
+      images,
+    };
+    delete payload.primaryImage;
+    delete payload.secondaryImage;
+
+    const success = await handleSave('projects', payload);
     if (success) {
       setShowModal(false);
       setFormData({});
@@ -68,6 +84,7 @@ export default function AdminProjectsPage() {
             ? proj.technologies.split(',')
             : [];
           const imgUrl = (proj.images && proj.images[0]) || '/hokpath.png';
+          const hoverImgUrl = proj.images && proj.images[1];
 
           return (
             <div
@@ -78,6 +95,12 @@ export default function AdminProjectsPage() {
                 {imgUrl && (
                   <div className="relative aspect-video rounded-xl overflow-hidden mb-4 border border-slate-800 bg-slate-950">
                     <img src={imgUrl} alt={proj.title} className="object-cover w-full h-full" />
+                    {hoverImgUrl && (
+                      <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-black/75 backdrop-blur-md rounded-md text-[10px] text-cyan-300 font-medium border border-cyan-500/30 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                        <span>Hover Image Ready</span>
+                      </div>
+                    )}
                     {proj.featured && (
                       <span className="absolute top-2 right-2 px-2 py-1 bg-amber-500/90 text-slate-950 font-bold text-[10px] uppercase rounded-md shadow">
                         Featured
@@ -222,13 +245,23 @@ export default function AdminProjectsPage() {
                 />
               </div>
 
-              <ImageUpload
-                value={formData.images || ''}
-                onChange={(url) => setFormData({ ...formData, images: url })}
-                label="Project Thumbnail / Image"
-                placeholder="e.g. /hokpath.png or https://res.cloudinary.com/..."
-                folder="portfolio/projects"
-              />
+              <div className="space-y-3">
+                <ImageUpload
+                  value={formData.primaryImage || ''}
+                  onChange={(url) => setFormData({ ...formData, primaryImage: url })}
+                  label="Primary Image (Default View)"
+                  placeholder="e.g. /hokpath.png or https://res.cloudinary.com/..."
+                  folder="portfolio/projects"
+                />
+
+                <ImageUpload
+                  value={formData.secondaryImage || ''}
+                  onChange={(url) => setFormData({ ...formData, secondaryImage: url })}
+                  label="Secondary Image (Hover Reveal View)"
+                  placeholder="e.g. /images/projects/... or https://res.cloudinary.com/..."
+                  folder="portfolio/projects"
+                />
+              </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
