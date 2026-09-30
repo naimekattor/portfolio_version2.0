@@ -331,7 +331,7 @@ export function FeaturedProjects() {
             );
           })}
 
-          {/* Final Card: Explore All Projects */}
+          {/* Final Card: { MORE PROJECTS } */}
           <div
             className="shrink-0 h-full snap-center"
             style={{
@@ -342,62 +342,24 @@ export function FeaturedProjects() {
             }}
           >
             <Link href="/projects" className="block w-full h-full">
-              <div className="group relative w-full h-full rounded-[28px] sm:rounded-[32px] overflow-hidden bg-gradient-to-br from-slate-900 via-[#07161f] to-[#0a232e] border border-cyan-500/25 hover:border-cyan-400/50 shadow-2xl select-none cursor-pointer transition-all duration-500 hover:scale-[1.01] flex flex-col justify-between p-8 sm:p-12">
-                {/* Background Radial Ambient Glow */}
+              <div className="group relative w-full h-full rounded-[28px] sm:rounded-[32px] overflow-hidden bg-[#a67a3b] hover:bg-[#8e662e] border border-[#a67a3b]/40 shadow-2xl select-none cursor-pointer transition-all duration-500 hover:scale-[1.01] flex items-center justify-center p-8 sm:p-12">
+                {/* Subtle Ambient Radial Highlight on Hover */}
                 <div
                   aria-hidden="true"
-                  className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none group-hover:bg-cyan-400/25 transition-all duration-500"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl pointer-events-none group-hover:bg-teal-400/20 transition-all duration-500"
+                  className="absolute inset-0 bg-radial from-white/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                 />
 
-                {/* Top Bar: Category Pill & Floating Arrow Button */}
-                <div className="flex items-center justify-between z-10">
-                  <span className="px-4 py-1.5 rounded-full bg-cyan-950/70 backdrop-blur-md border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider shadow">
-                    EXPLORE ARCHIVE
+                {/* Center Content: { MORE PROJECTS } */}
+                <div className="relative z-10 flex items-center justify-center gap-3 sm:gap-4 md:gap-5 text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-bold tracking-[0.06em] text-white">
+                  <span className="font-mono text-white/70 transition-transform duration-300 group-hover:-translate-x-2.5">
+                    &#123;
                   </span>
-                  <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-400 group-hover:text-slate-950 transition-all duration-500 group-hover:scale-110 shadow-lg">
-                    <ArrowRight className="w-5 h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-500" />
-                  </div>
-                </div>
-
-                {/* Center Content */}
-                <div className="my-auto z-10 max-w-lg">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-4">
-                    <span>Complete Collection</span>
-                  </div>
-                  <h3 className="text-3xl sm:text-5xl font-bold text-white tracking-tight leading-[1.1] mb-4 group-hover:text-cyan-200 transition-colors">
-                    Discover All <br />
-                    <span className="text-cyan-400 font-extrabold">Projects</span>
-                  </h3>
-                  <p className="text-slate-300/80 text-sm sm:text-base leading-relaxed max-w-md">
-                    Browse full-stack platforms, client systems, architectural experiments, and open-source software built for scale.
-                  </p>
-                </div>
-
-                {/* Hover Skills/Categories Stack */}
-                <div className="absolute bottom-[92px] sm:bottom-[100px] left-8 sm:left-12 flex flex-col items-start gap-2 z-20 pointer-events-none">
-                  {["Full-Stack Web Apps", "AI & RAG Systems", "High-Conversion E-Commerce", "API & Cloud Infra"].map((tag, j) => (
-                    <span
-                      key={j}
-                      style={{ transitionDelay: `${j * 60}ms` }}
-                      className="px-4 py-1.5 bg-white text-slate-950 rounded-xl font-bold text-[11px] sm:text-xs uppercase tracking-wider shadow-lg transform transition-all duration-300 ease-out opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Bottom Action Pill */}
-                <div className="z-10">
-                  <div className="inline-flex items-center justify-between gap-4 px-6 py-3.5 rounded-2xl bg-cyan-500 group-hover:bg-cyan-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-xl shadow-cyan-500/25 transition-all duration-300 group-hover:shadow-cyan-400/40">
-                    <span>View All Projects</span>
-                    <span className="w-6 h-6 rounded-full bg-slate-950/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                      <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
-                    </span>
-                  </div>
+                  <span className="transition-transform duration-300 group-hover:scale-[1.03]">
+                    MORE PROJECTS
+                  </span>
+                  <span className="font-mono text-white/70 transition-transform duration-300 group-hover:translate-x-2.5">
+                    &#125;
+                  </span>
                 </div>
               </div>
             </Link>

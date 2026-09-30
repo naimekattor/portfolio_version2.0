@@ -38,6 +38,7 @@ import {
 import { TbBrandOpenai, TbApi, TbInfinity } from 'react-icons/tb';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '../context/language-context';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -67,7 +68,7 @@ const EXPERTISE_CARDS: SkillCardData[] = [
     col2: ['Tailwind CSS', 'Redux Toolkit', 'GSAP'],
     techLogos: [
       { name: 'React', icon: SiReact, colorClass: 'text-[#00D8FF]' },
-      { name: 'Next.js', icon: SiNextdotjs, colorClass: 'text-white' },
+      { name: 'Next.js', icon: SiNextdotjs, colorClass: 'text-slate-900 dark:text-white' },
       { name: 'TypeScript', icon: SiTypescript, colorClass: 'text-[#3178C6]' },
       { name: 'JavaScript', icon: SiJavascript, colorClass: 'text-[#F7DF1E]' },
       { name: 'Tailwind CSS', icon: SiTailwindcss, colorClass: 'text-[#38BDF8]' },
@@ -97,27 +98,27 @@ const EXPERTISE_CARDS: SkillCardData[] = [
       {
         name: 'Express',
         icon: SiExpress,
-        colorClass: 'text-slate-200',
+        colorClass: 'text-slate-800 dark:text-slate-200',
         isCustom: true,
         customContent: (
-          <span className="text-[12px] font-mono font-bold text-slate-200">ex</span>
+          <span className="text-[12px] font-mono font-bold text-slate-800 dark:text-slate-200">ex</span>
         ),
       },
       {
         name: 'REST APIs',
         icon: TbApi,
-        colorClass: 'text-cyan-400',
+        colorClass: 'text-primary-600 dark:text-primary-400',
         isCustom: true,
         customContent: (
-          <span className="w-5 h-5 rounded-full border border-cyan-400/40 flex items-center justify-center text-[9px] font-bold text-cyan-400 font-mono">
+          <span className="w-5 h-5 rounded-[4px] border border-primary-500/40 flex items-center justify-center text-[9px] font-bold text-primary-600 dark:text-primary-400 font-mono">
             API
           </span>
         ),
       },
       { name: 'PostgreSQL', icon: SiPostgresql, colorClass: 'text-[#4169E1]' },
-      { name: 'Prisma', icon: SiPrisma, colorClass: 'text-white' },
+      { name: 'Prisma', icon: SiPrisma, colorClass: 'text-slate-900 dark:text-white' },
       { name: 'Supabase', icon: SiSupabase, colorClass: 'text-[#3ECF8E]' },
-      { name: 'Auth', icon: ShieldCheck, colorClass: 'text-cyan-400' },
+      { name: 'Auth', icon: ShieldCheck, colorClass: 'text-primary-600 dark:text-primary-400' },
     ],
   },
   {
@@ -131,27 +132,27 @@ const EXPERTISE_CARDS: SkillCardData[] = [
     ],
     col2: ['Embeddings', 'AI Agents', 'Gemini API'],
     techLogos: [
-      { name: 'OpenAI', icon: TbBrandOpenai, colorClass: 'text-cyan-400' },
+      { name: 'OpenAI', icon: TbBrandOpenai, colorClass: 'text-slate-900 dark:text-white' },
       {
         name: 'Vector Search',
         icon: Database,
-        colorClass: 'text-cyan-300',
+        colorClass: 'text-primary-600 dark:text-primary-400',
         isCustom: true,
         customContent: (
-          <div className="flex items-center text-cyan-400">
+          <div className="flex items-center text-primary-600 dark:text-primary-400">
             <Database className="w-4 h-4" />
           </div>
         ),
       },
-      { name: 'LangChain', icon: Link2, colorClass: 'text-teal-400' },
-      { name: 'AI Agents', icon: Bot, colorClass: 'text-cyan-300' },
+      { name: 'LangChain', icon: Link2, colorClass: 'text-teal-600 dark:text-teal-400' },
+      { name: 'AI Agents', icon: Bot, colorClass: 'text-primary-600 dark:text-primary-400' },
       {
         name: 'Gemini',
         icon: SiGooglegemini,
-        colorClass: 'text-cyan-400',
+        colorClass: 'text-primary-600 dark:text-primary-400',
         isCustom: true,
         customContent: (
-          <span className="inline-flex items-center gap-1 font-semibold text-xs text-cyan-400">
+          <span className="inline-flex items-center gap-1 font-semibold text-xs text-primary-600 dark:text-primary-400">
             <SiGooglegemini className="w-3.5 h-3.5" />
             <span className="text-[11px] font-medium tracking-tight">Gemini</span>
           </span>
@@ -167,20 +168,20 @@ const EXPERTISE_CARDS: SkillCardData[] = [
     col2: ['Linux', 'CI/CD', 'API Integration'],
     techLogos: [
       { name: 'Git', icon: SiGit, colorClass: 'text-[#F05032]' },
-      { name: 'GitHub', icon: SiGithub, colorClass: 'text-white' },
+      { name: 'GitHub', icon: SiGithub, colorClass: 'text-slate-900 dark:text-white' },
       { name: 'Docker', icon: SiDocker, colorClass: 'text-[#2496ED]' },
-      { name: 'Vercel', icon: SiVercel, colorClass: 'text-white' },
-      { name: 'Linux', icon: SiLinux, colorClass: 'text-amber-400' },
-      { name: 'CI/CD', icon: TbInfinity, colorClass: 'text-cyan-400' },
+      { name: 'Vercel', icon: SiVercel, colorClass: 'text-slate-900 dark:text-white' },
+      { name: 'Linux', icon: SiLinux, colorClass: 'text-amber-500 dark:text-amber-400' },
+      { name: 'CI/CD', icon: TbInfinity, colorClass: 'text-primary-600 dark:text-primary-400' },
       {
         name: 'API Cloud',
         icon: Cloud,
-        colorClass: 'text-cyan-300',
+        colorClass: 'text-primary-600 dark:text-primary-400',
         isCustom: true,
         customContent: (
           <div className="relative flex items-center justify-center">
-            <Cloud className="w-5 h-5 text-cyan-400" />
-            <span className="absolute text-[8px] font-bold text-cyan-200 mt-0.5">
+            <Cloud className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+            <span className="absolute text-[8px] font-bold text-primary-700 dark:text-primary-200 mt-0.5">
               API
             </span>
           </div>
@@ -191,6 +192,7 @@ const EXPERTISE_CARDS: SkillCardData[] = [
 ];
 
 export default function TechnicalExpertise() {
+  const { t, language } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -248,24 +250,30 @@ export default function TechnicalExpertise() {
     return () => ctx.revert();
   }, []);
 
+  const badgeText = language !== 'en' ? t('expertise.badge') : 'TECHNICAL EXPERTISE';
+  const descriptionText =
+    language !== 'en'
+      ? t('expertise.subheading')
+      : 'Building scalable web applications, reliable backend systems, and AI-powered experiences through modern engineering and thoughtful architecture.';
+
   return (
     <section
       id="expertise"
       ref={sectionRef}
       aria-labelledby="technical-expertise-heading"
-      className="relative py-24 lg:py-32 bg-[#061217] text-slate-100 overflow-hidden"
+      className="relative py-24 md:py-28 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 overflow-hidden"
     >
-      {/* Subtle atmospheric ambient glow */}
+      {/* Subtle atmospheric ambient glow matching project theme */}
       <div
         aria-hidden="true"
-        className="absolute top-1/4 left-1/4 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-br from-cyan-500/10 via-teal-500/5 to-transparent blur-[140px] pointer-events-none -z-10"
+        className="absolute top-1/4 left-1/4 -translate-x-1/2 w-[600px] h-[500px] bg-gradient-to-br from-primary-600/10 via-secondary-500/5 to-transparent dark:from-primary-500/10 dark:via-secondary-500/5 blur-[140px] pointer-events-none -z-10"
       />
       <div
         aria-hidden="true"
-        className="absolute bottom-10 right-10 w-[600px] h-[400px] bg-gradient-to-tl from-cyan-600/10 via-teal-700/5 to-transparent blur-[130px] pointer-events-none -z-10"
+        className="absolute bottom-10 right-10 w-[500px] h-[400px] bg-gradient-to-tl from-primary-600/10 via-secondary-600/5 to-transparent dark:from-primary-500/10 dark:via-secondary-600/5 blur-[130px] pointer-events-none -z-10"
       />
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
           {/* ================= LEFT COLUMN ================= */}
           <div
@@ -273,63 +281,57 @@ export default function TechnicalExpertise() {
             className="lg:col-span-5 flex flex-col justify-between h-full pt-2"
           >
             <div>
-              {/* Eyebrow */}
-              <div className="flex items-center gap-3 mb-5">
-                <span className="w-6 h-[2px] bg-cyan-400 rounded-full" />
-                <span className="text-[12px] font-bold tracking-[0.18em] text-cyan-400 uppercase font-mono">
-                  TECHNICAL EXPERTISE
-                </span>
+              {/* Eyebrow badge matching project theme */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-primary-50 dark:bg-slate-900 border border-primary-100 dark:border-slate-800 text-primary-600 dark:text-primary-400 text-[12px] font-semibold tracking-[0.04em] uppercase mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary-600 dark:bg-primary-400 inline-block" />
+                {badgeText}
               </div>
 
-              {/* Main Heading */}
+              {/* Main Heading matching project theme font sizes and typography */}
               <h2
                 id="technical-expertise-heading"
-                className="text-4xl sm:text-5xl lg:text-[62px] font-bold text-white tracking-tight leading-[1.08] mb-6"
+                className="text-3xl sm:text-4xl lg:text-[44px] font-semibold tracking-[-0.02em] text-slate-900 dark:text-slate-100 leading-[1.15] mb-4"
               >
                 Engineering <br />
-                <span className="text-cyan-400 font-extrabold">Mastery</span> <br />
-                <span className="font-serif italic font-normal text-slate-400 text-3xl sm:text-4xl lg:text-[48px] leading-tight block mt-1">
+                <span className="text-primary-600 dark:text-primary-400">Mastery</span> <br />
+                <span className="text-slate-500 dark:text-slate-400 font-normal text-2xl sm:text-3xl lg:text-[34px] leading-tight block mt-1">
                   crafted to scale.
                 </span>
               </h2>
 
               {/* Description */}
-              <p className="text-slate-300/80 text-base sm:text-[17px] leading-relaxed max-w-md mb-8">
-                Building scalable web applications, reliable backend systems, and
-                AI-powered experiences through modern engineering and thoughtful
-                architecture.
+              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-md leading-relaxed mb-8">
+                {descriptionText}
               </p>
 
-              {/* CTA Button */}
-              <div className="mb-14">
+              {/* CTA Button matching standard project button style */}
+              <div className="mb-12">
                 <Link href="#projects">
-                  <button className="inline-flex items-center gap-4 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm tracking-wide shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:scale-[1.02] cursor-pointer group">
-                    <span>View My Projects</span>
-                    <span className="w-6 h-6 rounded-lg bg-slate-950/15 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                      <ArrowRight className="w-4 h-4 text-slate-950" />
-                    </span>
+                  <button className="h-[40px] px-6 bg-primary-600 text-white font-medium text-[15px] rounded-[6px] hover:bg-primary-700 transition-all inline-flex items-center justify-center gap-2 group shadow-md shadow-primary-600/20">
+                    <span>{language !== 'en' ? t('hero.viewProjects') : 'View My Projects'}</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform rtl-flip" />
                   </button>
                 </Link>
               </div>
             </div>
 
             {/* Bottom Profile Badge & Subtitle */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-4 border-t border-cyan-500/10">
-              <div className="inline-flex items-center gap-3.5 px-4 py-2.5 rounded-xl bg-[#0b1b22]/90 border border-cyan-500/25 backdrop-blur-md shadow-lg shrink-0">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
+              <div className="inline-flex items-center gap-3 px-3.5 py-2 rounded-[6px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs shrink-0">
+                <div className="w-8 h-8 rounded-[6px] bg-primary-50 dark:bg-slate-800 border border-primary-100 dark:border-slate-700 flex items-center justify-center text-primary-600 dark:text-primary-400 shrink-0">
                   <Layers className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-[12px] font-bold text-white tracking-wide leading-tight">
+                  <div className="text-[12px] font-semibold text-slate-900 dark:text-slate-100 tracking-wide leading-tight">
                     Full-Stack & AI Engineer
                   </div>
-                  <div className="text-[9.5px] text-cyan-300/70 font-medium tracking-tight mt-0.5">
+                  <div className="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-tight mt-0.5">
                     Modern Web • Scalable Systems • Intelligent Solutions
                   </div>
                 </div>
               </div>
-              <div className="text-xs text-slate-400/80 font-normal leading-snug flex items-center gap-2">
-                <span className="w-4 h-[1px] bg-cyan-500/40 hidden sm:inline-block shrink-0" />
+              <div className="text-xs text-slate-500 dark:text-slate-400 font-normal leading-snug flex items-center gap-2">
+                <span className="w-4 h-[1px] bg-primary-500/40 hidden sm:inline-block shrink-0" />
                 <span>Building the future with modern technologies.</span>
               </div>
             </div>
@@ -346,35 +348,29 @@ export default function TechnicalExpertise() {
               return (
                 <div
                   key={card.id}
-                  className="expertise-grid-card group relative rounded-2xl p-6 sm:p-7 bg-[#0b181e]/75 hover:bg-[#0e2129]/90 border border-cyan-500/20 hover:border-cyan-400/45 backdrop-blur-xl shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+                  className="expertise-grid-card group relative rounded-[6px] p-6 sm:p-7 bg-slate-50/70 dark:bg-slate-900/70 hover:bg-white dark:hover:bg-slate-900 border border-slate-200/80 dark:border-slate-800 hover:border-primary-500/40 dark:hover:border-primary-500/40 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
                 >
-                  {/* Subtle inner corner glow on hover */}
-                  <div
-                    aria-hidden="true"
-                    className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-cyan-500/10 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  />
-
                   <div>
                     {/* Header: Icon + Category Title */}
                     <div className="flex items-center gap-3.5 mb-6">
-                      <div className="w-10 h-10 rounded-xl bg-cyan-950/80 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-inner shrink-0 group-hover:scale-105 transition-transform duration-300">
+                      <div className="w-10 h-10 rounded-[6px] bg-primary-50 dark:bg-slate-800 border border-primary-100 dark:border-slate-700 flex items-center justify-center text-primary-600 dark:text-primary-400 shadow-2xs shrink-0 group-hover:scale-105 transition-transform duration-300">
                         <CategoryIcon className="w-5 h-5" />
                       </div>
-                      <h3 className="text-xs sm:text-[13px] font-bold tracking-wider text-white uppercase font-sans">
+                      <h3 className="text-xs sm:text-[13px] font-semibold tracking-wider text-slate-900 dark:text-slate-100 uppercase">
                         {card.title}
                       </h3>
                     </div>
 
-                    {/* 2-Column Skills List with Cyan Bullet Dots */}
+                    {/* 2-Column Skills List with Theme Bullet Dots */}
                     <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 mb-7">
                       {/* Left Column */}
                       <div className="flex flex-col gap-2.5">
                         {card.col1.map((skill) => (
                           <div
                             key={skill}
-                            className="flex items-start gap-2 text-xs sm:text-[13px] text-slate-300/90 font-medium leading-tight"
+                            className="flex items-start gap-2 text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-medium leading-tight"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-1" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary-600 dark:bg-primary-400 shrink-0 mt-1" />
                             <span>{skill}</span>
                           </div>
                         ))}
@@ -385,9 +381,9 @@ export default function TechnicalExpertise() {
                         {card.col2.map((skill) => (
                           <div
                             key={skill}
-                            className="flex items-start gap-2 text-xs sm:text-[13px] text-slate-300/90 font-medium leading-tight"
+                            className="flex items-start gap-2 text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-medium leading-tight"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0 mt-1" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary-600 dark:bg-primary-400 shrink-0 mt-1" />
                             <span>{skill}</span>
                           </div>
                         ))}
@@ -396,7 +392,7 @@ export default function TechnicalExpertise() {
                   </div>
 
                   {/* Bottom Row of Recognizable Tech Brand Icons */}
-                  <div className="pt-4 border-t border-cyan-500/15 flex items-center flex-wrap gap-3 sm:gap-3.5">
+                  <div className="pt-4 border-t border-slate-200/80 dark:border-slate-800/80 flex items-center flex-wrap gap-3 sm:gap-3.5">
                     {card.techLogos.map((tech) => {
                       const TechIcon = tech.icon;
 
